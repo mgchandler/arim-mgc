@@ -1535,7 +1535,7 @@ def points_1d_wall(point1, point2, numpoints, name=None, dtype=None):
     return OrientedPoints(points, orientations)
 
 
-def points_1d_wall_z(xmin, xmax, z, numpoints, y=0.0, name=None, dtype=None):
+def points_1d_wall_z(xmin, xmax, z, numpoints, y=0.0, name=None, dtype=None, block_is_above=True):
     """
     Returns a set of regularly spaced points between (xmin, y, z) and (xmax, y, z).
 
@@ -1551,6 +1551,8 @@ def points_1d_wall_z(xmin, xmax, z, numpoints, y=0.0, name=None, dtype=None):
         Default 0
     name : str or None
     dtype : numpy.dtype
+    block_is_right : bool
+        Is the block above the wall at coordinates z? Default True
 
     Returns
     -------
@@ -1560,8 +1562,13 @@ def points_1d_wall_z(xmin, xmax, z, numpoints, y=0.0, name=None, dtype=None):
     if dtype is None:
         dtype = s.FLOAT
 
+    if block_is_above:
+        x = [xmax, xmin]
+    else:
+        x = [xmin, xmax]
+        
     points = Points.from_xyz(
-        x=np.linspace(xmin, xmax, numpoints, dtype=dtype),
+        x=np.linspace(x[0], x[1], numpoints, dtype=dtype),
         y=np.full((numpoints,), y, dtype=dtype),
         z=np.full((numpoints,), z, dtype=dtype),
         name=name,

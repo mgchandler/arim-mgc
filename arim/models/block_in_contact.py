@@ -238,27 +238,27 @@ def rx_ray_weights(
     return weights, weights_dict
 
 
-def _make_backwall_refl_interface(backwall, under_material):
+def _make_wall_refl_interface(wall, under_material):
     if under_material is not None:
-        backwall_refl = c.Interface(
-            *backwall,
+        wall_refl = c.Interface(
+            *wall,
             "solid_fluid",
             "reflection",
             reflection_against=under_material,
-            are_normals_on_inc_rays_side=False,
-            are_normals_on_out_rays_side=False,
+            are_normals_on_inc_rays_side=True,
+            are_normals_on_out_rays_side=True,
         )
     else:
-        backwall_refl = c.Interface(
-            *backwall,
-            are_normals_on_inc_rays_side=False,
-            are_normals_on_out_rays_side=False,
+        wall_refl = c.Interface(
+            *wall,
+            are_normals_on_inc_rays_side=True,
+            are_normals_on_out_rays_side=True,
         )
-    return backwall_refl
+    return wall_refl
 
 
-def backwall_paths(
-    block_material, probe_oriented_points, backwall, under_material=None
+def wall_paths(
+    block_material, probe_oriented_points, walls, under_material=None
 ):
     """
     Make backwall paths LL, LT, TL, TT
@@ -279,20 +279,23 @@ def backwall_paths(
 
     """
     probe_start = c.Interface(*probe_oriented_points, are_normals_on_out_rays_side=True)
-    backwall_refl = _make_backwall_refl_interface(backwall, under_material)
     probe_end = c.Interface(*probe_oriented_points, are_normals_on_inc_rays_side=True)
+    wall_interfaces = []
+    for wall in walls:
+        wall_interfaces.append(_make_wall_refl_interface(wall, under_material))
 
     paths = OrderedDict()
 
-    for mode1 in (c.Mode.L, c.Mode.T):
-        for mode2 in (c.Mode.L, c.Mode.T):
-            key = mode1.key() + mode2.key()
-            paths[key] = c.Path(
-                interfaces=(probe_start, backwall_refl, probe_end,),
-                materials=(block_material, block_material,),
-                modes=(mode1, mode2),
-                name="Backwall " + key,
-            )
+    for wall in wall_interfaces:
+        for mode1 in (c.Mode.L, c.Mode.T):
+            for mode2 in (c.Mode.L, c.Mode.T):
+                key = mode1.key() + mode2.key()
+                paths[key] = c.Path(
+                    interfaces=(probe_start, wall, probe_end,),
+                    materials=(block_material, block_material,),
+                    modes=(mode1, mode2),
+                    name=f"{wall.points.name} " + key,
+                )
     return paths
 
 
@@ -422,11 +425,9 @@ def make_interfaces(
         for wall in walls:
             name = wall.points.name
             if name != "Frontwall" and under_material is not None:
-                reflection_against = under_material
                 kind = "solid_fluid"
                 transmission_reflection = "reflection"
             else:
-                reflection_against = None
                 kind = None
                 transmission_reflection = None
                 
@@ -436,7 +437,7 @@ def make_interfaces(
                 transmission_reflection,
                 are_normals_on_inc_rays_side=True,
                 are_normals_on_out_rays_side=True,
-                reflection_against=reflection_against
+                reflection_against=under_material
             )
     return interface_dict
 
@@ -539,7 +540,7 @@ def make_views(
         # Plan B
         block_material = examination_object.material
     try:
-        walls = [examination_object.walls[i] for i in examination_object.imaging_walls]
+        walls = [examination_object.walls[i] for i in examination_object.walls_for_imaging]
         if max_number_of_reflection > 0 and len(walls) < 1:
             raise ValueError("Not enough walls available for reflection.")
     except AttributeError:
