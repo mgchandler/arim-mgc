@@ -1355,19 +1355,19 @@ class BlockInImmersion(ExaminationObject):
     material : Material
         Alias for block_material
     couplant_material : Material
-    frontwall : OrientedPoints
-    backwall : OrientedPoints or None
+    walls : list[OrientedPoints]
+    walls_for_imaging : list[int]
 
     """
 
     def __init__(
-        self, block_material, couplant_material, frontwall, backwall=None, metadata=None
+        self, block_material, couplant_material, walls, walls_for_imaging, metadata=None
     ):
         self.block_material = block_material
         self.material = block_material  # alias
         self.couplant_material = couplant_material
-        self.frontwall = frontwall
-        self.backwall = backwall
+        self.walls = walls
+        self.walls_for_imaging = walls_for_imaging
 
         if metadata is None:
             metadata = {}
