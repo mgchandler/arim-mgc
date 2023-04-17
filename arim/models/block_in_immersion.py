@@ -55,6 +55,7 @@ computationally efficient.
 """
 import logging
 from collections import namedtuple, OrderedDict
+import itertools
 import warnings
 
 import numpy as np
@@ -686,7 +687,7 @@ def ray_weights_for_wall(
 
 
 def make_interfaces(
-    couplant_material, probe_oriented_points, frontwall, backwall, grid_oriented_points
+    couplant_material, probe_oriented_points, walls, grid_oriented_points
 ):
     """
     Construct Interface objects for the case of a solid block in immersion
@@ -701,49 +702,55 @@ def make_interfaces(
     Parameters
     ----------
     couplant_material: Material
-    couplant_material: Material
     probe_oriented_points : OrientedPoints
-    frontwall: OrientedPoints
-    backwall: OrientedPoints
+    walls: list[OrientedPoints]
     grid_oriented_points: OrientedPoints
 
     Returns
     -------
     interface_dict : dict[Interface]
-        Keys: probe, frontwall_trans, backwall_refl, grid, frontwall_refl
+        Keys: probe, frontwall_trans, grid, wall_name_1 (optional), ...
     """
     interface_dict = OrderedDict()
 
     interface_dict["probe"] = c.Interface(
         *probe_oriented_points, are_normals_on_out_rays_side=True
     )
-    interface_dict["frontwall_trans"] = c.Interface(
-        *frontwall,
-        "fluid_solid",
-        "transmission",
-        are_normals_on_inc_rays_side=False,
-        are_normals_on_out_rays_side=True,
-    )
-    if backwall is not None:
-        interface_dict["backwall_refl"] = c.Interface(
-            *backwall,
-            "solid_fluid",
-            "reflection",
-            reflection_against=couplant_material,
-            are_normals_on_inc_rays_side=False,
-            are_normals_on_out_rays_side=False,
-        )
     interface_dict["grid"] = c.Interface(
         *grid_oriented_points, are_normals_on_inc_rays_side=True
     )
-    interface_dict["frontwall_refl"] = c.Interface(
-        *frontwall,
-        "solid_fluid",
-        "reflection",
-        reflection_against=couplant_material,
-        are_normals_on_inc_rays_side=True,
-        are_normals_on_out_rays_side=True,
-    )
+    for wall in walls:
+        name = wall.points.name
+        if name == "Frontwall":
+            # Need transmission and reflection for frontwall
+            name = wall.points.name + "_t"
+            reflection_against=None
+            kind = "fluid_solid"
+            transmission_reflection = "transmission"
+            are_normals_on_inc_rays_side = False
+            interface_dict[name] = c.Interface(
+                *wall,
+                kind,
+                transmission_reflection,
+                reflection_against=reflection_against,
+                are_normals_on_inc_rays_side=are_normals_on_inc_rays_side,
+                are_normals_on_out_rays_side=True,
+            )
+            # Reset name for reflection
+            name = wall.points.name
+            
+        reflection_against=couplant_material
+        kind = "solid_fluid"
+        transmission_reflection = "reflection"
+        are_normals_on_inc_rays_side = True
+        interface_dict[name] = c.Interface(
+            *wall,
+            kind,
+            transmission_reflection,
+            reflection_against=reflection_against,
+            are_normals_on_inc_rays_side=are_normals_on_inc_rays_side,
+            are_normals_on_out_rays_side=True,
+        )
 
     return interface_dict
 
@@ -774,81 +781,44 @@ def make_paths(
     """
     paths = OrderedDict()
 
-    if max_number_of_reflection > 2:
-        raise NotImplementedError
+    # if max_number_of_reflection > 2:
+    #     raise NotImplementedError
     if max_number_of_reflection < 0:
         raise ValueError
 
     probe = interface_dict["probe"]
-    frontwall = interface_dict["frontwall_trans"]
+    frontwall = interface_dict["Frontwall_trans"]
     grid = interface_dict["grid"]
-    if max_number_of_reflection >= 1:
-        backwall = interface_dict["backwall_refl"]
-    if max_number_of_reflection >= 2:
-        frontwall_refl = interface_dict["frontwall_refl"]
-
-    paths["L"] = c.Path(
-        interfaces=(probe, frontwall, grid),
-        materials=(couplant_material, block_material),
-        modes=(c.Mode.L, c.Mode.L),
-        name="L",
-    )
-
-    paths["T"] = c.Path(
-        interfaces=(probe, frontwall, grid),
-        materials=(couplant_material, block_material),
-        modes=(c.Mode.L, c.Mode.T),
-        name="T",
-    )
-
-    if max_number_of_reflection >= 1:
-        paths["LL"] = c.Path(
-            interfaces=(probe, frontwall, backwall, grid),
-            materials=(couplant_material, block_material, block_material),
-            modes=(c.Mode.L, c.Mode.L, c.Mode.L),
-            name="LL",
-        )
-
-        paths["LT"] = c.Path(
-            interfaces=(probe, frontwall, backwall, grid),
-            materials=(couplant_material, block_material, block_material),
-            modes=(c.Mode.L, c.Mode.L, c.Mode.T),
-            name="LT",
-        )
-
-        paths["TL"] = c.Path(
-            interfaces=(probe, frontwall, backwall, grid),
-            materials=(couplant_material, block_material, block_material),
-            modes=(c.Mode.L, c.Mode.T, c.Mode.L),
-            name="TL",
-        )
-
-        paths["TT"] = c.Path(
-            interfaces=(probe, frontwall, backwall, grid),
-            materials=(couplant_material, block_material, block_material),
-            modes=(c.Mode.L, c.Mode.T, c.Mode.T),
-            name="TT",
-        )
-
-    if max_number_of_reflection >= 2:
-        keys = ["LLL", "LLT", "LTL", "LTT", "TLL", "TLT", "TTL", "TTT"]
-
-        for key in keys:
-            paths[key] = c.Path(
-                interfaces=(probe, frontwall, backwall, frontwall_refl, grid),
-                materials=(
-                    couplant_material,
-                    block_material,
-                    block_material,
-                    block_material,
-                ),
-                modes=(
-                    c.Mode.L,
-                    helpers.parse_enum_constant(key[0], c.Mode),
-                    helpers.parse_enum_constant(key[1], c.Mode),
-                    helpers.parse_enum_constant(key[2], c.Mode),
-                ),
-                name=key,
+    wall_dict = OrderedDict((k, v) for k, v in interface_dict.items() if k not in ["probe", "grid", "frontwall_t"])
+    wall_names = list(wall_dict.keys())
+    
+    mode_names = ("L", "T")
+    modes = (c.Mode.longitudinal, c.Mode.transverse)
+    for number_of_reflection in range(max_number_of_reflection+1):
+        # For this number of reflections, make all the combinations of paths.
+        path_idxs_up_to_refl = list(itertools.product(range(2), repeat=number_of_reflection+1))
+        for path_idxs in path_idxs_up_to_refl:
+            # For each path.
+            path_name = "L frontwall" # Probably remove this as it is convention to not include it in immersion.
+            path_modes = [c.Mode.longitudinal]
+            path_interfaces = [probe, frontwall]
+            path_materials = [couplant_material]
+            for i, mode in enumerate(path_idxs):
+                # For each leg within the path.
+                if i == 0:
+                    path_name += mode_names[mode]
+                else:
+                    path_name += " {} {}".format(wall_names[i-1], mode_names[mode])
+                    path_interfaces.append(wall_dict[wall_names[i-1]])
+                path_modes.append(modes[mode])
+                path_materials.append(block_material)
+            path_interfaces.append(grid)
+            
+            paths[path_name] = c.Path(
+                interfaces=path_interfaces,
+                materials=path_materials,
+                modes=path_modes,
+                name=path_name,
             )
 
     return paths
@@ -885,13 +855,14 @@ def make_views(
     try:
         couplant = examination_object.couplant_material
         block = examination_object.block_material
-        frontwall = examination_object.frontwall
-        backwall = examination_object.backwall
+        walls = [examination_object.geometry[i] for i in examination_object.imaging_walls]
+        if max_number_of_reflection > 0 and len(walls) < 1:
+            raise ValueError("Not enough walls for reflection.")
     except AttributeError as e:
         raise ValueError("Examination object should be a BlockInImmersion") from e
 
     interfaces = make_interfaces(
-        couplant, probe_oriented_points, frontwall, backwall, scatterers_oriented_points
+        couplant, probe_oriented_points, walls, scatterers_oriented_points
     )
 
     paths = make_paths(block, couplant, interfaces, max_number_of_reflection)

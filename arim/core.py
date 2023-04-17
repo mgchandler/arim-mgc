@@ -1162,7 +1162,7 @@ class Path:
         self.interfaces = interfaces
         self.materials = materials
         self.modes = tuple(helpers.parse_enum_constant(mode, Mode) for mode in modes)
-        self.name = name
+        # self.name = name
         self.rays = None
 
     @property
