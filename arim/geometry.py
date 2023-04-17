@@ -1444,6 +1444,97 @@ GCS = CoordinateSystem(
 )
 
 
+def make_contiguous_geometry(coords, numpoints, dtype=None):
+    """
+    Returns a list of m OrientedPoints which are all uniquely named.
+
+    Parameters
+    ----------
+    coords : ndarray (m+1, 2) or (m+1, 3)
+    numpoints : int
+    dtype : type
+
+    Returns
+    -------
+    list[OrientedPoints].
+
+    """
+    if dtype is None:
+        dtype = s.FLOAT
+    coords = np.squeeze(coords)
+    if coords.shape[0] < 2:
+        raise ValueError("Not enough coordinates to draw lines for geometry")
+    if coords.shape[1] not in [2, 3]:
+        raise ValueError("Coordinates should be 2- or 3-dimensional")
+        
+    bw_idx, sw_idx, ow_idx = 0, 0, 0
+    walls = []
+    for idx, (start, end) in enumerate(zip(coords[:-1, :], coords[1:, :])):
+        # Front wall should be first and be at z = 0.0
+        if idx == 0 and abs(start[-1]) < 1e-5 and abs(end[-1]) < 1e-5:
+            name = "Frontwall"
+        # Back wall should have constant z
+        elif abs(start[-1] - end[-1]) < 1e-5:
+            name = f"Backwall_{bw_idx}"
+            bw_idx += 1
+        # Side wall should have constant x
+        elif abs(start[0] - end[0]) < 1e-5:
+            name = f"Sidewall_{sw_idx}"
+            sw_idx += 1
+        else:
+            name = f"Otherwall_{ow_idx}"
+            ow_idx += 1
+        
+        walls.append(points_1d_wall(start, end, numpoints, name=name, dtype=dtype))
+    
+    return walls
+
+
+def points_1d_wall(point1, point2, numpoints, name=None, dtype=None):
+    """
+    Returns a set of regularly spaced points between point1 and point2.
+    
+    Orientation will always have x_hat in direction of wall p1 -> p2, y_hat = j 
+    and z_hat = x_hat ^ j.
+
+    Parameters
+    ----------
+    point1 : ndarray
+        Should have length 2 or 3.
+    point2 : ndarray
+    numpoints : int
+    name : str or None
+    dtype : type
+
+    Returns
+    -------
+    Oriented points
+    """
+    if dtype is None:
+        dtype = s.FLOAT    
+    point1, point2 = np.squeeze(point1), np.squeeze(point2)
+    if point1.shape[0] == 2:
+        point1 = np.asarray([point1[0], 0.0, point1[1]])
+    if point2.shape[0] == 2:
+        point2 = np.asarray([point2[0], 0.0, point2[1]])
+    
+    # Make points and orientations.
+    points = Points.from_xyz(
+        x = np.linspace(point1[0], point2[0], numpoints, dtype=dtype),
+        y = np.linspace(point1[1], point2[1], numpoints, dtype=dtype),
+        z = np.linspace(point1[2], point2[2], numpoints, dtype=dtype),
+        name=name,
+    )
+    
+    basis = CoordinateSystem([0.,0.,0.], (point2 - point1) / np.linalg.norm(point2 - point1), [0., 1., 0.]).basis_matrix
+    orientations_arr = np.broadcast_to(
+        basis, (*points.shape, 3, 3)
+    )
+    orientations = Points(orientations_arr)
+    
+    return OrientedPoints(points, orientations)
+
+
 def points_1d_wall_z(xmin, xmax, z, numpoints, y=0.0, name=None, dtype=None):
     """
     Returns a set of regularly spaced points between (xmin, y, z) and (xmax, y, z).
