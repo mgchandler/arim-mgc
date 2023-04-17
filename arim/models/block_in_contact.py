@@ -289,12 +289,12 @@ def wall_paths(
     for wall in wall_interfaces:
         for mode1 in (c.Mode.L, c.Mode.T):
             for mode2 in (c.Mode.L, c.Mode.T):
-                key = mode1.key() + mode2.key()
+                key = f"{wall.points.name} {mode1.key()}{mode2.key()}"
                 paths[key] = c.Path(
                     interfaces=(probe_start, wall, probe_end,),
                     materials=(block_material, block_material,),
                     modes=(mode1, mode2),
-                    name=f"{wall.points.name} " + key,
+                    name=key,
                 )
     return paths
 
