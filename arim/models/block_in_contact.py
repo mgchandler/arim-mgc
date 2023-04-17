@@ -22,6 +22,7 @@ See also :mod:`arim.models.model.block_in_immersion`
 """
 import logging
 from collections import namedtuple, OrderedDict
+import itertools
 
 import numpy as np
 
@@ -461,56 +462,44 @@ def make_paths(block_material, interface_dict, max_number_of_reflection=0):
     paths : OrderedDict
 
     """
-    if max_number_of_reflection > 2:
-        raise NotImplementedError
+    # if max_number_of_reflection > 2:
+    #     raise NotImplementedError
     if max_number_of_reflection < 0:
         raise ValueError
 
     paths = OrderedDict()
     probe = interface_dict["probe"]
     grid = interface_dict["grid"]
-    if max_number_of_reflection >= 1:
-        try:
-            backwall = interface_dict["backwall_refl"]
-        except KeyError:
-            raise ValueError("Backwall must be defined to use skip paths")
-    if max_number_of_reflection >= 2:
-        try:
-            frontwall_refl = interface_dict["frontwall_refl"]
-        except KeyError:
-            raise ValueError("Frontwall must be defined to use double-skip paths")
-
-    paths["L"] = c.Path(
-        interfaces=(probe, grid),
-        materials=(block_material,),
-        modes=(c.Mode.L,),
-        name="L",
-    )
-    paths["T"] = c.Path(
-        interfaces=(probe, grid),
-        materials=(block_material,),
-        modes=(c.Mode.T,),
-        name="T",
-    )
-
-    mode_dict = {"L": c.Mode.longitudinal, "T": c.Mode.transverse}
-    if max_number_of_reflection >= 1:
-        keys = ["LL", "LT", "TL", "TT"]
-        for key in keys:
-            paths[key] = c.Path(
-                interfaces=(probe, backwall, grid),
-                materials=(block_material, block_material),
-                modes=(mode_dict[key[0]], mode_dict[key[1]]),
-                name=key,
-            )
-    if max_number_of_reflection >= 2:
-        keys = ["LLL", "LLT", "LTL", "LTT", "TLL", "TLT", "TTL", "TTT"]
-        for key in keys:
-            paths[key] = c.Path(
-                interfaces=(probe, backwall, frontwall_refl, grid),
-                materials=(block_material, block_material, block_material),
-                modes=(mode_dict[key[0]], mode_dict[key[1]], mode_dict[key[2]]),
-                name=key,
+    wall_dict = OrderedDict((k, v) for k, v in interface_dict.items() if k not in ["probe", "grid"])
+    wall_names = list(wall_dict.keys())
+    
+    mode_names = ("L", "T")
+    modes = (c.Mode.longitudinal, c.Mode.transverse)
+    for number_of_reflection in range(max_number_of_reflection+1):
+        # For this number of reflections, make all the combinations of paths.
+        path_idxs_up_to_refl = list(itertools.product(range(2), repeat=number_of_reflection+1))
+        for path_idxs in path_idxs_up_to_refl:
+            # For each path.
+            path_name = ""
+            path_modes = []
+            path_interfaces = [probe]
+            path_materials = []
+            for i, mode in enumerate(path_idxs):
+                # For each leg within the path.
+                if i == 0:
+                    path_name += mode_names[mode]
+                else:
+                    path_name += " {} {}".format(wall_names[i-1], mode_names[mode])
+                    path_interfaces.append(wall_dict[wall_names[i-1]])
+                path_modes.append(modes[mode])
+                path_materials.append(block_material)
+            path_interfaces.append(grid)
+            
+            paths[path_name] = c.Path(
+                interfaces=path_interfaces,
+                materials=path_materials,
+                modes=path_modes,
+                name=path_name,
             )
     return paths
 
