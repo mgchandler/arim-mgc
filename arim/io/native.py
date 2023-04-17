@@ -343,7 +343,7 @@ def block_in_contact_from_conf(conf):
         under_material = None
     else:
         under_material = material_from_conf(under_material_conf)
-    return core.BlockInContact(block, frontwall, backwall, under_material)
+    return core.BlockInContact(block, walls, imaging, under_material)
 
 
 def grid_from_conf(conf):
