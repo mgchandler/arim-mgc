@@ -1182,6 +1182,24 @@ class Path:
             material.velocity(mode)
             for material, mode in zip(self.materials, self.modes)
         )
+    
+    @property
+    def name(self):
+        name = ""
+        for i in range(self.numlegs):
+            if i != 0:
+                name += " {}".format(self.interfaces[i].points.name)
+            name += " {}".format(self.modes[i].key())
+        return name[1:]
+    
+    @property
+    def revname(self):
+        name = ""
+        for i in reversed(range(self.numlegs)):
+            name += " {}".format(self.modes[i].key())
+            if i != 0:
+                name += " {}".format(self.interfaces[i].points.name)
+        return name[1:]
 
     def to_fermat_path(self):
         """
