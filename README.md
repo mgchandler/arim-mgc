@@ -35,4 +35,3 @@ Companion package [arimtoolkit](https://github.com/nbud/arimtoolkit) to analyse 
 
 Budyn, Nicolas, Rhodri L. T. Bevan, Jie Zhang, Anthony J. Croxford, and Paul D. Wilcox. 2019. ‘A Model for Multiview Ultrasonic Array Inspection of Small Two-Dimensional Defects’. IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control, April. https://doi.org/10.1109/TUFFC.2019.2909988.
 
-test

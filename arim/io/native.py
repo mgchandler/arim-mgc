@@ -225,8 +225,7 @@ def examination_object_from_conf(conf):
 
     """
     if (
-        "frontwall" in conf.keys()
-        and "backwall" in conf.keys()
+        ("frontwall" in conf.keys() or "contiguous_geometry" in conf.keys())
         and "couplant_material" in conf.keys()
         and "block_material" in conf.keys()
     ):
