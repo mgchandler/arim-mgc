@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from .. import core as c, ut
+from .. import core as c
 
 
 def make_views_from_paths(paths_dict, tfm_unique_only=False):
@@ -24,15 +24,12 @@ def make_views_from_paths(paths_dict, tfm_unique_only=False):
     views: OrderedDict[Views]
 
     """
-    viewnames = ut.make_viewnames(paths_dict.keys(), tfm_unique_only=tfm_unique_only)
     views = OrderedDict()
-    for view_name_tuple in viewnames:
-        tx_name, rx_name = view_name_tuple
-        view_name = "{}-{}".format(tx_name, rx_name)
-
-        tx_path = paths_dict[tx_name]
-        # to get the receive path: return the string of the corresponding transmit path
-        rx_path = paths_dict[rx_name[::-1]]
-
-        views[view_name] = c.View(tx_path, rx_path, view_name)
+    for tx_path in paths_dict.values():
+        for rx_path in paths_dict.values():
+            view = c.View(tx_path, rx_path)
+            if tfm_unique_only:
+                if view.revname in views.keys():
+                    continue
+            views[view.name] = view
     return views

@@ -1543,12 +1543,24 @@ class Time:
         return np.argmin(np.abs(self.samples - time))
 
 
-class View(namedtuple("View", ["tx_path", "rx_path", "name"])):
+class View:#(namedtuple("View", ["tx_path", "rx_path", "name"])):
     """
     View(tx_path, rx_path, name)
     """
 
-    __slots__ = []
+    __slots__ = ["tx_path", "rx_path"]
+    
+    def __init__(self, tx_path, rx_path):
+        self.tx_path = tx_path
+        self.rx_path = rx_path
+        
+    @property
+    def name(self):
+        return "{} - {}".format(self.tx_path.name, self.rx_path.revname)
+    
+    @property
+    def revname(self):
+        return "{} - {}".format(self.rx_path.name, self.tx_path.revname)
 
     def __repr__(self):
         return "{}({})".format(self.__class__.__name__, self.name)
