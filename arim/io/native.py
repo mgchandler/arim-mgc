@@ -313,16 +313,31 @@ def block_in_immersion_from_conf(conf):
 
 def block_in_contact_from_conf(conf):
     block = material_from_conf(conf["block_material"])
-    frontwall_conf = conf.get("frontwall", None)
-    if frontwall_conf is None:
-        frontwall = None
-    else:
-        frontwall = geometry.points_1d_wall_z(**frontwall_conf, name="Frontwall")
-    backwall_conf = conf.get("backwall", None)
-    if backwall_conf is None:
-        backwall = None
-    else:
-        backwall = geometry.points_1d_wall_z(**backwall_conf, name="Backwall")
+    # Initialise geometry storage.
+    walls = []
+    imaging = []
+    # Walls defined by names. Keep using "frontwall" and "backwall" for now, to preserve existing scripts.
+    if "frontwall" in conf.keys() or "backwall" in conf.keys():
+        frontwall_conf = conf.get("frontwall", None)
+        backwall_conf = conf.get("backwall", None)
+        if backwall_conf is not None:
+            walls.append(geometry.points_1d_wall_z(**backwall_conf, name="Backwall"))
+            # Might want to add in an option for whether we are imaging from this wall.
+            imaging.append(0)
+        if frontwall_conf is not None:
+            walls.append(geometry.points_1d_wall_z(**frontwall_conf, name="Frontwall"))
+            imaging.append(1)
+    
+    # Contiguous geometry, defined as list of coords starting with a frontwall and moving clockwise.
+    if "contiguous_geometry" in conf.keys():
+        geometry_conf = conf["contiguous_geometry"]
+        geom_coords = np.squeeze(geometry_conf["coords"])
+        cgeom_walls = geometry.make_contiguous_geometry(geom_coords, geometry_conf["numpoints"])
+        for wall in cgeom_walls:
+            walls.append(wall)
+        for wall in geometry_conf["imaging_walls"]:
+            imaging.append(wall)
+            
     under_material_conf = conf.get("under_material", None)
     if under_material_conf is None:
         under_material = None
