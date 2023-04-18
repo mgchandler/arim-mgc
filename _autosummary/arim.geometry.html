@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arim.geometry &mdash; arim 0.9.rc2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="arim.ray" href="arim.ray.html" />
+    <link rel="prev" title="arim.core" href="arim.core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            arim
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model/index.html">Modelling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../im/index.html">Imaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/index.html">Files and I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">arim reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="arim.core.html">arim.core</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">arim.geometry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#points">Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#oriented-points">Oriented points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basis">Basis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spherical-coordinate-system">Spherical coordinate system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arim.ray.html">arim.ray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim._probes.html">arim._probes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.model.html">arim.model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.models.html">arim.models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.scat.html">arim.scat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.im.html">arim.im</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.im.tfm.html">arim.im.tfm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.im.das.html">arim.im.das</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.html">arim.io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.native.html">arim.io.native</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.brain.html">arim.io.brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.scat.html">arim.io.scat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.ut.html">arim.ut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.plot.html">arim.plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.signal.html">arim.signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.measurement.html">arim.measurement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.config.html">arim.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.helpers.html">arim.helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.settings.html">arim.settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.exceptions.html">arim.exceptions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">arim</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">arim reference</a></li>
+      <li class="breadcrumb-item active">arim.geometry</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/arim.geometry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-arim.geometry">
+<span id="arim-geometry"></span><h1>arim.geometry<a class="headerlink" href="#module-arim.geometry" title="Permalink to this headline"></a></h1>
+<p>Utilities for geometric operations: translation, rotation, change of basis, etc.</p>
+<div class="section" id="points">
+<h2>Points<a class="headerlink" href="#points" title="Permalink to this headline"></a></h2>
+<p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">Points</span></code> object contains the Cartesian coordinates of one or more
+points. The points can be stored as a ndarray.
+However ray tracing and many parts of arim expects as input an 1d array of
+points.</p>
+<p>Function <code class="xref py py-func docutils literal notranslate"><span class="pre">points_1d_wall_z()</span></code> provides an easy way to create a flat line.
+For more complicated lines and surfaces, create the points manually.</p>
+</div>
+<div class="section" id="oriented-points">
+<h2>Oriented points<a class="headerlink" href="#oriented-points" title="Permalink to this headline"></a></h2>
+<p>An oriented point is defined as a point and three orthonormal vectors.
+It is actually a full coordinate system.</p>
+<p>For probe and surfaces (front, back wall), the two first vectors must be
+tangential to the surface and the third vector must be normal to it.</p>
+<p>In the block in immersion model, the probe normals must be towards the
+examination object. The front and back walls’ normals must be towards the
+probe.</p>
+<p>For scatterers and grid points, there is no tangent or normal vectors.
+Only the third vector of the basis is used. It defines the reference
+orientation of the scatterer. To use a rotated scatterer, one can therefore
+change the orientation of this third vector; however, the recommend technique
+is to argument <code class="docutils literal notranslate"><span class="pre">scat_angle</span></code> in <code class="xref py py-func docutils literal notranslate"><span class="pre">arim.model.model_amplitudes_factory()</span></code>.</p>
+</div>
+<div class="section" id="basis">
+<h2>Basis<a class="headerlink" href="#basis" title="Permalink to this headline"></a></h2>
+<p>A basis (i_hat, j_hat, k_hat) is stored as a matrix:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>         <span class="p">(</span><span class="n">i1</span> <span class="n">i2</span> <span class="n">i3</span><span class="p">)</span>
+<span class="n">basis</span> <span class="o">=</span>  <span class="p">(</span><span class="n">j1</span> <span class="n">j2</span> <span class="n">j3</span><span class="p">)</span>
+         <span class="p">(</span><span class="n">k1</span> <span class="n">k2</span> <span class="n">k3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where (i1, i2, i3) is the coordinate of the basis vector i_hat in the global coordinate system.</p>
+<p>Remark: this storage is consistent with the <code class="xref py py-class docutils literal notranslate"><span class="pre">Points</span></code> layout: <code class="docutils literal notranslate"><span class="pre">basis[0,</span> <span class="pre">:]</span> <span class="pre">=</span> <span class="pre">(i1,</span> <span class="pre">i2,</span> <span class="pre">i3)</span></code>. A basis can be seen as three
+points (i_hat, j_hat, k_hat).</p>
+<p>Warning: basis in <code class="xref py py-class docutils literal notranslate"><span class="pre">CoordinateSystem</span></code> objects are stored in a different convention:
+they are transposed i.e. <code class="docutils literal notranslate"><span class="pre">basis[:,</span> <span class="pre">0]</span> <span class="pre">=</span> <span class="pre">(i1,</span> <span class="pre">i2,</span> <span class="pre">i3)</span></code>.</p>
+</div>
+<div class="section" id="spherical-coordinate-system">
+<h2>Spherical coordinate system<a class="headerlink" href="#spherical-coordinate-system" title="Permalink to this headline"></a></h2>
+<p>Physics and ISO convention (r, theta, phi):</p>
+<ul class="simple">
+<li><p>r is the radial distance,</p></li>
+<li><p>theta is the polar angle (inclination) in the rangle in the range [0, pi],</p></li>
+<li><p>phi is the azimuthal angle in the range [-pi, pi].</p></li>
+</ul>
+<p>Cf. <a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">Wikipedia article on Spherical coordinate system</a></p>
+<dl class="py data">
+<dt class="sig sig-object py" id="arim.geometry.GCS">
+<span class="sig-prename descclassname"><span class="pre">arim.geometry.</span></span><span class="sig-name descname"><span class="pre">GCS</span></span><a class="headerlink" href="#arim.geometry.GCS" title="Permalink to this definition"></a></dt>
+<dd><p>Global coordinate system (<code class="xref py py-class docutils literal notranslate"><span class="pre">CoordinateSystem</span></code>).
+<code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">(1,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>, <code class="docutils literal notranslate"><span class="pre">j</span> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">0)</span></code>,
+<code class="docutils literal notranslate"><span class="pre">k</span> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1)</span></code>, <code class="docutils literal notranslate"><span class="pre">O</span> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>.</p>
+</dd></dl>
+
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">are_points_aligned</span></code>(points[, rtol, atol])</p></td>
+<td><p>Are the points aligned? Returns a boolean.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">are_points_close</span></code>(points1, points2[, atol, rtol])</p></td>
+<td><p>Return True if and only if the two sets of points have the same shape and coordinates close to the given precision.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">aspoints</span></code>(array_like)</p></td>
+<td><p>Returns a Point object: the input itself if it is a point, or wrap the object as a Point otherwise.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_orientations</span></code>(points)</p></td>
+<td><p>Returns the default orientations for unoriented points.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_oriented_points</span></code>(points)</p></td>
+<td><p>Returns OrientedPoints from Points assuming the default orientations.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">direct_isometry_2d</span></code>(A, B, Ap, Bp)</p></td>
+<td><p>Returns a direct isometry that transform A to A' and B to B'.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">direct_isometry_3d</span></code>(A, i_hat, j_hat, B, ...)</p></td>
+<td><p>Returns the isometry that send the direct orthogonal base (A, i_hat, j_hat, i_hat^j_hat) to (B, u_hat, v_hat, u_hat^v_hat)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance_pairwise</span></code>(points1, points2[, out, ...])</p></td>
+<td><p>Compute the Euclidean distances of flight between two sets of points.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_gcs</span></code>(points_gcs, bases, origins)</p></td>
+<td><p>Convert the coordinates of points expressed in the global coordinate system to coordinates expressed in the basis/bases given as parameter.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_orthonormal</span></code>(basis)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_orthonormal_direct</span></code>(basis)</p></td>
+<td><p>Returns True if the basis is orthonormal and direct: :param basis:</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm2</span></code>(x, y, z[, out])</p></td>
+<td><p>Euclidean norm of a ndarray</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm2_2d</span></code>(x, y[, out])</p></td>
+<td><p>Euclidean norm of a ndarray</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">points_1d_wall_z</span></code>(xmin, xmax, z, numpoints[, ...])</p></td>
+<td><p>Returns a set of regularly spaced points between (xmin, y, z) and (xmax, y, z).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">points_from_probe</span></code>(probe[, name])</p></td>
+<td><p>Probe object to OrientedPoints (points and orientations).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">points_in_rectbox</span></code>(x, y, z[, xmin, xmax, ...])</p></td>
+<td><p>Returns points in the rectangular box.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code>(coords, rotation_matrix[, centre])</p></td>
+<td><p>Rotate these points given a rotation matrix and the centre.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotation_matrix_x</span></code>(theta)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotation_matrix_y</span></code>(theta)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotation_matrix_ypr</span></code>(yaw, pitch, roll)</p></td>
+<td><p>Returns the rotation matrix (as a ndarray) from the yaw, pitch and roll in radians.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotation_matrix_z</span></code>(theta)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">spherical_coordinates</span></code>(x, y, z[, r])</p></td>
+<td><p>Compute the spherical coordinates (r, θ, φ) of points.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">spherical_coordinates_phi</span></code>(x, y[, out])</p></td>
+<td><p>azimuthal angle</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">spherical_coordinates_r</span></code>(x, y, z[, out])</p></td>
+<td><p>radial distance</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">spherical_coordinates_theta</span></code>(z, r[, out])</p></td>
+<td><p>polar angle</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_gcs</span></code>(coords_cs, bases, origins)</p></td>
+<td><p>Convert the coordinates of points expressed in the basis/bases given as parameter to coordinates expressed in the global coordinate system.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">CoordinateSystem</span></code>(origin, i_hat, j_hat)</p></td>
+<td><p>A point and a direct 3D affine basis.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Grid</span></code>(xmin, xmax, ymin, ymax, zmin, zmax, ...)</p></td>
+<td><p>Regularly spaced 3d grid</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">OrientedPoints</span></code>(points, orientations)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Points</span></code>(coords[, name])</p></td>
+<td><p>Set of points in a 3D space.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">SphericalCoordinates</span></code>(r, theta, phi)</p></td>
+<td><p>Spherical coordinates as usually defined in physics</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="arim.core.html" class="btn btn-neutral float-left" title="arim.core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="arim.ray.html" class="btn btn-neutral float-right" title="arim.ray" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Nicolas Budyn, Rhodri Bevan 2016-2020.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arim.plot &mdash; arim 0.9.rc2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="arim.signal" href="arim.signal.html" />
+    <link rel="prev" title="arim.ut" href="arim.ut.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            arim
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model/index.html">Modelling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../im/index.html">Imaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/index.html">Files and I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">arim reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="arim.core.html">arim.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.geometry.html">arim.geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.ray.html">arim.ray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim._probes.html">arim._probes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.model.html">arim.model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.models.html">arim.models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.scat.html">arim.scat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.im.html">arim.im</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.im.tfm.html">arim.im.tfm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.im.das.html">arim.im.das</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.html">arim.io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.native.html">arim.io.native</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.brain.html">arim.io.brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.scat.html">arim.io.scat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.ut.html">arim.ut</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">arim.plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.signal.html">arim.signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.measurement.html">arim.measurement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.config.html">arim.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.helpers.html">arim.helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.settings.html">arim.settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.exceptions.html">arim.exceptions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">arim</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">arim reference</a></li>
+      <li class="breadcrumb-item active">arim.plot</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/arim.plot.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-arim.plot">
+<span id="arim-plot"></span><h1>arim.plot<a class="headerlink" href="#module-arim.plot" title="Permalink to this headline"></a></h1>
+<p>Plotting utilities based on <a class="reference external" href="http://matplotlib.org/">matplotib</a>.</p>
+<p>Some default values are configurable via the dictionary <code class="docutils literal notranslate"><span class="pre">arim.plot.conf</span></code>.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="arim.plot.conf">
+<span class="sig-prename descclassname"><span class="pre">arim.plot.</span></span><span class="sig-name descname"><span class="pre">conf</span></span><a class="headerlink" href="#arim.plot.conf" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary of default values. For some functions, if an argument is not populated,
+its values will be populated from this dictionary. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># save the figure (independently on conf[&#39;savefig])</span>
+<span class="n">plot_oyz</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">savefig</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+
+<span class="c1"># do not save the figure independently on conf[&#39;savefig])</span>
+<span class="n">plot_oyz</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">savefig</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+
+<span class="c1"># save the figure depending only if conf[&#39;savefig&#39;] is True</span>
+<span class="n">plot_oyz</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="arim.plot.micro_formatter">
+<span class="sig-prename descclassname"><span class="pre">arim.plot.</span></span><span class="sig-name descname"><span class="pre">micro_formatter</span></span><a class="headerlink" href="#arim.plot.micro_formatter" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="arim.plot.milli_formatter">
+<span class="sig-prename descclassname"><span class="pre">arim.plot.</span></span><span class="sig-name descname"><span class="pre">milli_formatter</span></span><a class="headerlink" href="#arim.plot.milli_formatter" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="arim.plot.mega_formatter">
+<span class="sig-prename descclassname"><span class="pre">arim.plot.</span></span><span class="sig-name descname"><span class="pre">mega_formatter</span></span><a class="headerlink" href="#arim.plot.mega_formatter" title="Permalink to this definition"></a></dt>
+<dd><p>Format the labels of an axis in a given unit prefix. Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">distance_vector</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">arim</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">milli_formatter</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">common_dynamic_db_scale</span></code>(data_list[, area, ...])</p></td>
+<td><p>Scale such as:</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_rays_on_click</span></code>(grid, ray, element_index)</p></td>
+<td><p>Dynamic plotting of rays on a plot.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_bscan</span></code>(frame, timetraces_idx[, use_dB, ...])</p></td>
+<td><p>Plot Bscan (timetraces vs time)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_bscan_pulse_echo</span></code>(frame[, use_dB, ax, ...])</p></td>
+<td><p>Plot a B-scan.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_directivity_finite_width_2d</span></code>(...[, ax])</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">param element_width</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_interfaces</span></code>(oriented_points_list[, ax, ...])</p></td>
+<td><p>Plot interfaces on the Oxz plane.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_oxz</span></code>(data, grid[, ax, title, clim, ...])</p></td>
+<td><p>Plot data in the plane Oxz.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_oxz_many</span></code>(data_list, grid, nrows, ncols)</p></td>
+<td><p>Plot many Oxz plots on the same figure.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_psd</span></code>(frame[, idx, to_show, ...])</p></td>
+<td><p>Plot the estimated power spectrum of a timetrace using Welch's method.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tfm</span></code>(tfm[, y, func_res, interpolation])</p></td>
+<td><p>Plot a TFM in plane Oxz.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">RayPlotter</span></code>(grid, ray, element_index[, ...])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="arim.ut.html" class="btn btn-neutral float-left" title="arim.ut" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="arim.signal.html" class="btn btn-neutral float-right" title="arim.signal" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Nicolas Budyn, Rhodri Bevan 2016-2020.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

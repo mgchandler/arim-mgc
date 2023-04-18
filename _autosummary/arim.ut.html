@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arim.ut &mdash; arim 0.9.rc2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="arim.plot" href="arim.plot.html" />
+    <link rel="prev" title="arim.io.scat" href="arim.io.scat.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            arim
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model/index.html">Modelling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../im/index.html">Imaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/index.html">Files and I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">arim reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="arim.core.html">arim.core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.geometry.html">arim.geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.ray.html">arim.ray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim._probes.html">arim._probes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.model.html">arim.model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.models.html">arim.models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.scat.html">arim.scat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.im.html">arim.im</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.im.tfm.html">arim.im.tfm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.im.das.html">arim.im.das</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.html">arim.io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.native.html">arim.io.native</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.brain.html">arim.io.brain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.io.scat.html">arim.io.scat</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">arim.ut</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.plot.html">arim.plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.signal.html">arim.signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.measurement.html">arim.measurement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.config.html">arim.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.helpers.html">arim.helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.settings.html">arim.settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arim.exceptions.html">arim.exceptions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">arim</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api.html">arim reference</a></li>
+      <li class="breadcrumb-item active">arim.ut</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/arim.ut.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-arim.ut">
+<span id="arim-ut"></span><h1>arim.ut<a class="headerlink" href="#module-arim.ut" title="Permalink to this headline"></a></h1>
+<p>Toolbox of functions for ultrasonic testing/acoustics.</p>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">decibel</span></code>(arr[, reference, neginf_value, ...])</p></td>
+<td><p>Return 20*log10(abs(arr) / reference)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_scanline_weights</span></code>(tx, rx)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_timetrace_weights</span></code>(tx, rx)</p></td>
+<td><p>timetrace weights for TFM.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_viewname_order</span></code>(tx_rx_tuple)</p></td>
+<td><p>The views are sorted in ascending order with the following criteria (in this order):</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_unique_views</span></code>(viewnames)</p></td>
+<td><p>Returns the view names that that give different results in linear imaging.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fmc</span></code>(numelements)</p></td>
+<td><p>Return all pairs of elements for a FMC.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">hmc</span></code>(numelements)</p></td>
+<td><p>Return all pairs of elements for a HMC.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">infer_capture_method</span></code>(tx, rx)</p></td>
+<td><p>Infers the capture method from the indices of transmitters and receivers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">instantaneous_phase_shift</span></code>(analytic_sig, ...)</p></td>
+<td><p>For a signal $x(ray) = A * exp(i (2 pi f_0 ray + phi(ray)))$, returns phi(ray) in [-pi, pi[.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_timevect</span></code>(num, step[, start, dtype])</p></td>
+<td><p>Return a linearly spaced time vector.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_viewnames</span></code>(pathnames[, tfm_unique_only, ...])</p></td>
+<td><p>Make all view names from the paths given as arguments.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rayleigh_vel</span></code>(longitudinal_vel, transverse_vel)</p></td>
+<td><p>Approximate Rayleigh velocitiy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reciprocal_viewname</span></code>(viewname)</p></td>
+<td><p>Return the name of the reciprocal view</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrap_phase</span></code>(phases)</p></td>
+<td><p>Return a phase in [-pi, pi[</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Exceptions</p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">UtWarning</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="arim.io.scat.html" class="btn btn-neutral float-left" title="arim.io.scat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="arim.plot.html" class="btn btn-neutral float-right" title="arim.plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Nicolas Budyn, Rhodri Bevan 2016-2020.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

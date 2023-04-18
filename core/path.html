@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paths and views &mdash; arim 0.9.rc2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ray tracing" href="ray_tracing.html" />
+    <link rel="prev" title="Frame" href="frame.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            arim
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core objects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="probe.html">Probe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examobj.html">Examination object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frame.html">Frame</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Paths and views</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-the-views">Creating the views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuts-and-bolts">Nuts and bolts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ray_tracing.html">Ray tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html">Metadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../model/index.html">Modelling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../im/index.html">Imaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/index.html">Files and I/O</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Bibliography</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">arim reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">arim</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Core objects</a></li>
+      <li class="breadcrumb-item active">Paths and views</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/core/path.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="paths-and-views">
+<span id="path"></span><h1>Paths and views<a class="headerlink" href="#paths-and-views" title="Permalink to this headline"></a></h1>
+<p>The class <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> stores information about the rays between two points (probe element, scatterer).
+Typically, a <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> contains the rays starting from the probe and ending at
+the scatterers. Examples: <cite>L</cite> (longitudinal mode from the front wall to the scatterer),
+<cite>LT</cite> (L mode from the front wall to the back wall, T mode from the back wall to the front wall).
+It is also possible to use <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> for modelling rays starting and ending at the probe; for example a ray starting
+from the probe, reflected against the front wall and going back to the probe.</p>
+<p>The class <code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code> glues together two <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> objects for modelling rays from the probe to a scatterer
+(transmit path) and from the scatterer to the probe (receive path).
+Using a <code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code> instead of one <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> that starts and ends at the probe allows reducing greatly the amount
+of memory and calculation required for imaging and modelling. This is the <em>raison d’être</em> of the class <code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code>.</p>
+<div class="section" id="creating-the-views">
+<h2>Creating the views<a class="headerlink" href="#creating-the-views" title="Permalink to this headline"></a></h2>
+<p>The recommended way is to use either <code class="xref py py-func docutils literal notranslate"><span class="pre">arim.models.block_in_immersion.make_views()</span></code>
+or <code class="xref py py-func docutils literal notranslate"><span class="pre">arim.models.block_in_contact.make_views()</span></code>.</p>
+<p>This function requires the positions of the probe as a <code class="xref py py-class docutils literal notranslate"><span class="pre">arim.geometry.OrientedPoints</span></code> object:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">probe</span> <span class="o">=</span> <span class="n">arim</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># to fill up</span>
+<span class="n">probe_p</span> <span class="o">=</span> <span class="n">probe</span><span class="o">.</span><span class="n">to_oriented_points</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It also requires the position of the scatterers as <code class="xref py py-class docutils literal notranslate"><span class="pre">arim.geometry.OrientedPoints</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># one scatterer in x=10e-3, y=0, z=10e-3</span>
+<span class="n">scatterer_p</span> <span class="o">=</span> <span class="n">arim</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">default_oriented_points</span><span class="p">(</span><span class="n">arim</span><span class="o">.</span><span class="n">Points</span><span class="p">([[</span><span class="mf">10e-3</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10e-3</span><span class="p">]]))</span>
+</pre></div>
+</div>
+<p>Alternatively, the scatterers can be defined from a regularly spaced grid:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> <span class="n">arim</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Grid</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">pixel_size</span><span class="p">)</span>
+<span class="n">scatterer_p</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">to_oriented_points</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">BlockInImmersion</span></code> object is required, see <a class="reference internal" href="examobj.html#examobj"><span class="std std-ref">Examination object</span></a>.</p>
+<p>Finally:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arim.models.block_in_immersion</span> <span class="k">as</span> <span class="nn">bim</span>
+<span class="n">views</span> <span class="o">=</span> <span class="n">bim</span><span class="o">.</span><span class="n">make_views</span><span class="p">(</span><span class="n">exam_obj</span><span class="p">,</span> <span class="n">probe_p</span><span class="p">,</span> <span class="n">scatterer_p</span><span class="p">,</span> <span class="n">max_number_of_reflection</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tfm_unique_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For imaging with TFM, the views that give redundent results can be removed by setting <code class="docutils literal notranslate"><span class="pre">tfm_unique_only=True</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">views</span></code> is a Python dictionary (dict):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">views</span><span class="p">[</span><span class="s1">&#39;L-T&#39;</span><span class="p">]</span>  <span class="c1"># this is the view L-T</span>
+</pre></div>
+</div>
+<p>At this stage, the views contains which interfaces are crossed and which modes are propagating but not exact interface
+points through which the rays go. This step is performed in <a class="reference internal" href="ray_tracing.html#ray-tracing"><span class="std std-ref">Ray tracing</span></a>.</p>
+</div>
+<div class="section" id="nuts-and-bolts">
+<h2>Nuts and bolts<a class="headerlink" href="#nuts-and-bolts" title="Permalink to this headline"></a></h2>
+<p>This section describes the internal machinery of arim for paths and views. It can be skipped at first reading.</p>
+<p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> is composed of <code class="xref py py-class docutils literal notranslate"><span class="pre">Interface</span></code> objects. Each interface contains both the location of the points
+and their orientations but also the description of the physical process happening there: solid-to-fluid transmission,
+reflection against a liquid, etc. <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> also defines the modes between the interfaces.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="frame.html" class="btn btn-neutral float-left" title="Frame" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ray_tracing.html" class="btn btn-neutral float-right" title="Ray tracing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Nicolas Budyn, Rhodri Bevan 2016-2020.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
