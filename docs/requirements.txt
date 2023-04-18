@@ -1,5 +1,5 @@
 furo==2021.11.16
+numba
 numpy
 scipy
-numba
 pyyaml
