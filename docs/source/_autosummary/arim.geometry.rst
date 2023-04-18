@@ -1,7 +1,11 @@
-arim.geometry
+﻿arim.geometry
 =============
 
 .. automodule:: arim.geometry
+
+   
+   
+   
 
    
    
@@ -20,8 +24,10 @@ arim.geometry
       from_gcs
       is_orthonormal
       is_orthonormal_direct
+      make_contiguous_geometry
       norm2
       norm2_2d
+      points_1d_wall
       points_1d_wall_z
       points_from_probe
       points_in_rectbox
@@ -55,3 +61,6 @@ arim.geometry
    
    
    
+
+
+

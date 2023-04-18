@@ -5,11 +5,14 @@ arim.models.block\_in\_contact
 
    
    
+   
+
+   
+   
    .. rubric:: Functions
 
    .. autosummary::
    
-      backwall_paths
       make_interfaces
       make_paths
       make_views
@@ -22,6 +25,7 @@ arim.models.block\_in\_contact
       singlefreq_scat_transfer_functions
       singlefreq_wall_transfer_functions
       tx_ray_weights
+      wall_paths
       wall_unshifted_transfer_functions
    
    
@@ -33,3 +37,6 @@ arim.models.block\_in\_contact
    
    
    
+
+
+

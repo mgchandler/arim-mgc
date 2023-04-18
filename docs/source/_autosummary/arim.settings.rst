@@ -1,4 +1,4 @@
-arim.settings
+﻿arim.settings
 =============
 
 .. automodule:: arim.settings
@@ -14,3 +14,10 @@ arim.settings
    
    
    
+
+   
+   
+   
+
+
+
