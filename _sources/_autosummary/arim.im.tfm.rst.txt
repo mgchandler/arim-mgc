@@ -13,6 +13,8 @@
 
    .. autosummary::
    
+      angle_limit_amplitudes
+      angle_limit_contact
       contact_tfm
       extrema_lookup_times_in_rectbox
       tfm_for_view
