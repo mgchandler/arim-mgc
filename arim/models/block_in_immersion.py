@@ -787,9 +787,9 @@ def make_paths(
         raise ValueError
 
     probe = interface_dict["probe"]
-    frontwall = interface_dict["Frontwall_trans"]
+    frontwall = interface_dict["Frontwall_t"]
     grid = interface_dict["grid"]
-    wall_dict = OrderedDict((k, v) for k, v in interface_dict.items() if k not in ["probe", "grid", "frontwall_t"])
+    wall_dict = OrderedDict((k, v) for k, v in interface_dict.items() if k not in ["probe", "grid", "Frontwall_t"])
     wall_names = list(wall_dict.keys())
     
     mode_names = ("L", "T")
@@ -799,7 +799,7 @@ def make_paths(
         path_idxs_up_to_refl = list(itertools.product(range(2), repeat=number_of_reflection+1))
         for path_idxs in path_idxs_up_to_refl:
             # For each path.
-            path_name = "L frontwall" # Probably remove this as it is convention to not include it in immersion.
+            path_name = ""#"L frontwall" # Probably remove this as it is convention to not include it in immersion.
             path_modes = [c.Mode.longitudinal]
             path_interfaces = [probe, frontwall]
             path_materials = [couplant_material]
@@ -855,7 +855,7 @@ def make_views(
     try:
         couplant = examination_object.couplant_material
         block = examination_object.block_material
-        walls = [examination_object.geometry[i] for i in examination_object.imaging_walls]
+        walls = [examination_object.walls[i] for i in examination_object.walls_for_imaging]
         if max_number_of_reflection > 0 and len(walls) < 1:
             raise ValueError("Not enough walls for reflection.")
     except AttributeError as e:

@@ -1188,17 +1188,21 @@ class Path:
         name = ""
         for i in range(self.numlegs):
             if i != 0:
-                name += " {}".format(self.interfaces[i].points.name)
-            name += " {}".format(self.modes[i].key())
+                if self.interfaces[i].points.name != "Frontwall":
+                    name += " {}".format(self.interfaces[i].points.name)
+            if self.interfaces[i+1].points.name != "Frontwall":
+                name += " {}".format(self.modes[i].key())
         return name[1:]
     
     @property
     def revname(self):
         name = ""
         for i in reversed(range(self.numlegs)):
-            name += " {}".format(self.modes[i].key())
+            if self.interfaces[i+1].points.name != "Frontwall":
+                name += " {}".format(self.modes[i].key())
             if i != 0:
-                name += " {}".format(self.interfaces[i].points.name)
+                if self.interfaces[i].points.name != "Frontwall":
+                    name += " {}".format(self.interfaces[i].points.name)
         return name[1:]
 
     def to_fermat_path(self):
