@@ -119,22 +119,25 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">angle_limit_amplitudes</span></code>(theta, phi, limit[, ...])</p></td>
-<td><p>Apply an angle limit to the probe.</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">angle_limit</span></code>(theta, phi, limit[, elev, azim])</p></td>
+<td><p>Apply an angle limit to the provided angles.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">angle_limit_contact</span></code>(grid, probe, limit[, ...])</p></td>
-<td><p>Calculates the amplitudes required for the focal law when the grid is in contact with the probe (i.e.</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">angle_limit_for_view</span></code>(view, limit[, elev, azim])</p></td>
+<td><p>Calculates the amplitudes required to implement an amplitude limit for the focal law for a provided view (i.e.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">contact_tfm</span></code>(frame, grid, velocity[, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">angle_limit_in_contact</span></code>(grid, probe, limit[, ...])</p></td>
+<td><p>Calculates the amplitudes required to implement an amplitude limit for the focal law when the grid is in contact with the probe (i.e.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">contact_tfm</span></code>(frame, grid, velocity[, ...])</p></td>
 <td><p>Contact TFM</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extrema_lookup_times_in_rectbox</span></code>(grid, ...[, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extrema_lookup_times_in_rectbox</span></code>(grid, ...[, ...])</p></td>
 <td><p>Returns the minimum and maximum of the lookup times in an rectangular box.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tfm_for_view</span></code>(frame, grid, view[, amplitudes])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tfm_for_view</span></code>(frame, grid, view[, amplitudes])</p></td>
 <td><p>TFM for a view</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tfm_with_scattering</span></code>(frame, grid, view, ...)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tfm_with_scattering</span></code>(frame, grid, view, ...)</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
