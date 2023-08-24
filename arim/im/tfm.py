@@ -15,6 +15,7 @@ import logging
 import warnings
 
 from .. import geometry as g, model, ut
+from ..ray import RayGeometry
 from . import das
 from ..exceptions import ArimWarning
 from ..helpers import chunk_array
@@ -69,6 +70,98 @@ class TxRxAmplitudes:
         # easy unpacking
         yield self.amplitudes_tx
         yield self.amplitudes_rx
+
+
+def angle_limit(theta, phi, limit, elev=0., azim=np.pi/2):
+    """
+    Apply an angle limit to the provided angles. Hanning window applied over
+    limit centred on elevation. Assumes 2D.
+
+    Parameters
+    ----------
+    theta : ndarray
+        Shape (numtx, numgridpoints)
+        Angle made by the ray from the probe.
+    limit : float
+    elev : float, optional
+
+    Returns
+    -------
+    TxRxAmplitudes
+    
+    """
+    lookvec = np.asarray([
+        np.sin(azim) * np.sin(elev),
+        np.cos(azim) * np.sin(elev), 
+                       np.cos(elev)
+    ])
+    radial  = np.asarray([
+        np.cos(phi) * np.sin(theta),
+        np.sin(phi) * np.cos(theta),
+                      np.cos(theta)
+    ]).transpose(1, 2, 0)
+    gamma = np.dot(radial, lookvec)
+    amplitudes = np.zeros(gamma.shape)
+    amplitudes[np.abs(gamma) >= limit] = (np.cos(gamma[np.abs(gamma) >= limit] * np.pi / limit) + 1) / 2
+    return amplitudes
+
+
+def angle_limit_in_contact(grid, probe, limit, elev=0., azim=np.pi/2):
+    """
+    Calculates the amplitudes required to implement an amplitude limit for the
+    focal law when the grid is in contact with the probe (i.e. one leg, no 
+    reflections).
+
+    Parameters
+    ----------
+    grid : Points
+    probe : Probe
+    limit : float
+    elev : float, optional
+    azim : float, optional
+
+    Returns
+    -------
+    TxRxAmplitudes
+
+    """
+    grid = grid.to_1d_points().reshape((-1, 1))
+    probe = probe.locations.reshape((1, -1))
+    x = grid.x - probe.x
+    y = grid.y - probe.y
+    z = grid.z - probe.z
+    
+    theta = np.arctan2(np.sqrt(x*x + y*y), z)
+    phi = np.arctan2(y, x)
+    amplitudes = angle_limit(theta, phi, limit, elev, azim)
+    return TxRxAmplitudes(amplitudes, amplitudes)
+
+
+def angle_limit_for_view(view, limit, elev=0., azim=np.pi/2):
+    """
+    Calculates the amplitudes required to implement an amplitude limit for the 
+    focal law for a provided view (i.e. angle limit applied to the final leg of
+    the view).
+
+    Parameters
+    ----------
+    view : View
+    limit : float
+    elev : float, optional
+    azim : float, optional
+
+    Returns
+    -------
+    TxRxAmplitudes
+
+    """
+    tx_ray = RayGeometry.from_path(view[0])
+    rx_ray = RayGeometry.from_path(view[1])
+    
+    tx_amps = angle_limit(tx_ray.out_leg_polar(-2), tx_ray.out_leg_azimuth(-2), limit, elev, azim).transpose()
+    rx_amps = angle_limit(rx_ray.out_leg_polar(-2), rx_ray.out_leg_azimuth(-2), limit, elev, azim).transpose()
+    
+    return TxRxAmplitudes(tx_amps, rx_amps)
 
 
 class FocalLaw:

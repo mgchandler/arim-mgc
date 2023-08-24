@@ -15,6 +15,7 @@ import abc
 import logging
 from collections import namedtuple
 import math
+import os
 
 import numpy as np
 import numba
@@ -23,6 +24,8 @@ from numpy.core.umath import sin, cos
 from . import core as c, _scat, helpers, signal
 
 logger = logging.getLogger(__name__)
+
+use_parallel = os.environ.get("ARIM_USE_PARALLEL", not numba.core.config.IS_32BITS)
 
 
 def make_toneburst(
@@ -1650,7 +1653,7 @@ def sensitivity_model_assisted_tfm(
     return sensitivity
 
 
-@numba.njit(parallel=True, nogil=True)
+@numba.njit(parallel=use_parallel, nogil=True)
 def _timeshift_timedomain(unshifted_response, delays, dt, t0_idx, out):
     n = unshifted_response.shape[1]
     for idx in numba.prange(unshifted_response.shape[0]):

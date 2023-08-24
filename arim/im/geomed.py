@@ -5,9 +5,11 @@ Geometric median of 2D points using Newton's descent with backtracking line-sear
 import numba
 import math
 import numpy as np
+import os
 
 # enable SIMD!
-_numba_opts = dict(nogil=True, parallel=True, fastmath=True, error_model="numpy")
+use_parallel = os.environ.get("ARIM_USE_PARALLEL", not numba.core.config.IS_32BITS)
+_numba_opts = dict(nogil=True, parallel=use_parallel, fastmath=True, error_model="numpy")
 
 
 @numba.njit(**_numba_opts)

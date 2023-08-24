@@ -9,7 +9,6 @@ import collections.abc
 
 __all__ = ["Config"]
 
-
 class Config(dict):
     """
     Configuration object
