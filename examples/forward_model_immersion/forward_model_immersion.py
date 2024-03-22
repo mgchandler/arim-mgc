@@ -72,6 +72,8 @@ tx_list, rx_list = arim.ut.fmc(probe.numelements)
 numtimetraces = len(tx_list)
 
 examination_object = arim.io.block_in_immersion_from_conf(conf)
+frontwall = [wall for wall in examination_object.walls if wall.points.name == 'Frontwall'][0]
+backwall  = [wall for wall in examination_object.walls if wall.points.name == 'Backwall'][0]
 
 defect_centre = conf["scatterer"]["location"]
 scatterer = arim.geometry.default_oriented_points(
@@ -93,8 +95,8 @@ grid_p = grid.to_oriented_points()
 aplt.plot_interfaces(
     [
         probe.to_oriented_points(),
-        examination_object.frontwall,
-        examination_object.backwall,
+        frontwall,
+        backwall,
         scatterer,
         grid_p,
     ],
@@ -119,15 +121,15 @@ frontwall_path = bim.frontwall_path(
     examination_object.couplant_material,
     examination_object.block_material,
     *probe.to_oriented_points(),
-    *examination_object.frontwall,
+    *frontwall,
 )
 
 backwall_paths = bim.backwall_paths(
     examination_object.couplant_material,
     examination_object.block_material,
     probe.to_oriented_points(),
-    examination_object.frontwall,
-    examination_object.backwall,
+    frontwall,
+    backwall,
 )
 # backwall_paths = {pathname: path for pathname, path in backwall_paths.items() if pathname in {"LL"}} # debug
 wall_paths = {f"Backwall {key}": path for key, path in backwall_paths.items()}

@@ -507,7 +507,7 @@ def backwall_paths(
                 name="Backwall " + key,
             )
 
-    if max_number_of_reflection == 1:
+    if max_number_of_reflection <= 1:
         return paths
 
     for mode1 in (c.Mode.L, c.Mode.T):
@@ -738,19 +738,19 @@ def make_interfaces(
             )
             # Reset name for reflection
             name = wall.points.name
-            
-        reflection_against=couplant_material
-        kind = "solid_fluid"
-        transmission_reflection = "reflection"
-        are_normals_on_inc_rays_side = True
-        interface_dict[name] = c.Interface(
-            *wall,
-            kind,
-            transmission_reflection,
-            reflection_against=reflection_against,
-            are_normals_on_inc_rays_side=are_normals_on_inc_rays_side,
-            are_normals_on_out_rays_side=True,
-        )
+        else: # Ideally want to allow front wall to be reflected from as well for later reflections. Too much of a headache for now, sorry.
+            reflection_against=couplant_material
+            kind = "solid_fluid"
+            transmission_reflection = "reflection"
+            are_normals_on_inc_rays_side = True
+            interface_dict[name] = c.Interface(
+                *wall,
+                kind,
+                transmission_reflection,
+                reflection_against=reflection_against,
+                are_normals_on_inc_rays_side=are_normals_on_inc_rays_side,
+                are_normals_on_out_rays_side=True,
+            )
 
     return interface_dict
 

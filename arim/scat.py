@@ -310,6 +310,11 @@ def sdh_2d_scat(
             "...j,j->...", cos_n_phi, epsilon * B_n
         )
         result["TT"] = r
+        
+    if np.isnan(np.asarray(list(result.values()))).any():
+        pass
+    else:
+        pass
 
     return result
 
