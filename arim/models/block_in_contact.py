@@ -142,6 +142,7 @@ def tx_ray_weights(
         * weights_dict["transrefl"]
         * weights_dict["beamspread"]
         * weights_dict["attenuation"]
+        * (~np.isnan(path.rays.times)).astype(float)
     )
     return weights, weights_dict
 
@@ -226,6 +227,7 @@ def rx_ray_weights(
         * weights_dict["transrefl"]
         * weights_dict["beamspread"]
         * weights_dict["attenuation"]
+        * (~np.isnan(path.rays.times)).astype(float)
     )
     # if path.modes[-1] is c.Mode.L:
     #     reception_coeff = d.wavelengths_in_block[c.Mode.L]**1.5

@@ -140,7 +140,7 @@ def _find_minimum_times(time_1, time_2, out_min_times, out_best_indices):
 logger = logging.getLogger(__name__)
 
 
-def ray_tracing_for_paths(paths_list, convert_to_fortran_order=False):
+def ray_tracing_for_paths(paths_list, convert_to_fortran_order=False, walls=None, turn_off_sus_rays=False):
     """
     Perform the ray tracing for different paths. Save the result in ``Path.rays``.
 
@@ -162,13 +162,15 @@ def ray_tracing_for_paths(paths_list, convert_to_fortran_order=False):
 
     for path, fermat_path in zip(paths_list, fermat_paths_tuple):
         rays = rays_dict[fermat_path]
-        suspicious_rays = rays.gone_through_extreme_points()
+        suspicious_rays = rays.gone_through_extreme_points() | rays.gone_through_interface(path.interfaces, walls)
         num_suspicious_rays = suspicious_rays.sum()
         if num_suspicious_rays > 0:
             logger.warning(
                 f"{num_suspicious_rays} rays of path {path.name} go through "
                 "the interface limits. Extend limits."
             )
+            if turn_off_sus_rays:
+                rays_dict[fermat_path]._times[suspicious_rays] = np.nan
 
     if convert_to_fortran_order:
         old_rays_dict = rays_dict
@@ -179,7 +181,7 @@ def ray_tracing_for_paths(paths_list, convert_to_fortran_order=False):
         path.rays = rays_dict[fermat_path]
 
 
-def ray_tracing(views_list, convert_to_fortran_order=False):
+def ray_tracing(views_list, convert_to_fortran_order=False, walls=None, turn_off_sus_rays=False):
     """
     Perform the ray tracing for different views. Save the result in ``Path.rays``.
 
@@ -195,7 +197,7 @@ def ray_tracing(views_list, convert_to_fortran_order=False):
     # Ray tracing:
     paths_set = set(v.tx_path for v in views_list) | set(v.rx_path for v in views_list)
     return ray_tracing_for_paths(
-        list(paths_set), convert_to_fortran_order=convert_to_fortran_order
+        list(paths_set), convert_to_fortran_order=convert_to_fortran_order, walls=walls, turn_off_sus_rays=turn_off_sus_rays
     )
 
 
@@ -376,7 +378,7 @@ class Rays:
         indices[1:-1, ...] = interior_indices
         return indices
 
-    def get_coordinates(self, n_interface):
+    def get_coordinates(self, n_interface=None):
         """
         Yields the coordinates of the rays of the n-th interface, as a tuple
         of three 2d ndarrays.
@@ -396,12 +398,22 @@ class Rays:
 
 
         """
-        points = self.fermat_path.points[n_interface]
-        indices = self.indices[n_interface, ...]
-        x = points.x[indices]
-        y = points.y[indices]
-        z = points.z[indices]
-        yield (x, y, z)
+        if n_interface is None:
+            for n_interface in range(self.fermat_path.num_points_sets):
+                points = self.fermat_path.points[n_interface]
+                indices = self.indices[n_interface, ...]
+                x = points.x[indices]
+                y = points.y[indices]
+                z = points.z[indices]
+                yield (x, y, z)
+        else:
+            points = self.fermat_path.points[n_interface]
+            indices = self.indices[n_interface, ...]
+            x = points.x[indices]
+            y = points.y[indices]
+            z = points.z[indices]
+            yield (x, y, z)
+            
 
     def get_coordinates_one(self, start_index, end_index):
         """
@@ -448,6 +460,82 @@ class Rays:
         for (d, points) in enumerate(middle_points):
             np.logical_or(out, interior_indices[d, ...] == 0, out=out)
             np.logical_or(out, interior_indices[d, ...] == (len(points) - 1), out=out)
+        return out
+    
+    def gone_through_interface(self, path_interfaces, walls):
+        """
+        Returns the rays which are going through at least one interface (i.e. in the line).
+        Considering a convex geometry, these are rays which are physically blocked by the interface.
+
+        Parameters
+        ----------
+        walls : list of OrientedPoints
+            All of the walls in the geometry, passed in from ``examination_object.walls``.
+
+        Returns
+        -------
+        out : ndarray of bool
+            ``rays[i, j]`` is True if the ray starting from the i-th point of the first interface
+            and going through the j-th point on the last interface is going through at least one
+            other interface in the middle.
+
+        """
+        order = "F" if self.indices.flags.f_contiguous else "C"
+
+        shape = self.indices.shape[1:]
+        out = np.zeros(shape, order=order, dtype=bool)
+        
+        if walls is not None:
+            walls = {
+                wall.name : np.asarray(([wall.x.min(), wall.x.max()], [wall.y.min(), wall.y.max()], [wall.z.min(), wall.z.max()]))
+                for wall, _ in walls
+            }
+            interface_names = [
+                interface.points.name
+                for interface in path_interfaces
+            ]
+            
+            loc_wrt_line = lambda a1, a2, y: (
+                (a2[0] - a1[0]) * (y[2] - a1[2]) - (y[0] - a1[0]) * (a2[2] - a1[2])
+            )
+            for d, coords in enumerate(self.get_coordinates()):
+                coords = np.stack(coords)
+                if d != 0:
+                    for name, wall in walls.items():
+                        if (name in interface_names) or (name == 'Frontwall' and 'Probe' in interface_names):
+                            continue
+                        # Do bounding boxes intersect
+                        is_overlap = (
+                            (np.min((last[0, :, :], coords[0, :, :]), axis=0) <= np.max(wall[0, :])) &
+                            (np.max((last[0, :, :], coords[0, :, :]), axis=0) >= np.min(wall[0, :])) &
+                            (np.min((last[1, :, :], coords[1, :, :]), axis=0) <= np.max(wall[1, :])) &
+                            (np.max((last[1, :, :], coords[1, :, :]), axis=0) >= np.min(wall[1, :])) &
+                            (np.min((last[2, :, :], coords[2, :, :]), axis=0) <= np.max(wall[2, :])) &
+                            (np.max((last[2, :, :], coords[2, :, :]), axis=0) >= np.min(wall[2, :])) 
+                        )
+                        
+                        # Prep to check overlapping segments.
+                        where_last_wrt_wall   = loc_wrt_line(wall[:, 0], wall[:, 1], last)
+                        where_coords_wrt_wall = loc_wrt_line(wall[:, 0], wall[:, 1], coords)
+                        where_wallmin_wrt_ray = loc_wrt_line(last, coords, wall[:, 0])
+                        where_wallmax_wrt_ray = loc_wrt_line(last, coords, wall[:, 1])
+                        
+                        ray_touches_or_crosses_wall = ((
+                            (where_last_wrt_wall < 0) ^ (where_coords_wrt_wall < 0)
+                        ) | (
+                            (np.abs(where_last_wrt_wall) < np.finfo(float).eps) | (np.abs(where_coords_wrt_wall) < np.finfo(float).eps)
+                        ))
+                        wall_touches_or_crosses_ray = ((
+                            (where_wallmin_wrt_ray < 0) ^ (where_wallmax_wrt_ray < 0)
+                        ) | (
+                            (np.abs(where_wallmin_wrt_ray) < np.finfo(float).eps) | (np.abs(where_wallmax_wrt_ray) < np.finfo(float).eps)
+                        ))
+                            
+                        is_intersect = is_overlap & ray_touches_or_crosses_wall & wall_touches_or_crosses_ray
+                        
+                        np.logical_or(out, is_intersect, out=out)
+                        
+                last = coords
         return out
 
     def to_fortran_order(self):

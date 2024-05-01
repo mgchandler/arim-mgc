@@ -238,6 +238,8 @@ def sdh_2d_scat(
                 / (c1_alpha * c1_beta - d1_alpha * d1_beta)
             )
         )
+        
+        A_n[np.isnan(A_n)] = 0
 
         # Brind (2.9) without:
         #   - u0, the amplitude of the incident wave,
@@ -266,6 +268,8 @@ def sdh_2d_scat(
             / (pi * alpha)
             * ((n2 - beta2 / 2 - 1) / (c1_alpha * c1_beta - d1_alpha * d1_beta))
         )
+        
+        B_n[np.isnan(B_n)] = 0
 
         # Lopez-Sanchez (34)
         # Warning: there is a minus sign in Brind (2.10). We trust LS here.
@@ -284,7 +288,9 @@ def sdh_2d_scat(
             * (n2 - beta2 / 2 - 1)
             / (c1_alpha * c1_beta - d1_alpha * d1_beta)
         )
-
+        
+        A_n[np.isnan(A_n)] = 0
+        
         # Lopez-Sanchez eq (39)
         # See also comments for result['LL']
         r = (np.sqrt(1j) / pi * alpha) * np.einsum(
@@ -303,6 +309,8 @@ def sdh_2d_scat(
                 / (c1_alpha * c1_beta - d1_alpha * d1_beta)
             )
         )
+        
+        B_n[np.isnan(B_n)] = 0
 
         # Lopez-Sanchez eq (40)
         # See also comments for result['LL']
@@ -311,11 +319,6 @@ def sdh_2d_scat(
         )
         result["TT"] = r
         
-    if np.isnan(np.asarray(list(result.values()))).any():
-        pass
-    else:
-        pass
-
     return result
 
 
