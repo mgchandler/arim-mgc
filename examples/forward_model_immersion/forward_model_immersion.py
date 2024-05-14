@@ -27,7 +27,7 @@ with
 
 Data structure of this script:
 
-- the times of flight tau are encapsulated in 
+- the times of flight tau are encapsulated in
   ``view.tx_path.rays.times`` and ``view.rx_path.rays.times``
 - S(omega) is calculated in ``scat_obj``
 - H(omega) is stored in ``transfer_function_f``
@@ -36,20 +36,23 @@ Data structure of this script:
 """
 
 
-import math
 import logging
+import math
 from collections import OrderedDict
 
-import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import hilbert
+import numpy as np
 import scipy.fftpack
+from scipy.signal import hilbert
 
-import arim, arim.model, arim.scat, arim.plot as aplt
-import arim.models.block_in_immersion as bim
-import arim.im, arim.signal  # for imaging
-import arim.scat
+import arim
+import arim.im  # for imaging
 import arim.io
+import arim.model
+import arim.models.block_in_immersion as bim
+import arim.plot as aplt
+import arim.scat
+import arim.signal
 
 save = False
 aplt.conf["savefig"] = False
@@ -66,7 +69,7 @@ logging.getLogger("arim").setLevel(logging.INFO)
 
 conf = arim.io.load_conf(".")
 
-#%% Define inspection set-up
+# %% Define inspection set-up
 probe = arim.io.probe_from_conf(conf)
 tx_list, rx_list = arim.ut.fmc(probe.numelements)
 numtimetraces = len(tx_list)
@@ -104,7 +107,7 @@ aplt.plot_interfaces(
     markers=[".", "-", "-", "d", ".k"],
 )
 
-#%% Ray tracing for scatterer
+# %% Ray tracing for scatterer
 views = bim.make_views(
     examination_object,
     probe.to_oriented_points(),
@@ -116,7 +119,7 @@ views = bim.make_views(
 print("Views: " + ", ".join(views.keys()))
 arim.ray.ray_tracing(views.values(), convert_to_fortran_order=True)
 
-#%% Ray tracing for wall echoes
+# %% Ray tracing for wall echoes
 frontwall_path = bim.frontwall_path(
     examination_object.couplant_material,
     examination_object.block_material,
@@ -137,12 +140,10 @@ wall_paths["Frontwall"] = frontwall_path
 arim.ray.ray_tracing_for_paths(wall_paths.values())
 print("Wall paths: " + ", ".join(wall_paths.keys()))
 
-#%% Toneburst and time vector
+# %% Toneburst and time vector
 max_delay_scat = max(
-    (
-        view.tx_path.rays.times.max() + view.rx_path.rays.times.max()
-        for view in views.values()
-    )
+    view.tx_path.rays.times.max() + view.rx_path.rays.times.max()
+    for view in views.values()
 )
 max_delay_wall = max(path.rays.times.max() for path in wall_paths.values())
 max_delay = max(max_delay_scat, max_delay_wall)
@@ -182,7 +183,7 @@ if aplt.conf["savefig"]:
     plt.savefig("toneburst")
 
 
-#%% Compute transfer functions (init)
+# %% Compute transfer functions (init)
 model_options = dict(
     probe_element_width=probe.dimensions.x[0],
     use_directivity=True,
@@ -191,7 +192,7 @@ model_options = dict(
     use_attenuation=True,
 )
 
-#%% Compute transfer functions for scatterers
+# %% Compute transfer functions for scatterers
 scat_obj = arim.scat.scat_factory(
     material=examination_object.block_material, **conf["scatterer"]["specs"]
 )
@@ -232,7 +233,7 @@ with arim.helpers.timeit("Main loop for scatterer"):
         transfer_function_f += partial_transfer_func
 # At this stage, transfer_function_f contains the transfer function for scatterer for all views
 
-#%% Compute transfer functions for walls
+# %% Compute transfer functions for walls
 
 transfer_function_wall_f = np.zeros((numtimetraces, numfreq), np.complex_)
 
@@ -249,7 +250,7 @@ with arim.helpers.timeit("Main loop for walls:"):
     for pathname, partial_transfer_func in transfer_function_iterator:
         transfer_function_wall_f += partial_transfer_func
 
-#%% Compute the response in frequency then time domain
+# %% Compute the response in frequency then time domain
 response_timetraces_f = (transfer_function_f + transfer_function_wall_f) * toneburst_f
 # response_timetraces_f = transfer_function_f  * toneburst_f
 # response_timetraces_f = transfer_function_wall_f  * toneburst_f
@@ -276,12 +277,12 @@ if aplt.conf["savefig"]:
     plt.savefig("time_domain_response")
 
 
-#%% Bscan
+# %% Bscan
 aplt.plot_bscan_pulse_echo(frame)
 aplt.plot_bscan(frame, frame.tx == 0)
 
 
-#%% Check reciprocity
+# %% Check reciprocity
 tx = 1
 rx = 19
 
@@ -304,7 +305,7 @@ plt.plot(
 plt.plot(
     time.samples * 1e6,
     np.abs(real_response_timetraces[idx1] - real_response_timetraces[idx2]),
-    label=f"error",
+    label="error",
 )
 plt.legend()
 plt.xlabel("time (µs)")
@@ -329,7 +330,7 @@ for viewname, view in views.items():
     )
 plt.legend()
 
-#%% Full TFM
+# %% Full TFM
 views_imaging = bim.make_views(
     examination_object,
     probe.to_oriented_points(),
@@ -342,12 +343,12 @@ arim.ray.ray_tracing(views_imaging.values(), convert_to_fortran_order=True)
 
 tfms = {}
 for i, view in enumerate(views_imaging.values()):
-    with arim.helpers.timeit("TFM {}".format(view.name), logger=logger):
+    with arim.helpers.timeit(f"TFM {view.name}", logger=logger):
         tfms[view.name] = arim.im.tfm.tfm_for_view(
             frame, grid, view, fillvalue=0.0, interpolation=("lanczos", 3)
         )
 
-#%%
+# %%
 size_box_x = 5e-3
 size_box_z = 5e-3
 

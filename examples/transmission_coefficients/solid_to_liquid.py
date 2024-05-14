@@ -3,10 +3,10 @@ Compute and plot the transmission and reflection coefficients.
 
 """
 
-import numpy as np
 import warnings
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 from arim.model import snell_angles, solid_l_fluid
 
@@ -78,7 +78,7 @@ area_t = np.cos(alpha_t).real
 # Reference: Schmerr, §6.3.2
 
 # Incoming energy
-inc_energy = 0.5 * pres_i ** 2 / (rho_solid * c_l) * area_l
+inc_energy = 0.5 * pres_i**2 / (rho_solid * c_l) * area_l
 
 # Outgoing energy
 energy_trans = (

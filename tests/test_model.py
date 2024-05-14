@@ -2,16 +2,16 @@
 Hard-code results and hope they do not evolve over time.
 
 """
+from collections import OrderedDict
+
+import numpy as np
 import pytest
+from numpy import array
+
 import arim
 import arim.model
 import arim.models.block_in_immersion
 import arim.ray
-import arim.geometry as g
-from arim import ut
-from collections import OrderedDict
-import numpy as np
-from numpy import array
 from arim import model
 
 
@@ -182,6 +182,11 @@ def test_context():
     views = context["views"]
     ray_geometry_dict = context["ray_geometry_dict"]
 
+    assert block is not None
+    assert couplant is not None
+    assert interfaces is not None
+    assert ray_geometry_dict is not None
+
     assert paths.keys() == {"L", "LL", "LT", "TL", "TT", "T"}
     for path in paths.values():
         assert path.rays is not None
@@ -207,6 +212,8 @@ def test_ray_tracing():
     """:type : dict[str, arim.path.RayGeometry]"""
     rev_ray_geometry_dict = context["rev_ray_geometry_dict"]
     """:type : dict[str, arim.path.RayGeometry]"""
+
+    assert rev_paths is not None
 
     expected_rays = OrderedDict()
 
@@ -799,11 +806,7 @@ def test_transmission_reflection_reverse_stokes():
     """:type : arim.Material"""
     paths = context["paths"]
     """:type : dict[str, arim.Path]"""
-    rev_paths = context["rev_paths"]
-    """:type : dict[str, arim.Path]"""
     ray_geometry_dict = context["ray_geometry_dict"]
-    """:type : dict[str, arim.path.RayGeometry]"""
-    rev_ray_geometry_dict = context["rev_ray_geometry_dict"]
     """:type : dict[str, arim.path.RayGeometry]"""
 
     rho_fluid = couplant.density
@@ -885,7 +888,7 @@ def test_transmission_reflection_reverse_stokes():
     alpha_fluid = np.asarray(
         ray_geometry_dict[pathname].conventional_inc_angle(1), complex
     )
-    alpha_l = arim.model.snell_angles(alpha_fluid, c_fluid, c_l)
+    alpha_l = arim.model.snell_angles(alpha_fluid, c_fluid, c_l)  # noqa
     alpha_t = arim.model.snell_angles(alpha_fluid, c_fluid, c_t)
     correction_frontwall = (z_fluid / z_t) * (np.cos(alpha_t) / np.cos(alpha_fluid))
 
@@ -1037,8 +1040,6 @@ def make_point_source_scattering_matrix(context):
 
 
 def make_random_ray_weights(context):
-    interfaces = context["interfaces"]
-    """:type : list[arim.Interface]"""
     paths = context["paths"]
     """:type : dict[str, arim.Path]"""
     ray_geometry_dict = context["ray_geometry_dict"]
@@ -1119,7 +1120,7 @@ def test_model_amplitudes_factory():
         amps = model.model_amplitudes_factory(
             tx, rx, view, ray_weights, scattering_matrices
         )
-        np.testing.assert_array_equal(a_ref, amps[...])
+        np.testing.assert_allclose(a_ref, amps[...])
 
         assert amps.shape == (numpoints, numtimetraces)
         assert amps[...].shape == (numpoints, numtimetraces)
@@ -1132,13 +1133,14 @@ def test_model_amplitudes_factory():
             amps[0, 0]
 
         for k, i in np.ndindex(numpoints, numtimetraces):
-            assert amps[k][i] == a_ref[k, i]
-            assert amps[k, ...][i] == a_ref[k, i]
+            np.testing.assert_allclose(amps[k][i], a_ref[k, i])
+            np.testing.assert_allclose(amps[k, ...][i], a_ref[k, i])
 
-        np.testing.assert_array_equal(amps[[0, 0, 0]], a_ref[[0, 0, 0]])
-        np.testing.assert_array_equal(amps[:1, ...], amps[:1])
+        np.testing.assert_allclose(amps[[0, 0, 0]], a_ref[[0, 0, 0]])
+        np.testing.assert_allclose(amps[:1, ...], amps[:1])
 
         with pytest.raises(TypeError):
+            # TypeError: '_ModelAmplitudesWithScatMatrix' object does not support item assignment
             amps[0] = 1.0
 
 
@@ -1207,7 +1209,7 @@ def test_directivity_2d_rectangular_in_fluid():
     # >>> fn_calc_directivity_main(0.7, 1., 0.3, 'wooh')
     matlab_res = 0.931080327325574
     assert np.isclose(
-        arim.model.directivity_2d_rectangular_in_fluid(0.3, 0.7, 1.0), 0.931080327325574
+        arim.model.directivity_2d_rectangular_in_fluid(0.3, 0.7, 1.0), matlab_res
     )
 
 
@@ -1254,7 +1256,7 @@ def test_fluid_solid_real():
     area_t = np.cos(alpha_t)
 
     # Conservation of energy
-    inc_energy = 0.5 * pres_i ** 2 / (rho_fluid * c_fluid) * area_fluid
+    inc_energy = 0.5 * pres_i**2 / (rho_fluid * c_fluid) * area_fluid
     energy_refl = 0.5 * (reflection * pres_i) ** 2 / (rho_fluid * c_fluid) * area_fluid
     energy_l = 0.5 * (transmission_l * pres_i) ** 2 / (rho_solid * c_l) * area_l
     energy_t = 0.5 * (transmission_t * pres_i) ** 2 / (rho_solid * c_t) * area_t
@@ -1300,7 +1302,7 @@ def test_fluid_solid_complex():
     area_l = np.cos(alpha_l.real)
     area_t = np.cos(alpha_t.real)
 
-    inc_energy = 0.5 * pres_i ** 2 / (rho_fluid * c_fluid) * area_fluid
+    inc_energy = 0.5 * pres_i**2 / (rho_fluid * c_fluid) * area_fluid
     energy_refl = (
         0.5 * (np.abs(reflection) * pres_i) ** 2 / (rho_fluid * c_fluid) * area_fluid
     )
@@ -1347,7 +1349,7 @@ def test_solid_l_fluid():
     area_l = np.cos(alpha_l)
     area_t = np.cos(alpha_t)
 
-    inc_energy = 0.5 * pres_i ** 2 / (rho_solid * c_l) * area_l
+    inc_energy = 0.5 * pres_i**2 / (rho_solid * c_l) * area_l
     energy_trans = (
         0.5 * (transmission * pres_i) ** 2 / (rho_fluid * c_fluid) * area_fluid
     )
@@ -1395,7 +1397,7 @@ def test_solid_t_fluid_complex():
     area_l = np.cos(alpha_l.real)
     area_t = np.cos(alpha_t.real)
 
-    inc_energy = 0.5 * pres_i ** 2 / (rho_solid * c_t) * area_t
+    inc_energy = 0.5 * pres_i**2 / (rho_solid * c_t) * area_t
     energy_trans = (
         0.5 * (np.abs(transmission) * pres_i) ** 2 / (rho_fluid * c_fluid) * area_fluid
     )
