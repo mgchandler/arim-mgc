@@ -37,9 +37,9 @@ plt.draw()
 
 # %% Filter data
 
-filt = arim.signal.Hilbert() + arim.signal.ButterworthBandpass(
-    order=5, cutoff_min=0.5e6, cutoff_max=6e6, time=frame.time
-)
+filt = arim.signal.Hilbert()# + arim.signal.ButterworthBandpass(
+#     order=5, cutoff_min=0.5e6, cutoff_max=6e6, time=frame.time
+# )
 frame_raw = frame
 frame = frame_raw.apply_filter(filt)
 
@@ -84,6 +84,8 @@ func_res = lambda x: arim.ut.decibel(x)
 aplt.plot_tfm(tfm, func_res=func_res, interpolation="none", clim=clim)
 plt.title("TFM image - dB scale")
 plt.axis("tight")
+
+plt.ylim(45, 35)
 
 # Block script until windows are closed.
 plt.show()

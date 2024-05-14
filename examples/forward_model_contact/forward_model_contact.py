@@ -59,11 +59,11 @@ scatterer = arim.geometry.default_oriented_points(
 grid = arim.geometry.Grid(**conf["grid"], ymin=0.0, ymax=0.0)
 grid_p = grid.to_oriented_points()
 
-aplt.plot_interfaces(
-    [probe.to_oriented_points(), examination_object.backwall, scatterer, grid_p],
-    show_last=False,
-    markers=[".", "-", "d", ".k"],
-)
+# aplt.plot_interfaces(
+#     [probe.to_oriented_points(), examination_object.backwall, scatterer, grid_p],
+#     show_last=False,
+#     markers=[".", "-", "d", ".k"],
+# )
 
 #%% Ray tracing for scatterer
 views = bic.make_views(
@@ -78,10 +78,10 @@ print("Views: " + ", ".join(views.keys()))
 arim.ray.ray_tracing(views.values(), convert_to_fortran_order=True)
 
 #%% Ray tracing for backwall echoes
-backwall_paths = bic.backwall_paths(
+backwall_paths = bic.wall_paths(
     examination_object.block_material,
     probe.to_oriented_points(),
-    examination_object.backwall,
+    [examination_object.walls[0]],
     examination_object.under_material,
 )
 # backwall_paths = {pathname: path for pathname, path in backwall_paths.items() if pathname in {"LL"}} # debug
@@ -99,11 +99,11 @@ max_delay_backwall = max(path.rays.times.max() for path in backwall_paths.values
 max_delay = max(max_delay_scat, max_delay_backwall)
 
 
-dt = 0.25 / probe.frequency  # to adjust so that the whole toneburst is sampled
-_tmax = max_delay + 4 * conf["toneburst"]["num_cycles"] / probe.frequency
+dt = .04e-6# 0.1 / probe.frequency  # to adjust so that the whole toneburst is sampled
+_tmax = 79.9e-6#max_delay + 4 * conf["toneburst"]["num_cycles"] / probe.frequency
 
-numsamples = scipy.fftpack.next_fast_len(math.ceil(_tmax / dt))
-time = arim.Time(0.0, dt, numsamples)
+numsamples = 2000#scipy.fftpack.next_fast_len(math.ceil(_tmax / dt))
+time = arim.Time(-dt, dt, numsamples)
 freq_array = np.fft.rfftfreq(len(time), dt)
 numfreq = len(freq_array)
 

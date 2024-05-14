@@ -81,7 +81,7 @@ def angle_limit(theta, phi, limit, elev=0., azim=np.pi/2):
     ----------
     theta : ndarray
         Shape (numtx, numgridpoints)
-        Angle made by the ray from the probe.
+        Angle made by the ray from the probe (rad).
     limit : float
     elev : float, optional
 
@@ -100,17 +100,17 @@ def angle_limit(theta, phi, limit, elev=0., azim=np.pi/2):
         np.sin(phi) * np.cos(theta),
                       np.cos(theta)
     ]).transpose(1, 2, 0)
-    gamma = np.dot(radial, lookvec)
+    gamma = np.arccos(np.dot(radial, lookvec))
     amplitudes = np.zeros(gamma.shape)
-    amplitudes[np.abs(gamma) >= limit] = (np.cos(gamma[np.abs(gamma) >= limit] * np.pi / limit) + 1) / 2
+    amplitudes[np.abs(gamma) <= limit] = (np.cos(gamma[np.abs(gamma) <= limit] * np.pi / limit) + 1) / 2
     return amplitudes
 
 
 def angle_limit_in_contact(grid, probe, limit, elev=0., azim=np.pi/2):
     """
-    Calculates the amplitudes required to implement an amplitude limit for the
-    focal law when the grid is in contact with the probe (i.e. one leg, no 
-    reflections).
+    Calculates the amplitudes required to implement an amplitude limit (rad)
+    for the focal law when the grid is in contact with the probe (i.e. one leg,
+    no reflections).
 
     Parameters
     ----------
@@ -139,9 +139,9 @@ def angle_limit_in_contact(grid, probe, limit, elev=0., azim=np.pi/2):
 
 def angle_limit_for_view(view, limit, elev=0., azim=np.pi/2):
     """
-    Calculates the amplitudes required to implement an amplitude limit for the 
-    focal law for a provided view (i.e. angle limit applied to the final leg of
-    the view).
+    Calculates the amplitudes required to implement an amplitude limit (rad)
+    for the focal law for a provided view (i.e. angle limit applied to the
+    final leg of the view).
 
     Parameters
     ----------
@@ -155,8 +155,8 @@ def angle_limit_for_view(view, limit, elev=0., azim=np.pi/2):
     TxRxAmplitudes
 
     """
-    tx_ray = RayGeometry.from_path(view[0])
-    rx_ray = RayGeometry.from_path(view[1])
+    tx_ray = RayGeometry.from_path(view.tx_path)
+    rx_ray = RayGeometry.from_path(view.rx_path)
     
     tx_amps = angle_limit(tx_ray.out_leg_polar(-2), tx_ray.out_leg_azimuth(-2), limit, elev, azim).transpose()
     rx_amps = angle_limit(rx_ray.out_leg_polar(-2), rx_ray.out_leg_azimuth(-2), limit, elev, azim).transpose()

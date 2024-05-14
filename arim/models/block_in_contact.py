@@ -429,9 +429,11 @@ def make_interfaces(
             if name != "Frontwall" and under_material is not None:
                 kind = "solid_fluid"
                 transmission_reflection = "reflection"
+                under = under_material
             else:
                 kind = None
                 transmission_reflection = None
+                under = None
                 
             interface_dict[name] = c.Interface(
                 *wall,
@@ -439,7 +441,7 @@ def make_interfaces(
                 transmission_reflection,
                 are_normals_on_inc_rays_side=True,
                 are_normals_on_out_rays_side=True,
-                reflection_against=under_material
+                reflection_against=under
             )
     return interface_dict
 
