@@ -17,6 +17,7 @@ from .native import (
     frame_from_conf,
     grid_from_conf,
     load_conf,
+    load_conf_file,
     load_conf_from_str,
     material_attenuation_from_conf,
     material_from_conf,
@@ -27,6 +28,7 @@ from .scat import load_scat, load_scat_from_matlab
 __all__ = [
     "load_expdata",
     "load_conf",
+    "load_conf_file",
     "load_conf_from_str",
     "load_scat",
     "load_scat_from_matlab",
