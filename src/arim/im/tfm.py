@@ -478,7 +478,6 @@ def tfm_for_view(frame, grid, view, amplitudes=None, mask=None,**kwargs_delay_an
         res = res.reshape(grid.shape)
     else:
         res_all = np.zeros([grid.size,],dtype=res.dtype)
-        #indeces = np.argwhere()[:,0]
         res_all[mask.flatten()==True] = res
         res = res_all.reshape(grid.shape)
     return TfmResult(res, grid)
