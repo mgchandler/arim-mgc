@@ -439,7 +439,7 @@ def contact_tfm(
     return TfmResult(res, grid)
 
 
-def tfm_for_view(frame, grid, view, amplitudes=None, **kwargs_delay_and_sum):
+def tfm_for_view(frame, grid, view, amplitudes=None, mask=None,**kwargs_delay_and_sum):
     """
     TFM for a view
 
@@ -474,7 +474,13 @@ def tfm_for_view(frame, grid, view, amplitudes=None, **kwargs_delay_and_sum):
     focal_law = FocalLaw(lookup_times_tx, lookup_times_rx, amplitudes)
 
     res = das.delay_and_sum(frame, focal_law, **kwargs_delay_and_sum)
-    res = res.reshape(grid.shape)
+    if np.prod(grid.shape) == res.size:
+        res = res.reshape(grid.shape)
+    else:
+        res_all = np.zeros([grid.size,],dtype=res.dtype)
+        #indeces = np.argwhere()[:,0]
+        res_all[mask.flatten()==True] = res
+        res = res_all.reshape(grid.shape)
     return TfmResult(res, grid)
 
 
