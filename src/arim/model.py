@@ -438,6 +438,10 @@ def fluid_solid(
 
     """
     alpha_fluid = np.asarray(alpha_fluid)
+    
+    # First and second critical angles
+    theta_l = np.arcsin(c_fluid / c_l)
+    theta_t = np.arcsin(c_fluid / c_t)
 
     if alpha_l is None:
         alpha_l = snell_angles(alpha_fluid, c_fluid, c_l)
@@ -917,7 +921,7 @@ def reflection_at_interface(
 
 
 def transmission_reflection_for_path(
-    path, ray_geometry, force_complex=True, unit="stress"
+    path, ray_geometry, frequency=None, force_complex=True, unit="stress"
 ):
     """
     Return the transmission-reflection coefficients for a given path.
@@ -936,6 +940,8 @@ def transmission_reflection_for_path(
     ----------
     path : Path
     ray_geometry : arim.ray.RayGeometry
+    frequency : float or None
+        
     force_complex : bool
         If True, return complex coefficients. If not, return coefficients with the same datatype as ``angles_inc``.
         Default: True.

@@ -155,7 +155,7 @@ def tx_ray_weights(
         weights_dict["directivity"] = one
     if use_transrefl:
         weights_dict["transrefl"] = model.transmission_reflection_for_path(
-            path, ray_geometry, unit="displacement"
+            path, ray_geometry, frequency, unit="displacement"
         )
     else:
         weights_dict["transrefl"] = one
