@@ -1146,7 +1146,13 @@ def beamspread_2d_for_path(ray_geometry):
         for i in range(k):
             gamma *= gamma_list[i]
         virtual_distance += r / gamma
-
+    
+    # If there is no valid path because at some point the angle exceeds the critical
+    # angle, then beamspread doesn't make a lot of sense. Could probably account for
+    # for the inhomogeneous wave generated, but this would take a bit more work. By
+    # doing this, we assume that no elastic energy reaches the point, so it should
+    # be conservative.
+    virtual_distance[virtual_distance < 0] = np.inf
     return np.reciprocal(np.sqrt(virtual_distance))
 
 

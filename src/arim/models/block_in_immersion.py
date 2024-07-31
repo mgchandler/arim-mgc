@@ -142,6 +142,9 @@ def tx_ray_weights(
     """
     d = _init_ray_weights(path, frequency, probe_element_width, use_directivity)
 
+    if path.name == "L":
+        pass
+
     weights_dict = dict()
     one = np.ones((len(path.interfaces[0].points), d.numgridpoints), order="F")
 
