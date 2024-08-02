@@ -26,7 +26,8 @@ from . import core as c
 
 logger = logging.getLogger(__name__)
 
-use_parallel = os.environ.get("ARIM_USE_PARALLEL", not numba.core.config.IS_32BITS)
+use_parallel = os.environ.get(
+    "ARIM_USE_PARALLEL", not numba.core.config.IS_32BITS)
 
 
 def make_toneburst(
@@ -176,7 +177,7 @@ def make_toneburst2(
 
         toneburst_len = scipy.fftpack.next_fast_len(toneburst_len)
     toneburst = np.zeros(toneburst_len, dtype=signal.dtype)
-    toneburst[m : m + n] = signal
+    toneburst[m: m + n] = signal
 
     t0_idx = m + n // 2
     toneburst_time = c.Time(-t0_idx * dt, dt, len(toneburst))
@@ -384,14 +385,14 @@ def snell_angles(incidents_angles, c_incident, c_refracted):
     In case of total internal reflection (incident angles above the critical angles), the output depends
     on the datatype of the incident angle.
     If the incident angle is real, the refracted angle is "not a number".
-    If the incident angle is complex, the refracted angle is complex (imagery part not null).
+    If the incident angle is complex, the refracted angle is complex (imaginary part not null).
     The reason is that either the real or the complex arcsine function is used.
     """
     return np.arcsin(c_refracted / c_incident * sin(incidents_angles))
 
 
 def fluid_solid(
-    alpha_fluid, rho_fluid, rho_solid, c_fluid, c_l, c_t, alpha_l=None, alpha_t=None
+    alpha_fluid, rho_fluid, rho_solid, c_fluid, c_l, c_t
 ):
     """
     Returns the transmission and reflection coefficients for an incident wave at a fluid-to-solid interface.
@@ -438,35 +439,44 @@ def fluid_solid(
 
     """
     alpha_fluid = np.asarray(alpha_fluid)
+
+    sin_alpha_l = c_l / c_fluid * np.sin(alpha_fluid)
+    sin_alpha_t = c_t / c_fluid * np.sin(alpha_fluid)
+    cos_alpha_l = ((1j * np.sqrt(sin_alpha_l**2 - 1)) * (sin_alpha_l >= 1) +
+                   np.sqrt(1 - sin_alpha_l**2) * (sin_alpha_l < 1))
+    cos_alpha_t = ((1j * np.sqrt(sin_alpha_t**2 - 1)) * (sin_alpha_t >= 1) +
+                   np.sqrt(1 - sin_alpha_t**2) * (sin_alpha_t < 1))
     
-    # First and second critical angles
-    theta_l = np.arcsin(c_fluid / c_l)
-    theta_t = np.arcsin(c_fluid / c_t)
+    sin_2_alpha_l = 2 * sin_alpha_l * cos_alpha_l
+    sin_2_alpha_t = 2 * sin_alpha_t * cos_alpha_t
+    cos_2_alpha_l = cos_alpha_l * cos_alpha_l - sin_alpha_l * sin_alpha_l
+    cos_2_alpha_t = cos_alpha_t * cos_alpha_t - sin_alpha_t * sin_alpha_t
 
-    if alpha_l is None:
-        alpha_l = snell_angles(alpha_fluid, c_fluid, c_l)
-    if alpha_t is None:
-        alpha_t = snell_angles(alpha_fluid, c_fluid, c_t)
-
-    N = _fluid_solid_n(
-        alpha_fluid, alpha_l, alpha_t, rho_fluid, rho_solid, c_fluid, c_l, c_t
+    ct_cl2 = (c_t * c_t) / (c_l * c_l)
+    
+    # N = _fluid_solid_n(
+    #     alpha_fluid, alpha_l, alpha_t, rho_fluid, rho_solid, c_fluid, c_l, c_t
+    # )
+    N = (
+        ct_cl2 * sin_2_alpha_l * sin_2_alpha_t
+        + cos_2_alpha_t * cos_2_alpha_t
+        + rho_fluid * c_fluid / (rho_solid * c_l) *
+        cos_alpha_l / np.cos(alpha_fluid)
     )
 
     # Eq A.7
-    ct_cl2 = (c_t * c_t) / (c_l * c_l)
-    cos_2_alpha_t = cos(2 * alpha_t)
-
     reflection = (
-        ct_cl2 * sin(2 * alpha_l) * sin(2 * alpha_t)
+        ct_cl2 * sin_2_alpha_l * sin_2_alpha_t
         + cos_2_alpha_t * cos_2_alpha_t
-        - (rho_fluid * c_fluid * cos(alpha_l)) / (rho_solid * c_l * cos(alpha_fluid))
+        - (rho_fluid * c_fluid * cos_alpha_l) /
+        (rho_solid * c_l * np.cos(alpha_fluid))
     ) / N
 
     # Eq A.8
     transmission_l = 2.0 * cos_2_alpha_t / N
 
     # Eq A.9
-    transmission_t = -2.0 * ct_cl2 * sin(2 * alpha_l) / N
+    transmission_t = -2.0 * ct_cl2 * sin_2_alpha_l / N
 
     return reflection, transmission_l, transmission_t
 
@@ -478,11 +488,11 @@ def _fluid_solid_n(
     Coefficient N defined by Krautkrämer in equation (A8).
     """
     ct_cl2 = (c_t * c_t) / (c_l * c_l)
-    cos_2_alpha_t = cos(2 * alpha_t)
     N = (
         ct_cl2 * sin(2 * alpha_l) * sin(2 * alpha_t)
-        + cos_2_alpha_t * cos_2_alpha_t
-        + rho_fluid * c_fluid / (rho_solid * c_l) * cos(alpha_l) / cos(alpha_fluid)
+        + cos(2 * alpha_t) * cos(2 * alpha_t)
+        + rho_fluid * c_fluid / (rho_solid * c_l) *
+        cos(alpha_l) / cos(alpha_fluid)
     )
     return N
 
@@ -549,7 +559,8 @@ def solid_l_fluid(
     reflection_l = (
         ct_cl2 * sin(2 * alpha_l) * sin(2 * alpha_t)
         - cos_2_alpha_t * cos_2_alpha_t
-        + rho_fluid * c_fluid / (rho_solid * c_l) * cos(alpha_l) / cos(alpha_fluid)
+        + rho_fluid * c_fluid / (rho_solid * c_l) *
+        cos(alpha_l) / cos(alpha_fluid)
     ) / N
 
     # Eq A.11
@@ -632,7 +643,8 @@ def solid_t_fluid(
     reflection_t = (
         ct_cl2 * sin(2 * alpha_l) * sin(2 * alpha_t)
         - cos_2_alpha_t * cos_2_alpha_t
-        - rho_fluid * c_fluid / (rho_solid * c_l) * cos(alpha_l) / cos(alpha_fluid)
+        - rho_fluid * c_fluid / (rho_solid * c_l) *
+        cos(alpha_l) / cos(alpha_fluid)
     ) / N
 
     # Eq A.15
@@ -769,10 +781,12 @@ def transmission_at_interface(
 
         if mode_inc is c.Mode.L:
             alpha_l = angles_inc
-            refl_l, refl_t, transmission = solid_l_fluid(alpha_l=alpha_l, **params)
+            refl_l, refl_t, transmission = solid_l_fluid(
+                alpha_l=alpha_l, **params)
         elif mode_inc is c.Mode.T:
             alpha_t = angles_inc
-            refl_l, refl_t, transmission = solid_t_fluid(alpha_t=alpha_t, **params)
+            refl_l, refl_t, transmission = solid_t_fluid(
+                alpha_t=alpha_t, **params)
         else:
             raise RuntimeError
         if convert_to_displacement:
@@ -941,7 +955,7 @@ def transmission_reflection_for_path(
     path : Path
     ray_geometry : arim.ray.RayGeometry
     frequency : float or None
-        
+
     force_complex : bool
         If True, return complex coefficients. If not, return coefficients with the same datatype as ``angles_inc``.
         Default: True.
@@ -1046,7 +1060,8 @@ def reverse_transmission_reflection_for_path(
             # Compute the incident angles in the reverse path from the incident angles in the
             # direct path using Snell laws.
             if force_complex:
-                trans_or_refl_angles = np.asarray(trans_or_refl_angles, complex)
+                trans_or_refl_angles = np.asarray(
+                    trans_or_refl_angles, complex)
             params["angles_inc"] = snell_angles(
                 trans_or_refl_angles,
                 material_out.velocity(mode_out),
@@ -1057,6 +1072,9 @@ def reverse_transmission_reflection_for_path(
         elif interface.transmission_reflection is c.TransmissionReflection.reflection:
             params["material_against"] = interface.reflection_against
             params["interface_kind"] = interface.kind
+            if force_complex:
+                trans_or_refl_angles = np.asarray(
+                    trans_or_refl_angles, complex)
             params["angles_inc"] = snell_angles(
                 trans_or_refl_angles,
                 material_inc.velocity(mode_out),
@@ -1146,7 +1164,7 @@ def beamspread_2d_for_path(ray_geometry):
         for i in range(k):
             gamma *= gamma_list[i]
         virtual_distance += r / gamma
-    
+
     # If there is no valid path because at some point the angle exceeds the critical
     # angle, then beamspread doesn't make a lot of sense. Could probably account for
     # for the inhomogeneous wave generated, but this would take a bit more work. By
@@ -1241,7 +1259,8 @@ def material_attenuation_for_path(path, ray_geometry, frequency):
         Shape: (numelements, numgridpoints)
     """
     log_att = np.zeros(
-        (path.interfaces[0].points.numpoints, path.interfaces[-1].points.numpoints)
+        (path.interfaces[0].points.numpoints,
+         path.interfaces[-1].points.numpoints)
     )
 
     for k, (material, mode) in enumerate(zip(path.materials, path.modes), start=1):
@@ -1502,7 +1521,8 @@ class _ModelAmplitudesWithScatFunction(ModelAmplitudes):
         # Nota bene: arrays' shape is (numpoints, numtimetrace), i.e. the transpose
         # of RayWeights. They are contiguous.
         if np.empty(self.numpoints)[grid_slice].ndim > 1:
-            raise IndexError("Only the first dimension of the object is indexable.")
+            raise IndexError(
+                "Only the first dimension of the object is indexable.")
 
         scat_angle = self.scat_angle
         scattering_amplitudes = self.scattering_fn(
@@ -1548,7 +1568,8 @@ def _model_amplitudes_with_scat_matrix(
         scattering_amp = _scat._interpolate_scattering_matrix_kernel(
             scattering_matrix, inc_theta, out_theta
         )
-        res[scan] = scattering_amp * tx_ray_weights[tx[scan]] * rx_ray_weights[rx[scan]]
+        res[scan] = scattering_amp * \
+            tx_ray_weights[tx[scan]] * rx_ray_weights[rx[scan]]
 
 
 class _ModelAmplitudesWithScatMatrix(ModelAmplitudes):
@@ -1573,7 +1594,8 @@ class _ModelAmplitudesWithScatMatrix(ModelAmplitudes):
         self.numpoints, self.numelements = tx_ray_weights.shape
         self.numtimetraces = self.tx.shape[0]
         self.scat_angle = scat_angle
-        self.dtype = np.result_type(tx_ray_weights, rx_ray_weights, scattering_mat)
+        self.dtype = np.result_type(
+            tx_ray_weights, rx_ray_weights, scattering_mat)
 
     def __getitem__(self, grid_slice):
         # Nota bene: arrays' shape is (numpoints, numtimetrace), i.e. the transpose
@@ -1617,7 +1639,8 @@ def sensitivity_uniform_tfm(model_amplitudes, timetrace_weights, block_size=4000
 
     # chunk the array in case we have an array too big (ModelAmplitudes)
     for chunk in helpers.chunk_array((numpoints, numtimetraces), block_size):
-        tmp = (timetrace_weights[np.newaxis] * model_amplitudes[chunk]).sum(axis=1)
+        tmp = (timetrace_weights[np.newaxis] *
+               model_amplitudes[chunk]).sum(axis=1)
         if sensitivity is None:
             sensitivity = np.zeros((numpoints,), dtype=tmp.dtype)
         sensitivity[chunk] = tmp
@@ -1669,7 +1692,8 @@ def _timeshift_timedomain(unshifted_response, delays, dt, t0_idx, out):
     n = unshifted_response.shape[1]
     for idx in numba.prange(unshifted_response.shape[0]):
         delay_idx = math.floor(delays[idx] / dt)
-        out[idx, delay_idx - t0_idx : delay_idx - t0_idx + n] += unshifted_response[idx]
+        out[idx, delay_idx - t0_idx: delay_idx -
+            t0_idx + n] += unshifted_response[idx]
 
 
 def transfer_func_to_timetraces(
@@ -1723,7 +1747,8 @@ def transfer_func_to_timetraces(
     dt = timetraces_time.step
 
     if timetraces is None:
-        timetraces = np.zeros((numtimetraces, len(timetraces_time)), np.complex_)
+        timetraces = np.zeros(
+            (numtimetraces, len(timetraces_time)), np.complex_)
 
     # Account for the timetraces t0
     delays = delays - timetraces_time.start
