@@ -2,31 +2,10 @@
 ===============
 
 .. automodule:: arim.exceptions
+   :no-members:
+
+.. autosummary::
+   :toctree: _autosummary/arim.exceptions
 
    
    
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   .. rubric:: Exceptions
-
-   .. autosummary::
-   
-      ArimWarning
-      InvalidDimension
-      InvalidShape
-      NotAnArray
-   
-   
-
-
-

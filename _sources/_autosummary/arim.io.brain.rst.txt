@@ -2,35 +2,12 @@
 =============
 
 .. automodule:: arim.io.brain
+   :no-members:
+
+.. autosummary::
+   :toctree: _autosummary/arim.io.brain
 
    
    
+   load_expdata
    
-
-   
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      load_expdata
-   
-   
-
-   
-   
-   
-
-   
-   
-   .. rubric:: Exceptions
-
-   .. autosummary::
-   
-      InvalidExpData
-      NotHandledByScipy
-   
-   
-
-
-

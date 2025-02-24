@@ -2,34 +2,14 @@
 ===========
 
 .. automodule:: arim.config
+   :no-members:
+
+.. autosummary::
+   :toctree: _autosummary/arim.config
 
    
+   Config
    
    
-
+   recursive_dict_merge
    
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      recursive_dict_merge
-   
-   
-
-   
-   
-   .. rubric:: Classes
-
-   .. autosummary::
-   
-      Config
-   
-   
-
-   
-   
-   
-
-
-

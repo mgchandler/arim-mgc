@@ -2,35 +2,14 @@
 ============
 
 .. automodule:: arim.io.scat
+   :no-members:
+
+.. autosummary::
+   :toctree: _autosummary/arim.io.scat
 
    
    
+   load_scat
    
-
+   load_scat_from_matlab
    
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      load_scat
-      load_scat_from_matlab
-   
-   
-
-   
-   
-   
-
-   
-   
-   .. rubric:: Exceptions
-
-   .. autosummary::
-   
-      InvalidFileFormat
-   
-   
-
-
-

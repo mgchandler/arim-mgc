@@ -2,39 +2,24 @@
 ========
 
 .. automodule:: arim.ray
+   :no-members:
+
+.. autosummary::
+   :toctree: _autosummary/arim.ray
 
    
+   FermatPath
+   
+   FermatSolver
+   
+   RayGeometry
+   
+   Rays
    
    
-
+   find_minimum_times
    
+   ray_tracing
    
-   .. rubric:: Functions
-
-   .. autosummary::
+   ray_tracing_for_paths
    
-      find_minimum_times
-      ray_tracing
-      ray_tracing_for_paths
-   
-   
-
-   
-   
-   .. rubric:: Classes
-
-   .. autosummary::
-   
-      FermatPath
-      FermatSolver
-      RayGeometry
-      Rays
-   
-   
-
-   
-   
-   
-
-
-
