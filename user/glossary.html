@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Glossary &#8212; arim 0.10.0.a0 documentation</title>
   
@@ -17,32 +16,33 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=51601fd6"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user/glossary';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -50,6 +50,7 @@
     <link rel="prev" title="BRAIN" href="io/brain.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -65,19 +66,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -85,7 +75,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +82,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -175,29 +164,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -206,15 +187,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -233,7 +210,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -287,15 +265,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -345,9 +319,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -365,8 +344,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -378,7 +355,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">User Guide</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">Glossary</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Glossary</span></li>
   </ul>
 </nav>
 </div>
@@ -396,62 +373,62 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="glossary">
-<span id="id1"></span><h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h1>
 <dl class="simple glossary">
-<dt id="term-acquisition-instrument">acquisition instrument<a class="headerlink" href="#term-acquisition-instrument" title="Permalink to this term">#</a></dt><dd><p>Electronic device that allows the UT expert to control a probe and record the raw signals.
+<dt id="term-acquisition-instrument">acquisition instrument<a class="headerlink" href="#term-acquisition-instrument" title="Link to this term">#</a></dt><dd><p>Electronic device that allows the UT expert to control a probe and record the raw signals.
 When connected to computer, the instrument is the physical interface between the computer
 and the probe.</p>
 </dd>
-<dt id="term-examination-object">examination object<a class="headerlink" href="#term-examination-object" title="Permalink to this term">#</a></dt><dd><p>Component examined in order to detect defects.</p>
+<dt id="term-examination-object">examination object<a class="headerlink" href="#term-examination-object" title="Link to this term">#</a></dt><dd><p>Component examined in order to detect defects.</p>
 </dd>
-<dt id="term-FMC">FMC<a class="headerlink" href="#term-FMC" title="Permalink to this term">#</a></dt><dd><p>Full Matrix Capture.</p>
+<dt id="term-FMC">FMC<a class="headerlink" href="#term-FMC" title="Link to this term">#</a></dt><dd><p>Full Matrix Capture.</p>
 </dd>
-<dt id="term-frame">frame<a class="headerlink" href="#term-frame" title="Permalink to this term">#</a></dt><dd><p>Set of <a class="reference internal" href="#term-timetrace"><span class="xref std std-term">timetraces</span></a> obtained at a given position of the probes. An
+<dt id="term-frame">frame<a class="headerlink" href="#term-frame" title="Link to this term">#</a></dt><dd><p>Set of <a class="reference internal" href="#term-timetrace"><span class="xref std std-term">timetraces</span></a> obtained at a given position of the probes. An
 inspection is usually made of several frames. See also: <a class="reference internal" href="core/frame.html#frame"><span class="std std-ref">Frame</span></a>. Examples:</p>
 <ul class="simple">
 <li><p>A <a class="reference internal" href="#term-FMC"><span class="xref std std-term">FMC</span></a> frame is a frame.</p></li>
 <li><p>A FMC frame where one timetrace is missing is a frame but is not a FMC frame.</p></li>
 </ul>
 </dd>
-<dt id="term-GCS">GCS<a class="headerlink" href="#term-GCS" title="Permalink to this term">#</a></dt><dd><p>Global Coordinate System. In the GCS, the default imaging plane is given by the equation $y=0$.</p>
+<dt id="term-GCS">GCS<a class="headerlink" href="#term-GCS" title="Link to this term">#</a></dt><dd><p>Global Coordinate System. In the GCS, the default imaging plane is given by the equation $y=0$.</p>
 </dd>
-<dt id="term-HMC">HMC<a class="headerlink" href="#term-HMC" title="Permalink to this term">#</a></dt><dd><p>Half Matrix Capture.</p>
+<dt id="term-HMC">HMC<a class="headerlink" href="#term-HMC" title="Link to this term">#</a></dt><dd><p>Half Matrix Capture.</p>
 </dd>
-<dt id="term-image">image<a class="headerlink" href="#term-image" title="Permalink to this term">#</a></dt><dd><p>Output of imaging algorithm. An image attempts to represent the examination object in such a
+<dt id="term-image">image<a class="headerlink" href="#term-image" title="Link to this term">#</a></dt><dd><p>Output of imaging algorithm. An image attempts to represent the examination object in such a
 way that the UT expert is able to confirm or invalidate the presence of a defect, or to
 characterize the defect. See also <a class="reference internal" href="#term-image-array"><span class="xref std std-term">image array</span></a> and <a class="reference internal" href="#term-image-plot"><span class="xref std std-term">image plot</span></a>.</p>
 </dd>
-<dt id="term-image-array">image array<a class="headerlink" href="#term-image-array" title="Permalink to this term">#</a></dt><dd><p>Internal representation of an image. An image array is given by scalar values (real or complex)
+<dt id="term-image-array">image array<a class="headerlink" href="#term-image-array" title="Link to this term">#</a></dt><dd><p>Internal representation of an image. An image array is given by scalar values (real or complex)
 on a regular grid (2D or 3D).</p>
 </dd>
-<dt id="term-image-plot">image plot<a class="headerlink" href="#term-image-plot" title="Permalink to this term">#</a></dt><dd><p>Visual representation of an <a class="reference internal" href="#term-image-array"><span class="xref std std-term">image array</span></a> (<em>i.e.</em> a rectangular set of colored
+<dt id="term-image-plot">image plot<a class="headerlink" href="#term-image-plot" title="Link to this term">#</a></dt><dd><p>Visual representation of an <a class="reference internal" href="#term-image-array"><span class="xref std std-term">image array</span></a> (<em>i.e.</em> a rectangular set of colored
 pixels). An image plot is always 2D.</p>
 </dd>
-<dt id="term-image-point">image point<a class="headerlink" href="#term-image-point" title="Permalink to this term">#</a></dt><dd><p>Image point</p>
+<dt id="term-image-point">image point<a class="headerlink" href="#term-image-point" title="Link to this term">#</a></dt><dd><p>Image point</p>
 </dd>
-<dt id="term-imaging-algorithm">imaging algorithm<a class="headerlink" href="#term-imaging-algorithm" title="Permalink to this term">#</a></dt><dd><p>Set of operations which creates from one or more frames an image of the examination object.</p>
+<dt id="term-imaging-algorithm">imaging algorithm<a class="headerlink" href="#term-imaging-algorithm" title="Link to this term">#</a></dt><dd><p>Set of operations which creates from one or more frames an image of the examination object.</p>
 </dd>
-<dt id="term-index-axis">index axis<a class="headerlink" href="#term-index-axis" title="Permalink to this term">#</a></dt><dd><p>Axis normal to probe during an inspectiog, i.e. axis towards where the probe is transmitting.</p>
+<dt id="term-index-axis">index axis<a class="headerlink" href="#term-index-axis" title="Link to this term">#</a></dt><dd><p>Axis normal to probe during an inspectiog, i.e. axis towards where the probe is transmitting.</p>
 </dd>
-<dt id="term-MFMC">MFMC<a class="headerlink" href="#term-MFMC" title="Permalink to this term">#</a></dt><dd><p>Multi Frame Capture Format. File format.</p>
+<dt id="term-MFMC">MFMC<a class="headerlink" href="#term-MFMC" title="Link to this term">#</a></dt><dd><p>Multi Frame Capture Format. File format.</p>
 </dd>
-<dt id="term-multi-view-TFM">multi-view TFM<a class="headerlink" href="#term-multi-view-TFM" title="Permalink to this term">#</a></dt><dd><p>Variant of <a class="reference internal" href="#term-TFM"><span class="xref std std-term">TFM</span></a></p>
+<dt id="term-multi-view-TFM">multi-view TFM<a class="headerlink" href="#term-multi-view-TFM" title="Link to this term">#</a></dt><dd><p>Variant of <a class="reference internal" href="#term-TFM"><span class="xref std std-term">TFM</span></a></p>
 </dd>
-<dt id="term-ndarray">ndarray<a class="headerlink" href="#term-ndarray" title="Permalink to this term">#</a></dt><dd><p>Multidimensional array. This is the base datatype provided by the library <code class="docutils literal notranslate"><span class="pre">numpy</span></code> to
+<dt id="term-ndarray">ndarray<a class="headerlink" href="#term-ndarray" title="Link to this term">#</a></dt><dd><p>Multidimensional array. This is the base datatype provided by the library <code class="docutils literal notranslate"><span class="pre">numpy</span></code> to
 perform optimized operations on numeric data in Python.
 See also: <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html">numpy.ndarray</a>.</p>
 </dd>
-<dt id="term-PCS">PCS<a class="headerlink" href="#term-PCS" title="Permalink to this term">#</a></dt><dd><p>Probe Cordinate System. <strong>Warning:</strong> PCS does not refer to
+<dt id="term-PCS">PCS<a class="headerlink" href="#term-PCS" title="Link to this term">#</a></dt><dd><p>Probe Cordinate System. <strong>Warning:</strong> PCS does not refer to
 <em>Probe Center Separation</em>.</p>
 </dd>
-<dt id="term-scan-axis">scan axis<a class="headerlink" href="#term-scan-axis" title="Permalink to this term">#</a></dt><dd><p>Axis along which the probe is moved during an inspection.</p>
+<dt id="term-scan-axis">scan axis<a class="headerlink" href="#term-scan-axis" title="Link to this term">#</a></dt><dd><p>Axis along which the probe is moved during an inspection.</p>
 </dd>
-<dt id="term-TFM">TFM<a class="headerlink" href="#term-TFM" title="Permalink to this term">#</a></dt><dd><p>Total Focusing Method.</p>
+<dt id="term-TFM">TFM<a class="headerlink" href="#term-TFM" title="Link to this term">#</a></dt><dd><p>Total Focusing Method.</p>
 </dd>
-<dt id="term-timetrace">timetrace<a class="headerlink" href="#term-timetrace" title="Permalink to this term">#</a></dt><dd><p>Electrical signal over time obtained from exactly one transmitter and one receiver (possibly
+<dt id="term-timetrace">timetrace<a class="headerlink" href="#term-timetrace" title="Link to this term">#</a></dt><dd><p>Electrical signal over time obtained from exactly one transmitter and one receiver (possibly
 the same).</p>
 </dd>
-<dt id="term-UT">UT<a class="headerlink" href="#term-UT" title="Permalink to this term">#</a></dt><dd><p>Ultrasonic testing. UT is a family technique of non-destructive testing based on the
+<dt id="term-UT">UT<a class="headerlink" href="#term-UT" title="Link to this term">#</a></dt><dd><p>Ultrasonic testing. UT is a family technique of non-destructive testing based on the
 propagation of ultrasonic waves in the object or material tested.</p>
 </dd>
 </dl>
@@ -492,17 +469,18 @@ propagation of ultrasonic waves in the object or material tested.</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../_sources/user/glossary.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
-  </div>
-</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/user/glossary.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -517,8 +495,8 @@ propagation of ultrasonic waves in the object or material tested.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -538,7 +516,7 @@ propagation of ultrasonic waves in the object or material tested.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
     <br/>
   </p>
 </div>
@@ -551,7 +529,8 @@ propagation of ultrasonic waves in the object or material tested.</p>
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

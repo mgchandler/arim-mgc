@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -16,37 +15,39 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/design-tabs.js"></script>
+    <script src="../../_static/documentation_options.js?v=51601fd6"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/arim/core';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -62,19 +63,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -82,7 +72,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -90,8 +79,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -172,29 +161,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -203,15 +184,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -228,7 +205,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -282,15 +260,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -298,9 +272,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -318,8 +297,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -331,7 +308,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">arim.core</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">arim.core</span></li>
   </ul>
 </nav>
 </div>
@@ -385,7 +362,9 @@ document.write(`
     <span class="k">return</span> <span class="n">attenuation</span>
 
 
-<div class="viewcode-block" id="material_attenuation_factory"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.material_attenuation_factory.html#arim.core.material_attenuation_factory">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">material_attenuation_factory</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="material_attenuation_factory">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.material_attenuation_factory.html#arim.core.material_attenuation_factory">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">material_attenuation_factory</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Material attenuation coefficient in Np/m</span>
 
@@ -427,7 +406,10 @@ document.write(`
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown material attenuation method &#39;</span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="CaptureMethod"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.CaptureMethod.html#arim.core.CaptureMethod">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">CaptureMethod</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CaptureMethod">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.CaptureMethod.html#arim.core.CaptureMethod">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CaptureMethod</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Capture method: unsupported, fmc, hmc</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -437,7 +419,10 @@ document.write(`
     <span class="n">hmc</span> <span class="o">=</span> <span class="mi">2</span></div>
 
 
-<div class="viewcode-block" id="Frame"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Frame</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Frame">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Frame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A frame contains the data received by a probe at a specific location.</span>
 
@@ -543,7 +528,9 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="nf">capture_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">CaptureMethod</span><span class="p">[</span><span class="n">ut</span><span class="o">.</span><span class="n">infer_capture_method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rx</span><span class="p">)]</span>
 
-<div class="viewcode-block" id="Frame.apply_filter"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.apply_filter">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">apply_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filt</span><span class="p">):</span>
+<div class="viewcode-block" id="Frame.apply_filter">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.apply_filter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Filter the timetraces and save them in the frame.</span>
 
@@ -571,7 +558,10 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Frame.get_timetrace"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.get_timetrace">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_timetrace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">rx</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Frame.get_timetrace">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.get_timetrace">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_timetrace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">rx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the timetrace corresponding to the pair (tx, rx).</span>
 
@@ -593,7 +583,10 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;no timetrace&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Frame.get_scanline"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.get_scanline">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_scanline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">rx</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Frame.get_scanline">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.get_scanline">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_scanline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tx</span><span class="p">,</span> <span class="n">rx</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="ne">DeprecationWarning</span><span class="p">(</span>
                 <span class="s2">&quot;Frame.get_scanline is deprecated, use Frame.get_timetrace instead&quot;</span>
@@ -601,7 +594,10 @@ document.write(`
         <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_timetrace</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">rx</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Frame.expand_frame_assuming_reciprocity"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.expand_frame_assuming_reciprocity">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">expand_frame_assuming_reciprocity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Frame.expand_frame_assuming_reciprocity">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.expand_frame_assuming_reciprocity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand_frame_assuming_reciprocity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a new Frame where new timetraces are inferred assuming reciprocity of</span>
 <span class="sd">        transmitters and receivers.</span>
@@ -656,7 +652,10 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Frame.is_complete_assuming_reciprocity"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.is_complete_assuming_reciprocity">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">is_complete_assuming_reciprocity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Frame.is_complete_assuming_reciprocity">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.is_complete_assuming_reciprocity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_complete_assuming_reciprocity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: &quot;for all pair of elements (i, j), the timetrace (i, j) is in the frame</span>
 <span class="sd">        if and only if the timetrace (j, i) exists.&quot;</span>
@@ -669,10 +668,16 @@ document.write(`
         <span class="n">reciprocal_pairs</span> <span class="o">=</span> <span class="p">{(</span><span class="n">rx</span><span class="p">,</span> <span class="n">tx</span><span class="p">)</span> <span class="k">for</span> <span class="n">tx</span><span class="p">,</span> <span class="n">rx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rx</span><span class="p">)}</span>
         <span class="k">return</span> <span class="n">orig_pairs</span> <span class="o">==</span> <span class="n">reciprocal_pairs</span></div>
 
-<div class="viewcode-block" id="Frame.drop_timetraces"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.drop_timetraces">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">drop_timetraces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetraces_idx</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Frame.drop_timetraces">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.drop_timetraces">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">drop_timetraces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetraces_idx</span><span class="p">):</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="Frame.subframe"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.subframe">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">subframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetraces_idx</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Frame.subframe">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.subframe">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">subframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timetraces_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a new Frame containing only a subset of the original timetraces.</span>
 
 <span class="sd">        Parameters</span>
@@ -705,7 +710,10 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Frame.subframe_from_probe_elements"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.subframe_from_probe_elements">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">subframe_from_probe_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements_idx</span><span class="p">,</span> <span class="n">make_subprobe</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Frame.subframe_from_probe_elements">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.subframe_from_probe_elements">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">subframe_from_probe_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements_idx</span><span class="p">,</span> <span class="n">make_subprobe</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a new Frame which only contains specified probe elements</span>
 
 <span class="sd">        Parameters</span>
@@ -759,10 +767,14 @@ document.write(`
                 <span class="n">subprobe</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">examination_object</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
-            <span class="p">)</span></div></div>
+            <span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="ElementShape"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.ElementShape.html#arim.core.ElementShape">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ElementShape</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ElementShape">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.ElementShape.html#arim.core.ElementShape">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ElementShape</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Enumeration which describes the shape of an element.</span>
 <span class="sd">    The values are compliant with the specifications of MFMC format</span>
 <span class="sd">    (field ``ELEMENT_SHAPE``).</span>
@@ -773,7 +785,10 @@ document.write(`
     <span class="n">other</span> <span class="o">=</span> <span class="mi">2</span></div>
 
 
-<div class="viewcode-block" id="Probe"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Probe</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Probe">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Probe</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A &#39;Probe&#39; contains general information about its elements: locations in the PCS and the GCS, frequency, dimensions,</span>
 <span class="sd">    etc.</span>
 
@@ -914,7 +929,9 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
-<div class="viewcode-block" id="Probe.make_matrix_probe"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.make_matrix_probe">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Probe.make_matrix_probe">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.make_matrix_probe">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">make_matrix_probe</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">numx</span><span class="p">,</span> <span class="n">pitch_x</span><span class="p">,</span> <span class="n">numy</span><span class="p">,</span> <span class="n">pitch_y</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
@@ -995,7 +1012,10 @@ document.write(`
 
         <span class="k">return</span> <span class="n">probe</span></div>
 
-<div class="viewcode-block" id="Probe.subprobe"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.subprobe">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">subprobe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements_idx</span><span class="p">,</span> <span class="n">save_metadata</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Probe.subprobe">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.subprobe">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">subprobe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements_idx</span><span class="p">,</span> <span class="n">save_metadata</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a new Probe with only a subset of the original elements.</span>
 
 <span class="sd">        Parameters</span>
@@ -1063,6 +1083,7 @@ document.write(`
             <span class="n">metadata</span><span class="p">,</span>
         <span class="p">)</span></div>
 
+
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">locations_pcs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcs</span><span class="o">.</span><span class="n">convert_from_gcs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">locations</span><span class="p">)</span>
@@ -1075,7 +1096,9 @@ document.write(`
         <span class="n">cs</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">CoordinateSystem</span><span class="p">((</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcs</span><span class="o">.</span><span class="n">i_hat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcs</span><span class="o">.</span><span class="n">j_hat</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cs</span><span class="o">.</span><span class="n">convert_from_gcs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orientations</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Probe.rotate"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.rotate">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">centre</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Probe.rotate">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.rotate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">centre</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Rotate the probe relatively in the GCS.</span>
 
@@ -1105,7 +1128,10 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">pcs</span> <span class="o">=</span> <span class="n">pcs</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Probe.translate"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.translate">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Probe.translate">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.translate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Translate the probe relatively in the GCS.</span>
 
@@ -1128,7 +1154,10 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">pcs</span> <span class="o">=</span> <span class="n">pcs</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Probe.set_element_dimensions"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.set_element_dimensions">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_element_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size_x</span><span class="p">,</span> <span class="n">size_y</span><span class="p">,</span> <span class="n">size_z</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Probe.set_element_dimensions">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.set_element_dimensions">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_element_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size_x</span><span class="p">,</span> <span class="n">size_y</span><span class="p">,</span> <span class="n">size_z</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the dimensions of all elements. This populates/overwrites the attribute ``dimensions``.</span>
 
@@ -1155,14 +1184,20 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">Points</span><span class="o">.</span><span class="n">from_xyz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Probe.flip_probe_around_axis_Oz"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.flip_probe_around_axis_Oz">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">flip_probe_around_axis_Oz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Probe.flip_probe_around_axis_Oz">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.flip_probe_around_axis_Oz">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">flip_probe_around_axis_Oz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Flip probe around axis Oz by 180°.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rot</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">rotation_matrix_z</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">rot</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Probe.set_reference_element"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.set_reference_element">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_reference_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_element</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Probe.set_reference_element">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.set_reference_element">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_reference_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_element</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Change the origin of the PCS to a given element.</span>
 
@@ -1188,13 +1223,19 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">pcs</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">new_origin</span></div>
 
-<div class="viewcode-block" id="Probe.translate_to_point_O"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.translate_to_point_O">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">translate_to_point_O</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Probe.translate_to_point_O">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.translate_to_point_O">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">translate_to_point_O</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Move the probe such as its PCS is in point O(0, 0, 0).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">pcs</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Probe.reset_position"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.reset_position">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">reset_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Probe.reset_position">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.reset_position">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Translate and rotate the probe such as its PCS coincides with the GCS. Returns None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1207,7 +1248,10 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">rotation_matrix</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Probe.to_oriented_points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.to_oriented_points">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_oriented_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Probe.to_oriented_points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.to_oriented_points">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_oriented_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the locations and the orientations of the probe elements in the GCS</span>
 <span class="sd">        as a OrientedPoints object.</span>
@@ -1217,10 +1261,14 @@ document.write(`
 <span class="sd">        OrientedPoints</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">points_from_probe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">points_from_probe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Mode"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Mode.html#arim.core.Mode">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Mode</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Mode">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Mode.html#arim.core.Mode">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Mode</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Enumerated constants for the modes: L or T.&quot;&quot;&quot;</span>
 
     <span class="n">longitudinal</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1228,7 +1276,9 @@ document.write(`
     <span class="n">L</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">T</span> <span class="o">=</span> <span class="mi">1</span>
 
-<div class="viewcode-block" id="Mode.reverse"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Mode.html#arim.core.Mode.reverse">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Mode.reverse">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Mode.html#arim.core.Mode.reverse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">longitudinal</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transverse</span>
         <span class="k">elif</span> <span class="bp">self</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">transverse</span><span class="p">:</span>
@@ -1236,7 +1286,10 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span></div>
 
-<div class="viewcode-block" id="Mode.key"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Mode.html#arim.core.Mode.key">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Mode.key">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Mode.html#arim.core.Mode.key">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a one-letter key string: &#39;L&#39; for longitudinal, &#39;T&#39; for transverse.</span>
 
@@ -1250,17 +1303,23 @@ document.write(`
         <span class="k">elif</span> <span class="bp">self</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">transverse</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;T&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span></div></div>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span></div>
+</div>
 
 
-<div class="viewcode-block" id="InterfaceKind"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.InterfaceKind.html#arim.core.InterfaceKind">[docs]</a><span class="nd">@enum</span><span class="o">.</span><span class="n">unique</span>
+
+<div class="viewcode-block" id="InterfaceKind">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.InterfaceKind.html#arim.core.InterfaceKind">[docs]</a>
+<span class="nd">@enum</span><span class="o">.</span><span class="n">unique</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">InterfaceKind</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Enumerated constants for the interface kinds.&quot;&quot;&quot;</span>
 
     <span class="n">fluid_solid</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">solid_fluid</span> <span class="o">=</span> <span class="mi">1</span>
 
-<div class="viewcode-block" id="InterfaceKind.reverse"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.InterfaceKind.html#arim.core.InterfaceKind.reverse">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="InterfaceKind.reverse">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.InterfaceKind.html#arim.core.InterfaceKind.reverse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns</span>
@@ -1273,10 +1332,14 @@ document.write(`
         <span class="k">elif</span> <span class="bp">self</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">solid_fluid</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fluid_solid</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;invalid case&quot;</span><span class="p">)</span></div></div>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;invalid case&quot;</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Interface"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Interface.html#arim.core.Interface">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Interface">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Interface.html#arim.core.Interface">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An Interface object contains information about the interface for a given ray path.</span>
 <span class="sd">    It contains the locations of the interface points but also whether the rays are transmitted or reflected, etc.</span>
@@ -1409,7 +1472,9 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">)</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
-<div class="viewcode-block" id="Interface.reverse"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Interface.html#arim.core.Interface.reverse">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Interface.reverse">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Interface.html#arim.core.Interface.reverse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new Interface object where the incoming and outgoing ways are reversed.</span>
 
@@ -1441,10 +1506,14 @@ document.write(`
             <span class="n">reflection_against</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reflection_against</span><span class="p">,</span>
             <span class="n">are_normals_on_inc_rays_side</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">are_normals_on_out_rays_side</span><span class="p">,</span>
             <span class="n">are_normals_on_out_rays_side</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">are_normals_on_inc_rays_side</span><span class="p">,</span>
-        <span class="p">)</span></div></div>
+        <span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Path"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Path.html#arim.core.Path">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Path</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Path">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Path.html#arim.core.Path">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A Path object specifies the interfaces, the materials and the modes related to a path.</span>
 
@@ -1561,7 +1630,9 @@ document.write(`
             <span class="k">for</span> <span class="n">material</span><span class="p">,</span> <span class="n">mode</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">materials</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modes</span><span class="p">)</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="Path.to_fermat_path"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Path.html#arim.core.Path.to_fermat_path">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_fermat_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Path.to_fermat_path">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Path.html#arim.core.Path.to_fermat_path">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_fermat_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a FermatPath from this object (low-level object for ray tracing).</span>
 
@@ -1574,7 +1645,10 @@ document.write(`
 
         <span class="k">return</span> <span class="n">FermatPath</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Path.reverse"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Path.html#arim.core.Path.reverse">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Path.reverse">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Path.html#arim.core.Path.reverse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Path in the way round.</span>
 
@@ -1589,10 +1663,14 @@ document.write(`
         <span class="n">rev_path</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">rev_interfaces</span><span class="p">,</span> <span class="n">rev_materials</span><span class="p">,</span> <span class="n">rev_modes</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rays</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">rev_path</span><span class="o">.</span><span class="n">rays</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rays</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">rev_path</span></div></div>
+        <span class="k">return</span> <span class="n">rev_path</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Material"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Material.html#arim.core.Material">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Material</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Material">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Material.html#arim.core.Material">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Material</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Material contains the material properties.</span>
 
@@ -1656,7 +1734,9 @@ document.write(`
 
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
-<div class="viewcode-block" id="Material.velocity"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Material.html#arim.core.Material.velocity">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+<div class="viewcode-block" id="Material.velocity">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Material.html#arim.core.Material.velocity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the velocity of the material for the mode &#39;mode&#39;.</span>
 
@@ -1682,7 +1762,10 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Don&#39;ray know what to do with mode &#39;</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Material.attenuation"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Material.html#arim.core.Material.attenuation">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Material.attenuation">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Material.html#arim.core.Material.attenuation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">attenuation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the material attenuation function for the mode &#39;mode&#39;.</span>
 
@@ -1705,10 +1788,14 @@ document.write(`
         <span class="k">elif</span> <span class="n">mode</span> <span class="ow">is</span> <span class="n">Mode</span><span class="o">.</span><span class="n">transverse</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transverse_att</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Don&#39;ray know what to do with mode &#39;</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span></div></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Don&#39;ray know what to do with mode &#39;</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="ExaminationObject"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.ExaminationObject.html#arim.core.ExaminationObject">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ExaminationObject</span><span class="p">:</span>
+
+<div class="viewcode-block" id="ExaminationObject">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.ExaminationObject.html#arim.core.ExaminationObject">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExaminationObject</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Data container for the material and the geometry of the inspected object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1721,7 +1808,10 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">metadata</span></div>
 
 
-<div class="viewcode-block" id="BlockInImmersion"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.BlockInImmersion.html#arim.core.BlockInImmersion">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">BlockInImmersion</span><span class="p">(</span><span class="n">ExaminationObject</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BlockInImmersion">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.BlockInImmersion.html#arim.core.BlockInImmersion">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BlockInImmersion</span><span class="p">(</span><span class="n">ExaminationObject</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solid block immersed in a fluid</span>
 
@@ -1754,7 +1844,10 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">metadata</span></div>
 
 
-<div class="viewcode-block" id="BlockInContact"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.BlockInContact.html#arim.core.BlockInContact">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">BlockInContact</span><span class="p">(</span><span class="n">ExaminationObject</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BlockInContact">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.BlockInContact.html#arim.core.BlockInContact">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BlockInContact</span><span class="p">(</span><span class="n">ExaminationObject</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solid block on which the probe is in direct contact</span>
 
@@ -1794,7 +1887,10 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">material</span></div>
 
 
-<div class="viewcode-block" id="Time"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Time.html#arim.core.Time">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Time</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Time">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Time.html#arim.core.Time">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Time</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Linearly spaced time vector.</span>
 
 <span class="sd">    Parameters</span>
@@ -1864,7 +1960,9 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
 
-<div class="viewcode-block" id="Time.from_vect"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Time.html#arim.core.Time.from_vect">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Time.from_vect">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Time.html#arim.core.Time.from_vect">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_vect</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">timevect</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a time object from a linearly spaced time vector.</span>
 <span class="sd">        Check that the vector is linearly spaced (tolerance: all steps must be within</span>
@@ -1893,7 +1991,10 @@ document.write(`
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">avg_step</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Time.window"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Time.html#arim.core.Time.window">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endpoint_left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">endpoint_right</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Time.window">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Time.html#arim.core.Time.window">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endpoint_left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">endpoint_right</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a slice which selects the points [tmin, tmax].</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1915,11 +2016,18 @@ document.write(`
             <span class="n">imax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">,</span> <span class="n">tmax</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="n">side</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="n">imin</span><span class="p">,</span> <span class="n">imax</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Time.closest_index"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Time.html#arim.core.Time.closest_index">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">closest_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples</span> <span class="o">-</span> <span class="n">time</span><span class="p">))</span></div></div>
+
+<div class="viewcode-block" id="Time.closest_index">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.Time.html#arim.core.Time.closest_index">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">closest_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples</span> <span class="o">-</span> <span class="n">time</span><span class="p">))</span></div>
+</div>
 
 
-<div class="viewcode-block" id="View"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.View.html#arim.core.View">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">View</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;View&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;tx_path&quot;</span><span class="p">,</span> <span class="s2">&quot;rx_path&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">])):</span>
+
+<div class="viewcode-block" id="View">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.View.html#arim.core.View">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">View</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;View&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;tx_path&quot;</span><span class="p">,</span> <span class="s2">&quot;rx_path&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">])):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    View(tx_path, rx_path, name)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1929,7 +2037,9 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span>
 
-<div class="viewcode-block" id="View.scat_key"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.View.html#arim.core.View.scat_key">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">scat_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="View.scat_key">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.core/arim.core.View.html#arim.core.View.scat_key">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scat_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the scattering key (LL, LT, TL or TT) corresponding to the view.</span>
 
@@ -1939,6 +2049,7 @@ document.write(`
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tx_path</span><span class="o">.</span><span class="n">modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rx_path</span><span class="o">.</span><span class="n">modes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">key</span><span class="p">()</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">longname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1991,6 +2102,7 @@ document.write(`
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rx_path</span><span class="o">.</span><span class="n">shortname</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tx_path</span><span class="o">.</span><span class="n">reverse_shortname</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
 </pre></div>
 
                 </article>
@@ -2020,8 +2132,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -2041,7 +2153,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
     <br/>
   </p>
 </div>
@@ -2054,7 +2166,8 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

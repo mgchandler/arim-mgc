@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>arim.geometry.Points &#8212; arim 0.10.0.a0 documentation</title>
   
@@ -17,32 +16,33 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/design-tabs.js"></script>
+    <script src="../../../_static/documentation_options.js?v=51601fd6"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/_autosummary/arim.geometry/arim.geometry.Points';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -50,6 +50,7 @@
     <link rel="prev" title="arim.geometry.OrientedPoints" href="arim.geometry.OrientedPoints.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -65,19 +66,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -85,7 +75,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -93,8 +82,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -175,29 +164,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -206,15 +187,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -233,7 +210,8 @@ document.write(`
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -287,15 +265,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -535,6 +509,20 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../arim.ut/arim.ut.wrap_phase.html">arim.ut.wrap_phase</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../arim.plot.html">arim.plot</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.RayPlotter.html">arim.plot.RayPlotter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.common_dynamic_db_scale.html">arim.plot.common_dynamic_db_scale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.draw_rays_on_click.html">arim.plot.draw_rays_on_click</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.plot_bscan.html">arim.plot.plot_bscan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.plot_bscan_pulse_echo.html">arim.plot.plot_bscan_pulse_echo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.plot_directivity_finite_width_2d.html">arim.plot.plot_directivity_finite_width_2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.plot_interfaces.html">arim.plot.plot_interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.plot_oxz.html">arim.plot.plot_oxz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.plot_oxz_many.html">arim.plot.plot_oxz_many</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.plot_psd.html">arim.plot.plot_psd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arim.plot/arim.plot.plot_tfm.html">arim.plot.plot_tfm</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../arim.signal.html">arim.signal</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../arim.signal/arim.signal.Abs.html">arim.signal.Abs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../arim.signal/arim.signal.ButterworthBandpass.html">arim.signal.ButterworthBandpass</a></li>
@@ -583,9 +571,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -603,8 +596,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -619,7 +610,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../../arim.geometry.html" class="nav-link">arim.geometry</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">arim.geometry.Points</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">arim.geometry.Points</span></li>
   </ul>
 </nav>
 </div>
@@ -637,10 +628,10 @@ document.write(`
                 <article class="bd-article">
                   
   <section id="arim-geometry-points">
-<h1>arim.geometry.Points<a class="headerlink" href="#arim-geometry-points" title="Permalink to this heading">#</a></h1>
+<h1>arim.geometry.Points<a class="headerlink" href="#arim-geometry-points" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="arim.geometry.Points">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arim.geometry.</span></span><span class="sig-name descname"><span class="pre">Points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arim.geometry.</span></span><span class="sig-name descname"><span class="pre">Points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Set of points in a 3D space.</p>
 <p>The coordinates (x, y, z) are stored contiguously.</p>
@@ -671,7 +662,7 @@ are returned in the following order: (0, 0, 0), (0, 0, 1), (0, 1, 0), (0, 1, 1),
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="arim.geometry.Points.shape">
-<span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#arim.geometry.Points.shape" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#arim.geometry.Points.shape" title="Link to this definition">#</a></dt>
 <dd><p>() if there is one point, (n, ) if vector of n points, (n, m) if matrix of points, etc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -682,7 +673,7 @@ are returned in the following order: (0, 0, 0), (0, 0, 1), (0, 1, 0), (0, 1, 1),
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="arim.geometry.Points.size_npoints">
-<span class="sig-name descname"><span class="pre">size_npoints</span></span><a class="headerlink" href="#arim.geometry.Points.size_npoints" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">size_npoints</span></span><a class="headerlink" href="#arim.geometry.Points.size_npoints" title="Link to this definition">#</a></dt>
 <dd><p>Total number of points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -693,17 +684,17 @@ are returned in the following order: (0, 0, 0), (0, 0, 1), (0, 1, 0), (0, 1, 1),
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.allclose">
-<span class="sig-name descname"><span class="pre">allclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.allclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.allclose" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">allclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.allclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.allclose" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.closest_point">
-<span class="sig-name descname"><span class="pre">closest_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.closest_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.closest_point" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">closest_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.closest_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.closest_point" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.enumerate">
-<span class="sig-name descname"><span class="pre">enumerate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.enumerate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.enumerate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">enumerate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.enumerate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.enumerate" title="Link to this definition">#</a></dt>
 <dd><p>Yield the index and the coordinates of each point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Yields<span class="colon">:</span></dt>
@@ -717,7 +708,7 @@ are returned in the following order: (0, 0, 0), (0, 0, 1), (0, 1, 0), (0, 1, 1),
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.from_gcs">
-<span class="sig-name descname"><span class="pre">from_gcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origins</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.from_gcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.from_gcs" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">from_gcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origins</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.from_gcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.from_gcs" title="Link to this definition">#</a></dt>
 <dd><p>Returns the coordinates of the points expressed in the basis/bases given as
 parameter. Returns a new Points object.</p>
 <p>Cf. <a class="reference internal" href="arim.geometry.from_gcs.html#arim.geometry.from_gcs" title="arim.geometry.from_gcs"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_gcs()</span></code></a></p>
@@ -725,18 +716,18 @@ parameter. Returns a new Points object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.from_xyz">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_xyz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.from_xyz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.from_xyz" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_xyz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.from_xyz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.from_xyz" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.norm2">
-<span class="sig-name descname"><span class="pre">norm2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.norm2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.norm2" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">norm2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.norm2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.norm2" title="Link to this definition">#</a></dt>
 <dd><p>Returns a array of shape <cite>shape</cite></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.points_in_rectbox">
-<span class="sig-name descname"><span class="pre">points_in_rectbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.points_in_rectbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.points_in_rectbox" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">points_in_rectbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.points_in_rectbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.points_in_rectbox" title="Link to this definition">#</a></dt>
 <dd><p>Returns points in the rectangular box.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -746,11 +737,11 @@ parameter. Returns a new Points object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.reshape">
-<span class="sig-name descname"><span class="pre">reshape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.reshape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.reshape" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reshape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.reshape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.reshape" title="Link to this definition">#</a></dt>
 <dd><p>Returns the reshaped coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>shape</strong> (<em>tuple</em>) – </p>
+<dd class="field-odd"><p><strong>shape</strong> (<em>tuple</em>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#arim.geometry.Points" title="arim.geometry.Points">Points</a></p>
@@ -760,14 +751,14 @@ parameter. Returns a new Points object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.rotate">
-<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.rotate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centre</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.rotate" title="Link to this definition">#</a></dt>
 <dd><p>Rotates the points. Returns a new Points object.</p>
 <p>Cf. <a class="reference internal" href="arim.geometry.rotate.html#arim.geometry.rotate" title="arim.geometry.rotate"><code class="xref py py-func docutils literal notranslate"><span class="pre">rotate()</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.spherical_coordinates">
-<span class="sig-name descname"><span class="pre">spherical_coordinates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.spherical_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.spherical_coordinates" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">spherical_coordinates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.spherical_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.spherical_coordinates" title="Link to this definition">#</a></dt>
 <dd><p>(r, theta, phi)</p>
 <p>Quoted from [Spherical coordinate system](<a class="reference external" href="https://en.wikipedia.org/wiki/Spherical_coordinate_system">https://en.wikipedia.org/wiki/Spherical_coordinate_system</a>):</p>
 <blockquote>
@@ -788,7 +779,7 @@ polar angle θ (theta), and azimuthal angle φ (phi).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.to_1d_points">
-<span class="sig-name descname"><span class="pre">to_1d_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.to_1d_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.to_1d_points" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_1d_points</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.to_1d_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.to_1d_points" title="Link to this definition">#</a></dt>
 <dd><p>Returns a new 1d Points object (shape: (numpoints, ))</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -799,7 +790,7 @@ polar angle θ (theta), and azimuthal angle φ (phi).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.to_gcs">
-<span class="sig-name descname"><span class="pre">to_gcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origins</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.to_gcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.to_gcs" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">to_gcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origins</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.to_gcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.to_gcs" title="Link to this definition">#</a></dt>
 <dd><p>Returns the coordinates of the points expressed in the global coordinate system.
 Returns a new Points object.</p>
 <p>Cf. <a class="reference internal" href="arim.geometry.to_gcs.html#arim.geometry.to_gcs" title="arim.geometry.to_gcs"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_gcs()</span></code></a></p>
@@ -807,7 +798,7 @@ Returns a new Points object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="arim.geometry.Points.translate">
-<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.translate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.translate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/arim/geometry.html#Points.translate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arim.geometry.Points.translate" title="Link to this definition">#</a></dt>
 <dd><p>Translate the points along a given direction or several directions.</p>
 <p>If one direction is given (array of shape (3, )), the same direction is
 applied to all points:</p>
@@ -835,52 +826,52 @@ from the corresponding direction given:</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="arim.geometry.Points.coords">
-<span class="sig-name descname"><span class="pre">coords</span></span><a class="headerlink" href="#arim.geometry.Points.coords" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">coords</span></span><a class="headerlink" href="#arim.geometry.Points.coords" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="arim.geometry.Points.dtype">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dtype</span></span><a class="headerlink" href="#arim.geometry.Points.dtype" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dtype</span></span><a class="headerlink" href="#arim.geometry.Points.dtype" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="arim.geometry.Points.name">
-<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#arim.geometry.Points.name" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#arim.geometry.Points.name" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="arim.geometry.Points.ndim">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim</span></span><a class="headerlink" href="#arim.geometry.Points.ndim" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim</span></span><a class="headerlink" href="#arim.geometry.Points.ndim" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="arim.geometry.Points.numpoints">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">numpoints</span></span><a class="headerlink" href="#arim.geometry.Points.numpoints" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">numpoints</span></span><a class="headerlink" href="#arim.geometry.Points.numpoints" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="id0">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#id0" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="arim.geometry.Points.size">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#arim.geometry.Points.size" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#arim.geometry.Points.size" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="arim.geometry.Points.x">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#arim.geometry.Points.x" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#arim.geometry.Points.x" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="arim.geometry.Points.y">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#arim.geometry.Points.y" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#arim.geometry.Points.y" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="arim.geometry.Points.z">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#arim.geometry.Points.z" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#arim.geometry.Points.z" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -922,17 +913,57 @@ from the corresponding direction given:</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
-
-  <div class="tocsection sourcelink">
-    <a href="../../../_sources/_autosummary/_autosummary/arim.geometry/arim.geometry.Points.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
-    </a>
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
   </div>
-</div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points"><code class="docutils literal notranslate"><span class="pre">Points</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.shape"><code class="docutils literal notranslate"><span class="pre">Points.shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.size_npoints"><code class="docutils literal notranslate"><span class="pre">Points.size_npoints</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.allclose"><code class="docutils literal notranslate"><span class="pre">Points.allclose()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.closest_point"><code class="docutils literal notranslate"><span class="pre">Points.closest_point()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.enumerate"><code class="docutils literal notranslate"><span class="pre">Points.enumerate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.from_gcs"><code class="docutils literal notranslate"><span class="pre">Points.from_gcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.from_xyz"><code class="docutils literal notranslate"><span class="pre">Points.from_xyz()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.norm2"><code class="docutils literal notranslate"><span class="pre">Points.norm2()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.points_in_rectbox"><code class="docutils literal notranslate"><span class="pre">Points.points_in_rectbox()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.reshape"><code class="docutils literal notranslate"><span class="pre">Points.reshape()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.rotate"><code class="docutils literal notranslate"><span class="pre">Points.rotate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.spherical_coordinates"><code class="docutils literal notranslate"><span class="pre">Points.spherical_coordinates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.to_1d_points"><code class="docutils literal notranslate"><span class="pre">Points.to_1d_points()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.to_gcs"><code class="docutils literal notranslate"><span class="pre">Points.to_gcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.translate"><code class="docutils literal notranslate"><span class="pre">Points.translate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.coords"><code class="docutils literal notranslate"><span class="pre">Points.coords</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.dtype"><code class="docutils literal notranslate"><span class="pre">Points.dtype</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.name"><code class="docutils literal notranslate"><span class="pre">Points.name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.ndim"><code class="docutils literal notranslate"><span class="pre">Points.ndim</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.numpoints"><code class="docutils literal notranslate"><span class="pre">Points.numpoints</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">Points.shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.size"><code class="docutils literal notranslate"><span class="pre">Points.size</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.x"><code class="docutils literal notranslate"><span class="pre">Points.x</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.y"><code class="docutils literal notranslate"><span class="pre">Points.y</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arim.geometry.Points.z"><code class="docutils literal notranslate"><span class="pre">Points.z</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/_autosummary/_autosummary/arim.geometry/arim.geometry.Points.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
 
 </div></div>
               
@@ -947,8 +978,8 @@ from the corresponding direction given:</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -968,7 +999,7 @@ from the corresponding direction given:</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
     <br/>
   </p>
 </div>
@@ -981,7 +1012,8 @@ from the corresponding direction given:</p>
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

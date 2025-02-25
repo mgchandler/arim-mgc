@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -16,37 +15,39 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/design-tabs.js"></script>
+    <script src="../../_static/documentation_options.js?v=51601fd6"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/arim/ray';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -62,19 +63,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -82,7 +72,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -90,8 +79,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -172,29 +161,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -203,15 +184,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -228,7 +205,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -282,15 +260,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -298,9 +272,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -318,8 +297,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -331,7 +308,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">arim.ray</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">arim.ray</span></li>
   </ul>
 </nav>
 </div>
@@ -374,7 +351,9 @@ document.write(`
 <span class="n">use_parallel</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ARIM_USE_PARALLEL&quot;</span><span class="p">,</span> <span class="ow">not</span> <span class="n">numba</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">IS_32BITS</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="find_minimum_times"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.find_minimum_times.html#arim.ray.find_minimum_times">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">find_minimum_times</span><span class="p">(</span>
+<div class="viewcode-block" id="find_minimum_times">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.find_minimum_times.html#arim.ray.find_minimum_times">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_minimum_times</span><span class="p">(</span>
     <span class="n">time_1</span><span class="p">,</span> <span class="n">time_2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">block_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">numthreads</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -463,6 +442,7 @@ document.write(`
     <span class="k">return</span> <span class="n">out_min_times</span><span class="p">,</span> <span class="n">out_best_indices</span></div>
 
 
+
 <span class="nd">@numba</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">_find_minimum_times</span><span class="p">(</span><span class="n">time_1</span><span class="p">,</span> <span class="n">time_2</span><span class="p">,</span> <span class="n">out_min_times</span><span class="p">,</span> <span class="n">out_best_indices</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -491,7 +471,9 @@ document.write(`
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ray_tracing_for_paths"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.ray_tracing_for_paths.html#arim.ray.ray_tracing_for_paths">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">ray_tracing_for_paths</span><span class="p">(</span>
+<div class="viewcode-block" id="ray_tracing_for_paths">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.ray_tracing_for_paths.html#arim.ray.ray_tracing_for_paths">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ray_tracing_for_paths</span><span class="p">(</span>
     <span class="n">paths_list</span><span class="p">,</span> <span class="n">walls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">turn_off_invalid_rays</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">convert_to_fortran_order</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -536,7 +518,10 @@ document.write(`
         <span class="n">path</span><span class="o">.</span><span class="n">rays</span> <span class="o">=</span> <span class="n">rays_dict</span><span class="p">[</span><span class="n">fermat_path</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="ray_tracing"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.ray_tracing.html#arim.ray.ray_tracing">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">ray_tracing</span><span class="p">(</span>
+
+<div class="viewcode-block" id="ray_tracing">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.ray_tracing.html#arim.ray.ray_tracing">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ray_tracing</span><span class="p">(</span>
     <span class="n">views_list</span><span class="p">,</span> <span class="n">walls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">turn_off_invalid_rays</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">convert_to_fortran_order</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -559,6 +544,7 @@ document.write(`
         <span class="n">turn_off_invalid_rays</span><span class="o">=</span><span class="n">turn_off_invalid_rays</span><span class="p">,</span>
         <span class="n">convert_to_fortran_order</span><span class="o">=</span><span class="n">convert_to_fortran_order</span><span class="p">,</span>
     <span class="p">)</span></div>
+
 
 
 <span class="nd">@numba</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="n">use_parallel</span><span class="p">)</span>
@@ -604,7 +590,9 @@ document.write(`
             <span class="n">expanded_indices</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span>
 
 
-<div class="viewcode-block" id="Rays"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Rays</span><span class="p">:</span>
+<div class="viewcode-block" id="Rays">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Rays</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rays(times, interior_indices, path)</span>
 
@@ -675,7 +663,9 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">_fermat_path</span> <span class="o">=</span> <span class="n">fermat_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_invalid_rays</span> <span class="o">=</span> <span class="n">invalid_rays</span>
 
-<div class="viewcode-block" id="Rays.make_rays_two_interfaces"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.make_rays_two_interfaces">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Rays.make_rays_two_interfaces">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.make_rays_two_interfaces">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">make_rays_two_interfaces</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">dtype_indices</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Alternative constructor for Rays objects when there is only two interfaces,</span>
@@ -690,6 +680,7 @@ document.write(`
 
         <span class="n">interior_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_indices</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">interior_indices</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">fermat_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -707,7 +698,9 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="nf">interior_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Rays.make_indices"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.make_indices">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Rays.make_indices">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.make_indices">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">make_indices</span><span class="p">(</span><span class="n">interior_indices</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
@@ -741,7 +734,10 @@ document.write(`
         <span class="n">indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">interior_indices</span>
         <span class="k">return</span> <span class="n">indices</span></div>
 
-<div class="viewcode-block" id="Rays.get_coordinates"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.get_coordinates">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_interface</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Rays.get_coordinates">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.get_coordinates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_interface</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Yields the coordinates of the rays of the n-th interface, as a tuple</span>
 <span class="sd">        of three 2d ndarrays.</span>
@@ -777,7 +773,10 @@ document.write(`
             <span class="n">z</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">z</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
             <span class="k">yield</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rays.get_coordinates_one"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.get_coordinates_one">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_coordinates_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Rays.get_coordinates_one">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.get_coordinates_one">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_coordinates_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the coordinates of one ray as ``Point``.</span>
 
@@ -795,7 +794,10 @@ document.write(`
             <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">z</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">Points</span><span class="o">.</span><span class="n">from_xyz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="s2">&quot;Ray&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rays.gone_through_extreme_points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.gone_through_extreme_points">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">gone_through_extreme_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Rays.gone_through_extreme_points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.gone_through_extreme_points">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gone_through_extreme_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the rays which are going through at least one extreme point in the interfaces.</span>
 <span class="sd">        These rays can be non physical, it is then safer to be conservative and remove them all.</span>
@@ -824,7 +826,10 @@ document.write(`
             <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">interior_indices</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">out</span></div>
 
-<div class="viewcode-block" id="Rays.gone_through_interface"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.gone_through_interface">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">gone_through_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_interfaces</span><span class="p">,</span> <span class="n">walls</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Rays.gone_through_interface">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.gone_through_interface">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gone_through_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_interfaces</span><span class="p">,</span> <span class="n">walls</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the rays which are going through at least one interface (i.e. in the line).</span>
 <span class="sd">        Considering a convex geometry, these are rays which are physically blocked by the interface.</span>
@@ -950,7 +955,10 @@ document.write(`
                 <span class="n">last</span> <span class="o">=</span> <span class="n">coords</span>
         <span class="k">return</span> <span class="n">out</span></div>
 
-<div class="viewcode-block" id="Rays.to_fortran_order"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.to_fortran_order">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_fortran_order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Rays.to_fortran_order">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.to_fortran_order">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_fortran_order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a Ray object with the .</span>
 
@@ -972,7 +980,10 @@ document.write(`
             <span class="s2">&quot;F&quot;</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Rays.expand_rays"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.expand_rays">[docs]</a>    <span class="nd">@staticmethod</span>
+
+<div class="viewcode-block" id="Rays.expand_rays">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.expand_rays">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">expand_rays</span><span class="p">(</span><span class="n">interior_indices</span><span class="p">,</span> <span class="n">indices_new_interface</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Expand the rays by one interface knowing the beginning of the rays and the</span>
@@ -1011,7 +1022,10 @@ document.write(`
             <span class="n">_expand_rays</span><span class="p">(</span><span class="n">interior_indices</span><span class="p">,</span> <span class="n">indices_new_interface</span><span class="p">,</span> <span class="n">expanded_indices</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">expanded_indices</span></div>
 
-<div class="viewcode-block" id="Rays.reverse"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.reverse">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;f&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Rays.reverse">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.Rays.html#arim.ray.Rays.reverse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;f&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new Rays object which corresponds to the reversed path.</span>
 
@@ -1034,10 +1048,14 @@ document.write(`
         <span class="n">reversed_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">reversed_indices</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
 
         <span class="n">reversed_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fermat_path</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">reversed_times</span><span class="p">,</span> <span class="n">reversed_indices</span><span class="p">,</span> <span class="n">reversed_path</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">reversed_times</span><span class="p">,</span> <span class="n">reversed_indices</span><span class="p">,</span> <span class="n">reversed_path</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="FermatPath"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FermatPath</span><span class="p">(</span><span class="nb">tuple</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FermatPath">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FermatPath</span><span class="p">(</span><span class="nb">tuple</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    FermatPath(points_and_speeds)</span>
 
@@ -1061,7 +1079,9 @@ document.write(`
         <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">])),</span> <span class="s2">&quot;nonfinite velocity&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FermatPath.from_path"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath.from_path">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="FermatPath.from_path">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath.from_path">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a FermatPath object from a (smarter) Path object.</span>
@@ -1076,6 +1096,7 @@ document.write(`
         <span class="n">path_pieces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">interfaces</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">path_pieces</span><span class="p">)</span></div>
 
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
@@ -1086,10 +1107,15 @@ document.write(`
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot join two subpaths with different extremities.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">((</span><span class="o">*</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">tail</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
 
-<div class="viewcode-block" id="FermatPath.reverse"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath.reverse">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FermatPath.reverse">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath.reverse">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span></div>
 
-<div class="viewcode-block" id="FermatPath.split_head"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath.split_head">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">split_head</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FermatPath.split_head">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath.split_head">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">split_head</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Split a Path in two at the first interface:</span>
 <span class="sd">        ``(points_1, speed_1_2, points_2)`` and ``(points_2, speed_2_3, ..., points_n)``.</span>
@@ -1100,7 +1126,10 @@ document.write(`
         <span class="n">tail</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
         <span class="k">return</span> <span class="n">head</span><span class="p">,</span> <span class="n">tail</span></div>
 
-<div class="viewcode-block" id="FermatPath.split_queue"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath.split_queue">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">split_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FermatPath.split_queue">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath.split_queue">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">split_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Split a Path in two at the last interface:</span>
 <span class="sd">        ``(points_1, speed_1_2, ... points_n1)`` and ``(points_n1, speed, points_n)``.</span>
@@ -1111,6 +1140,7 @@ document.write(`
         <span class="n">head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
         <span class="n">tail</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
         <span class="k">return</span> <span class="n">head</span><span class="p">,</span> <span class="n">tail</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1140,7 +1170,10 @@ document.write(`
             <span class="k">return</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">interfaces</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="FermatSolver"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FermatSolver</span><span class="p">:</span>
+
+<div class="viewcode-block" id="FermatSolver">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FermatSolver</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solver: take as input the interfaces, give as output the ray paths.</span>
 
@@ -1198,7 +1231,9 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">num_minimization</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_euc_distance</span> <span class="o">=</span> <span class="mi">0</span>
 
-<div class="viewcode-block" id="FermatSolver.from_views"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.from_views">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="FermatSolver.from_views">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.from_views">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_views</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">views_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a FermatSolver from a list of views (alternative constructor).</span>
@@ -1220,7 +1255,10 @@ document.write(`
         <span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">dtype_indices</span><span class="o">=</span><span class="n">dtype_indices</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FermatSolver.solve"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.solve">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FermatSolver.solve">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.solve">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the rays for all paths and store them in ``self.res``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1229,7 +1267,10 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">res</span></div>
 
-<div class="viewcode-block" id="FermatSolver.solve_no_clean"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.solve_no_clean">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">solve_no_clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FermatSolver.solve_no_clean">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.solve_no_clean">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">solve_no_clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the rays for all paths and store them in ``self.res``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1239,6 +1280,7 @@ document.write(`
         <span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ray tracing: solved all in </span><span class="si">{</span><span class="n">toc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tic</span><span class="si">:</span><span class="s2">.3g</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">res</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1291,12 +1333,17 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">cached_result</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>
         <span class="k">return</span> <span class="n">res</span>
 
-<div class="viewcode-block" id="FermatSolver.clear_cache"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.clear_cache">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FermatSolver.clear_cache">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.clear_cache">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cached_distance</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cached_result</span> <span class="o">=</span> <span class="n">Cache</span><span class="p">()</span>
         <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>  <span class="c1"># force the garbage collector to delete unreferenced objects</span></div>
 
-<div class="viewcode-block" id="FermatSolver.consecutive_times"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.consecutive_times">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">consecutive_times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FermatSolver.consecutive_times">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.consecutive_times">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">consecutive_times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes the rays between two consecutive sets of points.</span>
 <span class="sd">        This is straight forward: each ray is a straight line; ray lengths are</span>
 <span class="sd">        obtained by taking the Euclidean distances between points.</span>
@@ -1319,7 +1366,9 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">cached_distance</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span>
             <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="n">rkey</span><span class="p">:</span>  <span class="c1"># if points1 and points2 are the same!</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cached_distance</span><span class="p">[</span><span class="n">rkey</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">T</span>
-        <span class="k">return</span> <span class="n">Rays</span><span class="o">.</span><span class="n">make_rays_two_interfaces</span><span class="p">(</span><span class="n">distance</span> <span class="o">/</span> <span class="n">speed</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype_indices</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">Rays</span><span class="o">.</span><span class="n">make_rays_two_interfaces</span><span class="p">(</span><span class="n">distance</span> <span class="o">/</span> <span class="n">speed</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype_indices</span><span class="p">)</span></div>
+</div>
+
 
 
 <span class="nd">@numba</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span>
@@ -1409,7 +1458,9 @@ document.write(`
     <span class="k">return</span> <span class="n">wrapper</span>
 
 
-<div class="viewcode-block" id="RayGeometry"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">RayGeometry</span><span class="p">:</span>
+<div class="viewcode-block" id="RayGeometry">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RayGeometry</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    RayGeometry computes the leg sizes and various angles in rays.</span>
 
@@ -1447,7 +1498,9 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_interface_indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">numinterfaces</span><span class="p">))</span>
 
-<div class="viewcode-block" id="RayGeometry.from_path"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.from_path">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RayGeometry.from_path">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.from_path">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
@@ -1465,6 +1518,7 @@ document.write(`
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rays must be computed first.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">interfaces</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">rays</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="n">use_cache</span><span class="p">)</span></div>
 
+
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">numinterfaces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interfaces</span><span class="p">)</span>
@@ -1473,7 +1527,9 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="nf">numlegs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">interfaces</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
-<div class="viewcode-block" id="RayGeometry.precompute"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.precompute">[docs]</a>    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<div class="viewcode-block" id="RayGeometry.precompute">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.precompute">[docs]</a>
+    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">precompute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Context manager for cleaning intermediate results after execution.</span>
@@ -1498,7 +1554,10 @@ document.write(`
         <span class="k">yield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clear_intermediate_results</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="RayGeometry.leg_points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.leg_points">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.leg_points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.leg_points">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">leg_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the coordinates (x, y, z) in the GCS of the points crossed by the rays at</span>
@@ -1521,7 +1580,10 @@ document.write(`
         <span class="n">legs_points</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rays</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="n">interface_idx</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">aspoints</span><span class="p">(</span><span class="n">legs_points</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.orientations_of_legs_points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.orientations_of_legs_points">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.orientations_of_legs_points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.orientations_of_legs_points">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">orientations_of_legs_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ``orientations[i, j]`` is the basis (3x3 orthogonal matrix) attached to the point</span>
@@ -1542,7 +1604,10 @@ document.write(`
         <span class="n">orientations</span> <span class="o">=</span> <span class="n">orientations_all_points</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">rays_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">aspoints</span><span class="p">(</span><span class="n">orientations</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.clear_intermediate_results"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.clear_intermediate_results">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">clear_intermediate_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="RayGeometry.clear_intermediate_results">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.clear_intermediate_results">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_intermediate_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear cache containing intermediate (non-final) results.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1550,14 +1615,20 @@ document.write(`
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys_to_flush</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.clear_all_results"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.clear_all_results">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">clear_all_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="RayGeometry.clear_all_results">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.clear_all_results">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_all_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear the whole cache (intermediate and final results).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="vm">__class__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_final_keys</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="RayGeometry.inc_leg_size"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_size">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.inc_leg_size">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_size">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">inc_leg_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the size of the incoming leg.</span>
@@ -1584,7 +1655,10 @@ document.write(`
         <span class="n">legs</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">Points</span><span class="p">(</span><span class="n">legs_starts</span> <span class="o">-</span> <span class="n">legs_ends</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">legs</span><span class="o">.</span><span class="n">norm2</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="RayGeometry.inc_leg_cartesian"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_cartesian">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.inc_leg_cartesian">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_cartesian">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">inc_leg_cartesian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the coordinates of the source points of the legs that arrive at the</span>
@@ -1619,7 +1693,10 @@ document.write(`
         <span class="n">legs_local</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">from_gcs</span><span class="p">(</span><span class="n">legs_starts</span><span class="p">,</span> <span class="n">orientations</span><span class="p">,</span> <span class="n">legs_ends</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">aspoints</span><span class="p">(</span><span class="n">legs_local</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.inc_leg_radius"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_radius">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.inc_leg_radius">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_radius">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">inc_leg_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the radius (length) of the leg incoming to interface interface_idx.</span>
@@ -1640,7 +1717,10 @@ document.write(`
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">spherical_coordinates_r</span><span class="p">(</span><span class="n">cartesian</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cartesian</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">cartesian</span><span class="o">.</span><span class="n">z</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.inc_leg_polar"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_polar">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.inc_leg_polar">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_polar">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">inc_leg_polar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the polar angle in [0, pi] of the leg incoming to interface interface_idx.</span>
@@ -1662,7 +1742,10 @@ document.write(`
         <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inc_leg_radius</span><span class="p">(</span><span class="n">interface_idx</span><span class="p">,</span> <span class="n">is_final</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">spherical_coordinates_theta</span><span class="p">(</span><span class="n">cartesian</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.inc_leg_azimuth"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_azimuth">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.inc_leg_azimuth">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_leg_azimuth">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">inc_leg_azimuth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the corrected polar angle in [0, pi] of the leg incoming to interface</span>
@@ -1685,11 +1768,17 @@ document.write(`
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">spherical_coordinates_phi</span><span class="p">(</span><span class="n">cartesian</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cartesian</span><span class="o">.</span><span class="n">y</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.inc_angle"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_angle">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.inc_angle">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.inc_angle">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">inc_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inc_leg_polar</span><span class="p">(</span><span class="n">interface_idx</span><span class="p">,</span> <span class="n">is_final</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.signed_inc_angle"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.signed_inc_angle">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.signed_inc_angle">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.signed_inc_angle">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">signed_inc_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
         <span class="n">azimuth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inc_leg_azimuth</span><span class="p">(</span><span class="n">interface_idx</span><span class="p">,</span> <span class="n">is_final</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">azimuth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1697,7 +1786,10 @@ document.write(`
         <span class="n">polar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inc_leg_polar</span><span class="p">(</span><span class="n">interface_idx</span><span class="p">,</span> <span class="n">is_final</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_signed_leg_angle</span><span class="p">(</span><span class="n">polar</span><span class="p">,</span> <span class="n">azimuth</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.conventional_inc_angle"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.conventional_inc_angle">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.conventional_inc_angle">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.conventional_inc_angle">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">conventional_inc_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">interface_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -1718,7 +1810,10 @@ document.write(`
             <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
             <span class="k">return</span> <span class="n">out</span></div>
 
-<div class="viewcode-block" id="RayGeometry.out_leg_cartesian"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_leg_cartesian">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.out_leg_cartesian">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_leg_cartesian">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">out_leg_cartesian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the coordinates of the destination points of the legs that start from the</span>
@@ -1754,7 +1849,10 @@ document.write(`
         <span class="n">legs_local</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">from_gcs</span><span class="p">(</span><span class="n">legs_ends</span><span class="p">,</span> <span class="n">orientations</span><span class="p">,</span> <span class="n">legs_starts</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">aspoints</span><span class="p">(</span><span class="n">legs_local</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.out_leg_radius"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_leg_radius">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.out_leg_radius">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_leg_radius">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">out_leg_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the radius (length) of the leg outgoing from interface interface_idx.</span>
@@ -1775,7 +1873,10 @@ document.write(`
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">spherical_coordinates_r</span><span class="p">(</span><span class="n">cartesian</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cartesian</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">cartesian</span><span class="o">.</span><span class="n">z</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.out_leg_polar"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_leg_polar">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.out_leg_polar">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_leg_polar">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">out_leg_polar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the polar angle in [0, pi] of the leg outgoing from interface interface_idx.</span>
@@ -1797,7 +1898,10 @@ document.write(`
         <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_leg_radius</span><span class="p">(</span><span class="n">interface_idx</span><span class="p">,</span> <span class="n">is_final</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">spherical_coordinates_theta</span><span class="p">(</span><span class="n">cartesian</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.out_leg_azimuth"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_leg_azimuth">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.out_leg_azimuth">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_leg_azimuth">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">out_leg_azimuth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the corrected polar angle in [0, pi] of the leg outgoing from interface</span>
@@ -1820,11 +1924,17 @@ document.write(`
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">spherical_coordinates_phi</span><span class="p">(</span><span class="n">cartesian</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cartesian</span><span class="o">.</span><span class="n">y</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.out_angle"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_angle">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.out_angle">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.out_angle">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">out_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_leg_polar</span><span class="p">(</span><span class="n">interface_idx</span><span class="p">,</span> <span class="n">is_final</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.signed_out_angle"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.signed_out_angle">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.signed_out_angle">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.signed_out_angle">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">signed_out_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
         <span class="n">azimuth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_leg_azimuth</span><span class="p">(</span><span class="n">interface_idx</span><span class="p">,</span> <span class="n">is_final</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">azimuth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1832,7 +1942,10 @@ document.write(`
         <span class="n">polar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_leg_polar</span><span class="p">(</span><span class="n">interface_idx</span><span class="p">,</span> <span class="n">is_final</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_signed_leg_angle</span><span class="p">(</span><span class="n">polar</span><span class="p">,</span> <span class="n">azimuth</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="RayGeometry.conventional_out_angle"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.conventional_out_angle">[docs]</a>    <span class="nd">@_cache_ray_geometry</span>
+
+<div class="viewcode-block" id="RayGeometry.conventional_out_angle">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.conventional_out_angle">[docs]</a>
+    <span class="nd">@_cache_ray_geometry</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">conventional_out_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interface_idx</span><span class="p">):</span>
         <span class="n">actual_interface_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interface_indices</span><span class="p">[</span><span class="n">interface_idx</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">actual_interface_idx</span> <span class="o">==</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numinterfaces</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
@@ -1852,7 +1965,9 @@ document.write(`
             <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_leg_polar</span><span class="p">(</span><span class="n">interface_idx</span><span class="p">,</span> <span class="n">is_final</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
             <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
-            <span class="k">return</span> <span class="n">out</span></div></div>
+            <span class="k">return</span> <span class="n">out</span></div>
+</div>
+
 </pre></div>
 
                 </article>
@@ -1882,8 +1997,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1903,7 +2018,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
     <br/>
   </p>
 </div>
@@ -1916,7 +2031,8 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

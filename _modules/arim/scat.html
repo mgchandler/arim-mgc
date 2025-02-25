@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -16,37 +15,39 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/design-tabs.js"></script>
+    <script src="../../_static/documentation_options.js?v=51601fd6"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/arim/scat';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -62,19 +63,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -82,7 +72,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -90,8 +79,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -172,29 +161,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -203,15 +184,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -228,7 +205,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -282,15 +260,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -298,9 +272,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -318,8 +297,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -331,7 +308,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">arim.scat</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">arim.scat</span></li>
   </ul>
 </nav>
 </div>
@@ -396,19 +373,27 @@ document.write(`
 <span class="n">SCAT_KEYS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">((</span><span class="s2">&quot;LL&quot;</span><span class="p">,</span> <span class="s2">&quot;LT&quot;</span><span class="p">,</span> <span class="s2">&quot;TL&quot;</span><span class="p">,</span> <span class="s2">&quot;TT&quot;</span><span class="p">))</span>
 
 
-<div class="viewcode-block" id="make_angles"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.make_angles.html#arim.scat.make_angles">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">make_angles</span><span class="p">(</span><span class="n">numpoints</span><span class="p">):</span>
+<div class="viewcode-block" id="make_angles">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.make_angles.html#arim.scat.make_angles">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_angles</span><span class="p">(</span><span class="n">numpoints</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return angles for scattering matrices. Linearly spaced vector in [-pi, pi[.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">numpoints</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="make_angles_grid"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.make_angles_grid.html#arim.scat.make_angles_grid">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">make_angles_grid</span><span class="p">(</span><span class="n">numpoints</span><span class="p">):</span>
+
+<div class="viewcode-block" id="make_angles_grid">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.make_angles_grid.html#arim.scat.make_angles_grid">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_angles_grid</span><span class="p">(</span><span class="n">numpoints</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return angles for scattering matrices as a grid of incident and outgoing angles.&quot;&quot;&quot;</span>
     <span class="n">theta</span> <span class="o">=</span> <span class="n">make_angles</span><span class="p">(</span><span class="n">numpoints</span><span class="p">)</span>
     <span class="n">inc_theta</span><span class="p">,</span> <span class="n">out_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">&quot;xy&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">inc_theta</span><span class="p">,</span> <span class="n">out_theta</span></div>
 
 
-<div class="viewcode-block" id="interpolate_matrix"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.interpolate_matrix.html#arim.scat.interpolate_matrix">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">interpolate_matrix</span><span class="p">(</span><span class="n">scattering_matrix</span><span class="p">):</span>
+
+<div class="viewcode-block" id="interpolate_matrix">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.interpolate_matrix.html#arim.scat.interpolate_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">interpolate_matrix</span><span class="p">(</span><span class="n">scattering_matrix</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a function that takes as input the incident angles and the scattering angles.</span>
 <span class="sd">    This returned function returns the scattering amplitudes, obtained by bilinear</span>
@@ -431,7 +416,10 @@ document.write(`
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="interpolate_matrices"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.interpolate_matrices.html#arim.scat.interpolate_matrices">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">interpolate_matrices</span><span class="p">(</span><span class="n">scattering_matrices</span><span class="p">):</span>
+
+<div class="viewcode-block" id="interpolate_matrices">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.interpolate_matrices.html#arim.scat.interpolate_matrices">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">interpolate_matrices</span><span class="p">(</span><span class="n">scattering_matrices</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert a dictionary containing scattering matrices to a dictionary containing</span>
 <span class="sd">    functions that interpolate the values of the scattering matrices.</span>
@@ -447,7 +435,10 @@ document.write(`
     <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">interpolate_matrix</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">mat</span> <span class="ow">in</span> <span class="n">scattering_matrices</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
 
 
-<div class="viewcode-block" id="sdh_2d_scat"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.sdh_2d_scat.html#arim.scat.sdh_2d_scat">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">sdh_2d_scat</span><span class="p">(</span>
+
+<div class="viewcode-block" id="sdh_2d_scat">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.sdh_2d_scat.html#arim.scat.sdh_2d_scat">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sdh_2d_scat</span><span class="p">(</span>
     <span class="n">inc_theta</span><span class="p">,</span>
     <span class="n">out_theta</span><span class="p">,</span>
     <span class="n">frequency</span><span class="p">,</span>
@@ -665,7 +656,10 @@ document.write(`
     <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="crack_2d_scat"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.crack_2d_scat.html#arim.scat.crack_2d_scat">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">crack_2d_scat</span><span class="p">(</span>
+
+<div class="viewcode-block" id="crack_2d_scat">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.crack_2d_scat.html#arim.scat.crack_2d_scat">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">crack_2d_scat</span><span class="p">(</span>
     <span class="n">inc_theta</span><span class="p">,</span>
     <span class="n">out_theta</span><span class="p">,</span>
     <span class="n">frequency</span><span class="p">,</span>
@@ -814,6 +808,7 @@ document.write(`
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">((</span><span class="s2">&quot;LL&quot;</span><span class="p">,</span> <span class="s2">&quot;LT&quot;</span><span class="p">,</span> <span class="s2">&quot;TL&quot;</span><span class="p">,</span> <span class="s2">&quot;TT&quot;</span><span class="p">),</span> <span class="n">final_matrices</span><span class="p">))</span></div>
 
 
+
 <span class="nd">@numba</span><span class="o">.</span><span class="n">cfunc</span><span class="p">(</span><span class="s2">&quot;f8(f8, voidptr)&quot;</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">_crack_tip_integrand</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
     <span class="n">alpha</span><span class="p">,</span> <span class="n">k_p</span><span class="p">,</span> <span class="n">k_s</span> <span class="o">=</span> <span class="n">numba</span><span class="o">.</span><span class="n">carray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numba</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
@@ -874,7 +869,9 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">_crack_tip_k_plus_integral_arr</span><span class="p">(</span><span class="n">alpha_arr</span><span class="p">,</span> <span class="n">k_p</span><span class="p">,</span> <span class="n">k_s</span><span class="p">,</span> <span class="o">**</span><span class="n">quad_kwargs</span><span class="p">))</span>
 
 
-<div class="viewcode-block" id="crack_tip_2d"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.crack_tip_2d.html#arim.scat.crack_tip_2d">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">crack_tip_2d</span><span class="p">(</span>
+<div class="viewcode-block" id="crack_tip_2d">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.crack_tip_2d.html#arim.scat.crack_tip_2d">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">crack_tip_2d</span><span class="p">(</span>
     <span class="n">inc_theta</span><span class="p">,</span>
     <span class="n">out_theta</span><span class="p">,</span>
     <span class="n">longitudinal_vel</span><span class="p">,</span>
@@ -1082,7 +1079,10 @@ document.write(`
     <span class="k">return</span> <span class="n">res</span></div>
 
 
-<div class="viewcode-block" id="rotate_matrix"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.rotate_matrix.html#arim.scat.rotate_matrix">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">rotate_matrix</span><span class="p">(</span><span class="n">scat_matrix</span><span class="p">,</span> <span class="n">phi</span><span class="p">):</span>
+
+<div class="viewcode-block" id="rotate_matrix">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.rotate_matrix.html#arim.scat.rotate_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rotate_matrix</span><span class="p">(</span><span class="n">scat_matrix</span><span class="p">,</span> <span class="n">phi</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the scattering matrix S&#39; of the scatterer rotated by an angle phi,</span>
 <span class="sd">    knowing the scattering matrix S of the unrotated scatterer::</span>
@@ -1115,7 +1115,10 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft2</span><span class="p">(</span><span class="n">freqshift</span> <span class="o">*</span> <span class="n">scat_matrix_f</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="rotate_matrices"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.rotate_matrices.html#arim.scat.rotate_matrices">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">rotate_matrices</span><span class="p">(</span><span class="n">scat_matrices</span><span class="p">,</span> <span class="n">phi</span><span class="p">):</span>
+
+<div class="viewcode-block" id="rotate_matrices">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.rotate_matrices.html#arim.scat.rotate_matrices">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rotate_matrices</span><span class="p">(</span><span class="n">scat_matrices</span><span class="p">,</span> <span class="n">phi</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Call :func:`rotate_matrix` on each matrix in a dict.</span>
 
@@ -1133,6 +1136,7 @@ document.write(`
         <span class="n">scat_key</span><span class="p">:</span> <span class="n">rotate_matrix</span><span class="p">(</span><span class="n">scat_matrix</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">scat_key</span><span class="p">,</span> <span class="n">scat_matrix</span> <span class="ow">in</span> <span class="n">scat_matrices</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">}</span></div>
+
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_partial_one_scat_key</span><span class="p">(</span><span class="n">scat_func</span><span class="p">,</span> <span class="n">scat_key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1156,7 +1160,9 @@ document.write(`
     <span class="k">return</span> <span class="n">new_scat_func</span>
 
 
-<div class="viewcode-block" id="scat_factory"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.scat_factory.html#arim.scat.scat_factory">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">scat_factory</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">material</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="scat_factory">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.scat_factory.html#arim.scat.scat_factory">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">scat_factory</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">material</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates a Scattering2d object in a simple way</span>
 
@@ -1222,7 +1228,10 @@ document.write(`
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;no strategy for kind=&#39;</span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Scattering2d"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Scattering2d</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Scattering2d">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Scattering2d</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base object for computing the scattering functions in 2D.</span>
 
@@ -1290,7 +1299,9 @@ document.write(`
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Scattering2d.as_freq_angles_funcs"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_freq_angles_funcs">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_freq_angles_funcs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Scattering2d.as_freq_angles_funcs">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_freq_angles_funcs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_freq_angles_funcs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dict of scattering functions that take as input the incident angle,</span>
 <span class="sd">        the outgoing angle and the frequency.</span>
@@ -1301,7 +1312,10 @@ document.write(`
             <span class="n">scat_funcs</span><span class="p">[</span><span class="n">scat_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">_partial_one_scat_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scat_key</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">scat_funcs</span></div>
 
-<div class="viewcode-block" id="Scattering2d.as_angles_funcs"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_angles_funcs">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_angles_funcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Scattering2d.as_angles_funcs">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_angles_funcs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_angles_funcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dict of scattering functions that take as input the incident angle</span>
 <span class="sd">        and the outgoing angle.</span>
@@ -1314,7 +1328,10 @@ document.write(`
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">scat_funcs</span></div>
 
-<div class="viewcode-block" id="Scattering2d.as_multi_freq_matrices"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_multi_freq_matrices">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_multi_freq_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Scattering2d.as_multi_freq_matrices">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_multi_freq_matrices">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_multi_freq_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns scattering matrices at different frequencies.</span>
 
@@ -1351,7 +1368,10 @@ document.write(`
                 <span class="n">out</span><span class="p">[</span><span class="n">scat_key</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">matrices</span><span class="p">[</span><span class="n">scat_key</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">out</span></div>
 
-<div class="viewcode-block" id="Scattering2d.as_single_freq_matrices"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_single_freq_matrices">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_single_freq_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Scattering2d.as_single_freq_matrices">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_single_freq_matrices">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_single_freq_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns scattering matrices at a given frequency.</span>
 
@@ -1371,7 +1391,10 @@ document.write(`
         <span class="n">inc_theta</span><span class="p">,</span> <span class="n">out_theta</span> <span class="o">=</span> <span class="n">make_angles_grid</span><span class="p">(</span><span class="n">numangles</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">inc_theta</span><span class="p">,</span> <span class="n">out_theta</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">to_compute</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Scattering2d.as_multi_freq_matrices_obj"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_multi_freq_matrices_obj">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_multi_freq_matrices_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Scattering2d.as_multi_freq_matrices_obj">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2d.html#arim.scat.Scattering2d.as_multi_freq_matrices_obj">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_multi_freq_matrices_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns scattering matrices at different frequencies as a ScatFromData object.</span>
 
@@ -1387,10 +1410,14 @@ document.write(`
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">matrices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_multi_freq_matrices</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">ScatFromData</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span> <span class="n">matrices</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">ScatFromData</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span> <span class="n">matrices</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Scattering2dFromFunc"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2dFromFunc.html#arim.scat.Scattering2dFromFunc">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Scattering2dFromFunc</span><span class="p">(</span><span class="n">Scattering2d</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Scattering2dFromFunc">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.Scattering2dFromFunc.html#arim.scat.Scattering2dFromFunc">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Scattering2dFromFunc</span><span class="p">(</span><span class="n">Scattering2d</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper for scattering functions that take as three first arguments &#39;inc_theta&#39;,</span>
 <span class="sd">    &#39;out_theta&#39; and &#39;frequency&#39;, and that accepts an argument &#39;to_compute&#39;.</span>
@@ -1424,7 +1451,10 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__qualname__</span> <span class="o">+</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">arg_str</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span></div>
 
 
-<div class="viewcode-block" id="SdhScat"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.SdhScat.html#arim.scat.SdhScat">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SdhScat</span><span class="p">(</span><span class="n">Scattering2dFromFunc</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SdhScat">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.SdhScat.html#arim.scat.SdhScat">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SdhScat</span><span class="p">(</span><span class="n">Scattering2dFromFunc</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Scattering for side-drilled hole</span>
 
@@ -1445,7 +1475,10 @@ document.write(`
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="CrackCentreScat"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.CrackCentreScat.html#arim.scat.CrackCentreScat">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">CrackCentreScat</span><span class="p">(</span><span class="n">Scattering2dFromFunc</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CrackCentreScat">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.CrackCentreScat.html#arim.scat.CrackCentreScat">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CrackCentreScat</span><span class="p">(</span><span class="n">Scattering2dFromFunc</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Scattering of a crack at its centre.</span>
 
@@ -1489,19 +1522,28 @@ document.write(`
         <span class="k">yield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_in_matrix_calculation</span> <span class="o">=</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="CrackCentreScat.as_multi_freq_matrices"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.CrackCentreScat.html#arim.scat.CrackCentreScat.as_multi_freq_matrices">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_multi_freq_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
+<div class="viewcode-block" id="CrackCentreScat.as_multi_freq_matrices">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.CrackCentreScat.html#arim.scat.CrackCentreScat.as_multi_freq_matrices">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_multi_freq_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scat_matrix_calculation</span><span class="p">():</span>
             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">as_multi_freq_matrices</span><span class="p">(</span><span class="n">frequencies</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CrackCentreScat.as_single_freq_matrices"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.CrackCentreScat.html#arim.scat.CrackCentreScat.as_single_freq_matrices">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">as_single_freq_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CrackCentreScat.as_single_freq_matrices">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.CrackCentreScat.html#arim.scat.CrackCentreScat.as_single_freq_matrices">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_single_freq_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scat_matrix_calculation</span><span class="p">():</span>
             <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_in_matrix_calculation</span>
             <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">as_single_freq_matrices</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">numangles</span><span class="p">,</span> <span class="n">to_compute</span><span class="p">)</span>
         <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_in_matrix_calculation</span>
-        <span class="k">return</span> <span class="n">result</span></div></div>
+        <span class="k">return</span> <span class="n">result</span></div>
+</div>
 
 
-<div class="viewcode-block" id="PointSourceScat"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.PointSourceScat.html#arim.scat.PointSourceScat">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">PointSourceScat</span><span class="p">(</span><span class="n">Scattering2dFromFunc</span><span class="p">):</span>
+
+<div class="viewcode-block" id="PointSourceScat">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.PointSourceScat.html#arim.scat.PointSourceScat">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PointSourceScat</span><span class="p">(</span><span class="n">Scattering2dFromFunc</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Scattering of an unphysical point source. For debug only.</span>
 
@@ -1556,7 +1598,10 @@ document.write(`
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="CrackTipScat"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.CrackTipScat.html#arim.scat.CrackTipScat">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">CrackTipScat</span><span class="p">(</span><span class="n">Scattering2dFromFunc</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CrackTipScat">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.CrackTipScat.html#arim.scat.CrackTipScat">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CrackTipScat</span><span class="p">(</span><span class="n">Scattering2dFromFunc</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Crack tip diffraction</span>
 
@@ -1582,7 +1627,10 @@ document.write(`
         <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ScatFromData"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.ScatFromData.html#arim.scat.ScatFromData">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ScatFromData</span><span class="p">(</span><span class="n">Scattering2d</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ScatFromData">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.ScatFromData.html#arim.scat.ScatFromData">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ScatFromData</span><span class="p">(</span><span class="n">Scattering2d</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Scattering functions from a set of data.</span>
 
@@ -1669,7 +1717,9 @@ document.write(`
 
         <span class="bp">self</span><span class="o">.</span><span class="n">interp_freq_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">bounds_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">&quot;extrapolate&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ScatFromData.from_dict"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.ScatFromData.html#arim.scat.ScatFromData.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ScatFromData.from_dict">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.ScatFromData.html#arim.scat.ScatFromData.from_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">,</span> <span class="n">scat_matrix_dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Alternative constructor: takes as input a dict of scattering matrices</span>
@@ -1693,6 +1743,7 @@ document.write(`
             <span class="n">frequencies</span><span class="p">,</span> <span class="n">scat_matrix_LL</span><span class="p">,</span> <span class="n">scat_matrix_LT</span><span class="p">,</span> <span class="n">scat_matrix_TL</span><span class="p">,</span> <span class="n">scat_matrix_TT</span>
         <span class="p">)</span></div>
 
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inc_theta</span><span class="p">,</span> <span class="n">out_theta</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">to_compute</span><span class="o">=</span><span class="n">SCAT_KEYS</span><span class="p">):</span>
         <span class="c1"># Compute first the scattering matrices at the desired frequency.</span>
         <span class="c1"># Then interpolate the angles.</span>
@@ -1713,7 +1764,9 @@ document.write(`
             <span class="k">for</span> <span class="n">scat_key</span><span class="p">,</span> <span class="n">interpolator</span> <span class="ow">in</span> <span class="n">interpolators</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">}</span>
 
-<div class="viewcode-block" id="ScatFromData.freq_interp_matrices"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.ScatFromData.html#arim.scat.ScatFromData.freq_interp_matrices">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ScatFromData.freq_interp_matrices">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.scat/arim.scat.ScatFromData.html#arim.scat.ScatFromData.freq_interp_matrices">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">freq_interp_matrices</span><span class="p">(</span>
         <span class="n">frequencies</span><span class="p">,</span> <span class="n">new_freq</span><span class="p">,</span> <span class="n">multi_freq_matrices</span><span class="p">,</span> <span class="o">**</span><span class="n">interp_freq_kwargs</span>
     <span class="p">):</span>
@@ -1761,7 +1814,9 @@ document.write(`
                     <span class="p">)(</span><span class="n">new_freq</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">out</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">out</span></div></div>
+        <span class="k">return</span> <span class="n">out</span></div>
+</div>
+
 </pre></div>
 
                 </article>
@@ -1791,8 +1846,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1812,7 +1867,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
     <br/>
   </p>
 </div>
@@ -1825,7 +1880,8 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

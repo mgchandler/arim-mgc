@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
@@ -16,37 +15,39 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/documentation_options.js?v=51601fd6"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -62,19 +63,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -82,7 +72,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -90,8 +79,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -172,29 +161,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -203,15 +184,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -228,7 +205,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -282,15 +260,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -298,9 +272,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -526,6 +505,13 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    arim.plot
+
+      <ul>
+        <li><a href="_autosummary/arim.plot.html#module-arim.plot">module</a>
+</li>
+      </ul></li>
+      <li>
     arim.ray
 
       <ul>
@@ -656,22 +642,30 @@ document.write(`
 </li>
       <li><a href="_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.clear_intermediate_results">clear_intermediate_results() (arim.ray.RayGeometry method)</a>
 </li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.RayPlotter.html#arim.plot.RayPlotter.clear_rays">clear_rays() (arim.plot.RayPlotter method)</a>
+</li>
       <li><a href="_autosummary/_autosummary/arim.core/arim.core.Time.html#arim.core.Time.closest_index">closest_index() (arim.core.Time method)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.closest_point">closest_point() (arim.geometry.Points method)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.geometry/arim.geometry.combine_oriented_points.html#arim.geometry.combine_oriented_points">combine_oriented_points() (in module arim.geometry)</a>
 </li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.common_dynamic_db_scale.html#arim.plot.common_dynamic_db_scale">common_dynamic_db_scale() (in module arim.plot)</a>
+</li>
       <li><a href="_autosummary/_autosummary/arim.signal/arim.signal.ComposedFilter.html#arim.signal.ComposedFilter">ComposedFilter (class in arim.signal)</a>
+</li>
+      <li><a href="_autosummary/arim.plot.html#arim.plot.conf">conf (in module arim.plot)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.config/arim.config.Config.html#arim.config.Config">Config (class in arim.config)</a>
 </li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.RayPlotter.html#arim.plot.RayPlotter.connect">connect() (arim.plot.RayPlotter method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_autosummary/_autosummary/arim.ray/arim.ray.FermatSolver.html#arim.ray.FermatSolver.consecutive_times">consecutive_times() (arim.ray.FermatSolver method)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.im.tfm/arim.im.tfm.contact_tfm.html#arim.im.tfm.contact_tfm">contact_tfm() (in module arim.im.tfm)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.conventional_inc_angle">conventional_inc_angle() (arim.ray.RayGeometry method)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry.conventional_out_angle">conventional_out_angle() (arim.ray.RayGeometry method)</a>
@@ -744,10 +738,10 @@ document.write(`
 </li>
       <li><a href="_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.dimensions">dimensions (arim.core.Probe attribute)</a>, <a href="_autosummary/_autosummary/arim.core/arim.core.Probe.html#id2">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_autosummary/_autosummary/arim.geometry/arim.geometry.direct_isometry_2d.html#arim.geometry.direct_isometry_2d">direct_isometry_2d() (in module arim.geometry)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_autosummary/_autosummary/arim.geometry/arim.geometry.direct_isometry_3d.html#arim.geometry.direct_isometry_3d">direct_isometry_3d() (in module arim.geometry)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.model/arim.model.directivity_2d_rectangular_in_fluid.html#arim.model.directivity_2d_rectangular_in_fluid">directivity_2d_rectangular_in_fluid() (in module arim.model)</a>
@@ -759,6 +753,10 @@ document.write(`
       <li><a href="_autosummary/_autosummary/arim.model/arim.model.directivity_2d_rectangular_on_solid_t.html#arim.model.directivity_2d_rectangular_on_solid_t">directivity_2d_rectangular_on_solid_t() (in module arim.model)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.geometry/arim.geometry.distance_pairwise.html#arim.geometry.distance_pairwise">distance_pairwise() (in module arim.geometry)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.RayPlotter.html#arim.plot.RayPlotter.draw_ray">draw_ray() (arim.plot.RayPlotter method)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.draw_rays_on_click.html#arim.plot.draw_rays_on_click">draw_rays_on_click() (in module arim.plot)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.core/arim.core.Frame.html#arim.core.Frame.drop_timetraces">drop_timetraces() (arim.core.Frame method)</a>
 </li>
@@ -1180,6 +1178,8 @@ document.write(`
 </li>
       <li><a href="_autosummary/_autosummary/arim.im.tfm/arim.im.tfm.TfmResult.html#arim.im.tfm.TfmResult.maximum_intensity_in_rectbox">maximum_intensity_in_rectbox() (arim.im.tfm.TfmResult method)</a>
 </li>
+      <li><a href="_autosummary/arim.plot.html#arim.plot.mega_formatter">mega_formatter (in module arim.plot)</a>
+</li>
       <li><a href="_autosummary/_autosummary/arim.config/arim.config.Config.html#arim.config.Config.merge">merge() (arim.config.Config method)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.core/arim.core.BlockInContact.html#arim.core.BlockInContact.metadata">metadata (arim.core.BlockInContact attribute)</a>
@@ -1194,10 +1194,14 @@ document.write(`
       </ul></li>
       <li><a href="user/glossary.html#term-MFMC"><strong>MFMC</strong></a>
 </li>
-      <li><a href="_autosummary/_autosummary/arim.core/arim.core.Mode.html#arim.core.Mode">Mode (class in arim.core)</a>
+      <li><a href="_autosummary/arim.plot.html#arim.plot.micro_formatter">micro_formatter (in module arim.plot)</a>
+</li>
+      <li><a href="_autosummary/arim.plot.html#arim.plot.milli_formatter">milli_formatter (in module arim.plot)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="_autosummary/_autosummary/arim.core/arim.core.Mode.html#arim.core.Mode">Mode (class in arim.core)</a>
+</li>
       <li><a href="_autosummary/_autosummary/arim.model/arim.model.model_amplitudes_factory.html#arim.model.model_amplitudes_factory">model_amplitudes_factory() (in module arim.model)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.model/arim.model.ModelAmplitudes.html#arim.model.ModelAmplitudes">ModelAmplitudes (class in arim.model)</a>
@@ -1247,6 +1251,8 @@ document.write(`
         <li><a href="_autosummary/arim.models.block_in_immersion.html#module-arim.models.block_in_immersion">arim.models.block_in_immersion</a>
 </li>
         <li><a href="_autosummary/arim.models.helpers.html#module-arim.models.helpers">arim.models.helpers</a>
+</li>
+        <li><a href="_autosummary/arim.plot.html#module-arim.plot">arim.plot</a>
 </li>
         <li><a href="_autosummary/arim.ray.html#module-arim.ray">arim.ray</a>
 </li>
@@ -1427,6 +1433,22 @@ document.write(`
 </li>
       <li><a href="_autosummary/_autosummary/arim.core/arim.core.Probe.html#arim.core.Probe.pcs">pcs (arim.core.Probe attribute)</a>, <a href="_autosummary/_autosummary/arim.core/arim.core.Probe.html#id10">[1]</a>
 </li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.plot_bscan.html#arim.plot.plot_bscan">plot_bscan() (in module arim.plot)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.plot_bscan_pulse_echo.html#arim.plot.plot_bscan_pulse_echo">plot_bscan_pulse_echo() (in module arim.plot)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.plot_directivity_finite_width_2d.html#arim.plot.plot_directivity_finite_width_2d">plot_directivity_finite_width_2d() (in module arim.plot)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.plot_interfaces.html#arim.plot.plot_interfaces">plot_interfaces() (in module arim.plot)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.plot_oxz.html#arim.plot.plot_oxz">plot_oxz() (in module arim.plot)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.plot_oxz_many.html#arim.plot.plot_oxz_many">plot_oxz_many() (in module arim.plot)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.plot_psd.html#arim.plot.plot_psd">plot_psd() (in module arim.plot)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.plot_tfm.html#arim.plot.plot_tfm">plot_tfm() (in module arim.plot)</a>
+</li>
       <li><a href="_autosummary/_autosummary/arim.core/arim.core.Interface.html#arim.core.Interface.points">points (arim.core.Interface attribute)</a>
 
       <ul>
@@ -1435,12 +1457,12 @@ document.write(`
         <li><a href="_autosummary/_autosummary/arim.ray/arim.ray.FermatPath.html#arim.ray.FermatPath.points">(arim.ray.FermatPath property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points">Points (class in arim.geometry)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.geometry/arim.geometry.points_1d_wall.html#arim.geometry.points_1d_wall">points_1d_wall() (in module arim.geometry)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="_autosummary/_autosummary/arim.geometry/arim.geometry.points_1d_wall_z.html#arim.geometry.points_1d_wall_z">points_1d_wall_z() (in module arim.geometry)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.geometry/arim.geometry.points_from_probe.html#arim.geometry.points_from_probe">points_from_probe() (in module arim.geometry)</a>
@@ -1490,6 +1512,8 @@ document.write(`
       <li><a href="_autosummary/_autosummary/arim.ray/arim.ray.RayGeometry.html#arim.ray.RayGeometry">RayGeometry (class in arim.ray)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.ut/arim.ut.rayleigh_vel.html#arim.ut.rayleigh_vel">rayleigh_vel() (in module arim.ut)</a>
+</li>
+      <li><a href="_autosummary/_autosummary/arim.plot/arim.plot.RayPlotter.html#arim.plot.RayPlotter">RayPlotter (class in arim.plot)</a>
 </li>
       <li><a href="_autosummary/_autosummary/arim.core/arim.core.Path.html#arim.core.Path.rays">rays (arim.core.Path attribute)</a>
 </li>
@@ -2035,8 +2059,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -2056,7 +2080,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
     <br/>
   </p>
 </div>
@@ -2069,7 +2093,8 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>

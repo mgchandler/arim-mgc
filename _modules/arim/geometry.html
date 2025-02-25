@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -16,37 +15,39 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/design-tabs.js"></script>
+    <script src="../../_static/documentation_options.js?v=51601fd6"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/arim/geometry';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -62,19 +63,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -82,7 +72,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search the docs ..."
          aria-label="Search the docs ..."
          autocomplete="off"
@@ -90,8 +79,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -172,29 +161,21 @@
         <div class="navbar-item navbar-persistent--container">
           
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
         </div>
       
       
         <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
       
     </div>
     
@@ -203,15 +184,11 @@ document.write(`
   
     <div class="navbar-persistent--mobile">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
     </div>
   
 
@@ -228,7 +205,8 @@ document.write(`
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
         
 
   
@@ -282,15 +260,11 @@ document.write(`
         
           <div class="navbar-item">
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script></div>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
         
       </div>
     
@@ -298,9 +272,14 @@ document.write(`
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -318,8 +297,6 @@ document.write(`
       
         <div class="header-article-item">
 
-
-
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -331,7 +308,7 @@ document.write(`
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page">arim.geometry</li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">arim.geometry</span></li>
   </ul>
 </nav>
 </div>
@@ -435,7 +412,9 @@ document.write(`
 <span class="kn">from</span><span class="w"> </span><span class="nn">.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">chunk_array</span>
 
 
-<div class="viewcode-block" id="SphericalCoordinates"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.SphericalCoordinates.html#arim.geometry.SphericalCoordinates">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SphericalCoordinates</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;SphericalCoordinates&quot;</span><span class="p">,</span> <span class="s2">&quot;r theta phi&quot;</span><span class="p">)):</span>
+<div class="viewcode-block" id="SphericalCoordinates">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.SphericalCoordinates.html#arim.geometry.SphericalCoordinates">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SphericalCoordinates</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;SphericalCoordinates&quot;</span><span class="p">,</span> <span class="s2">&quot;r theta phi&quot;</span><span class="p">)):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Spherical coordinates as usually defined in physics</span>
 
@@ -455,7 +434,10 @@ document.write(`
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span></div>
 
 
-<div class="viewcode-block" id="aspoints"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.aspoints.html#arim.geometry.aspoints">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">aspoints</span><span class="p">(</span><span class="n">array_like</span><span class="p">):</span>
+
+<div class="viewcode-block" id="aspoints">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.aspoints.html#arim.geometry.aspoints">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">aspoints</span><span class="p">(</span><span class="n">array_like</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a Point object: the input itself if it is a point, or wrap the object</span>
 <span class="sd">    as a Point otherwise.</span>
@@ -475,7 +457,10 @@ document.write(`
         <span class="k">return</span> <span class="n">Points</span><span class="p">(</span><span class="n">array_like</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Points</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Points</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set of points in a 3D space.</span>
 
@@ -531,7 +516,9 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
-<div class="viewcode-block" id="Points.from_xyz"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.from_xyz">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Points.from_xyz">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.from_xyz">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_xyz</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="n">z</span><span class="o">.</span><span class="n">ndim</span>
         <span class="k">assert</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">z</span><span class="o">.</span><span class="n">shape</span>
@@ -539,6 +526,7 @@ document.write(`
 
         <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -582,14 +570,20 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">dtype</span>
 
-<div class="viewcode-block" id="Points.closest_point"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.closest_point">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">closest_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+<div class="viewcode-block" id="Points.closest_point">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.closest_point">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">closest_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
         <span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span>
         <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span>
         <span class="n">dz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">z</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">dx</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">dy</span> <span class="o">+</span> <span class="n">dz</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Points.allclose"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.allclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">allclose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Points.allclose">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.allclose">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allclose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">are_points_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">)</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -603,13 +597,18 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Points.norm2"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.norm2">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">norm2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Points.norm2">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.norm2">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">norm2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a array of shape `shape`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">norm2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Points.translate"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.translate">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Points.translate">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.translate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Translate the points along a given direction or several directions.</span>
 
@@ -638,7 +637,10 @@ document.write(`
         <span class="n">translated_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">new_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">translated_points</span></div>
 
-<div class="viewcode-block" id="Points.rotate"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.rotate">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">centre</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Points.rotate">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.rotate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">centre</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Rotates the points. Returns a new Points object.</span>
 
 <span class="sd">        Cf. :func:`rotate`</span>
@@ -649,7 +651,10 @@ document.write(`
             <span class="n">rotate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rotation_matrix</span><span class="p">),</span> <span class="n">centre</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Points.to_gcs"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.to_gcs">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_gcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Points.to_gcs">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.to_gcs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_gcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the coordinates of the points expressed in the global coordinate system.</span>
 <span class="sd">        Returns a new Points object.</span>
 
@@ -657,7 +662,10 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Points</span><span class="p">(</span><span class="n">to_gcs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Points.from_gcs"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.from_gcs">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_gcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Points.from_gcs">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.from_gcs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_gcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the coordinates of the points expressed in the basis/bases given as</span>
 <span class="sd">        parameter. Returns a new Points object.</span>
 
@@ -665,7 +673,10 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Points</span><span class="p">(</span><span class="n">from_gcs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Points.spherical_coordinates"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.spherical_coordinates">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Points.spherical_coordinates">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.spherical_coordinates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        (r, theta, phi)</span>
 
@@ -685,11 +696,14 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">spherical_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">)</span></div>
 
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
             <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Points.enumerate"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.enumerate">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Points.enumerate">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.enumerate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Yield the index and the coordinates of each point.</span>
 
@@ -703,7 +717,10 @@ document.write(`
         <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
             <span class="k">yield</span> <span class="n">idx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Points.points_in_rectbox"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.points_in_rectbox">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">points_in_rectbox</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Points.points_in_rectbox">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.points_in_rectbox">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">points_in_rectbox</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -718,7 +735,10 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Points.to_1d_points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.to_1d_points">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_1d_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Points.to_1d_points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.to_1d_points">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_1d_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new 1d Points object (shape: (numpoints, ))</span>
 
@@ -729,7 +749,10 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Points.reshape"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.reshape">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">reshape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_shape</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Points.reshape">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Points.html#arim.geometry.Points.reshape">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reshape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_shape</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the reshaped coordinates.</span>
 
@@ -744,13 +767,17 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">new_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_shape</span><span class="p">,)</span>
-        <span class="k">return</span> <span class="n">Points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">*</span><span class="n">new_shape</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">Points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coords</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">*</span><span class="n">new_shape</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+</div>
+
 
 
 <span class="n">OrientedPoints</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;OrientedPoints&quot;</span><span class="p">,</span> <span class="s2">&quot;points orientations&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="CoordinateSystem"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">CoordinateSystem</span><span class="p">:</span>
+<div class="viewcode-block" id="CoordinateSystem">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CoordinateSystem</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A point and a direct 3D affine basis.</span>
 
@@ -826,7 +853,9 @@ document.write(`
     <span class="k">def</span><span class="w"> </span><span class="nf">k_hat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i_hat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">j_hat</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CoordinateSystem.convert_from_gcs"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.convert_from_gcs">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">convert_from_gcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points_gcs</span><span class="p">):</span>
+<div class="viewcode-block" id="CoordinateSystem.convert_from_gcs">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.convert_from_gcs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_from_gcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points_gcs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert from global to local coordinate system</span>
 
@@ -848,7 +877,10 @@ document.write(`
         <span class="c1"># TODO: improve convert_from_gcs</span>
         <span class="k">return</span> <span class="n">Points</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">coords</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis_matrix</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CoordinateSystem.convert_from_gcs_pairwise"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.convert_from_gcs_pairwise">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">convert_from_gcs_pairwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points_gcs</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CoordinateSystem.convert_from_gcs_pairwise">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.convert_from_gcs_pairwise">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_from_gcs_pairwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points_gcs</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the coordinates of the &#39;points_gcs&#39; in the following CS:</span>
 
@@ -886,7 +918,10 @@ document.write(`
 
         <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span></div>
 
-<div class="viewcode-block" id="CoordinateSystem.convert_to_gcs"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.convert_to_gcs">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_gcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points_cs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CoordinateSystem.convert_to_gcs">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.convert_to_gcs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_gcs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points_cs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert coordinates in the current coordinate system in the global one.</span>
 
@@ -912,7 +947,10 @@ document.write(`
         <span class="c1"># OM&#39; = Origin + OM_x * i_hat + OM_y * j_hat + OM_z * k_hat</span>
         <span class="k">return</span> <span class="n">Points</span><span class="p">((</span><span class="n">points_cs</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CoordinateSystem.translate"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.translate">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CoordinateSystem.translate">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.translate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Translate the coordinate system. Returns a new instance.</span>
 
@@ -929,7 +967,10 @@ document.write(`
         <span class="n">new_origin</span> <span class="o">=</span> <span class="n">old_origin</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">vector</span><span class="p">)[()]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">new_origin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_hat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">j_hat</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CoordinateSystem.rotate"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.rotate">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">centre</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CoordinateSystem.rotate">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.rotate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">centre</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Rotate the coordinate system. Returns a new instance.</span>
 
@@ -953,7 +994,10 @@ document.write(`
         <span class="n">j_hat</span> <span class="o">=</span> <span class="n">new_basis</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">origin</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">i_hat</span><span class="p">,</span> <span class="n">j_hat</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CoordinateSystem.isclose"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CoordinateSystem.isclose">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.isclose">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compare two coordinate system.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -963,17 +1007,24 @@ document.write(`
             <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">j_hat</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">j_hat</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span>
         <span class="p">)</span></div>
 
+
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">basis_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># i_hat, j_hat and k_hat stored in columns.</span>
         <span class="c1"># Note that `from_gcs()` and `to_gcs()` require i_hat, j_hat, k_hat in rows. Transpose externally.</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">i_hat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">j_hat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_hat</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CoordinateSystem.copy"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.copy">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_hat</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">j_hat</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span></div></div>
+<div class="viewcode-block" id="CoordinateSystem.copy">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.CoordinateSystem.html#arim.geometry.CoordinateSystem.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">i_hat</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">j_hat</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Grid"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Grid.html#arim.geometry.Grid">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Grid</span><span class="p">(</span><span class="n">Points</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Grid">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Grid.html#arim.geometry.Grid">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Grid</span><span class="p">(</span><span class="n">Points</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Regularly spaced 3d grid</span>
 
@@ -1051,7 +1102,9 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">yvect</span> <span class="o">=</span> <span class="n">y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zvect</span> <span class="o">=</span> <span class="n">z</span>
 
-<div class="viewcode-block" id="Grid.grid_centred_at_point"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Grid.html#arim.geometry.Grid.grid_centred_at_point">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Grid.grid_centred_at_point">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Grid.html#arim.geometry.Grid.grid_centred_at_point">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">grid_centred_at_point</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="n">centre_x</span><span class="p">,</span> <span class="n">centre_y</span><span class="p">,</span> <span class="n">centre_z</span><span class="p">,</span> <span class="n">size_x</span><span class="p">,</span> <span class="n">size_y</span><span class="p">,</span> <span class="n">size_z</span><span class="p">,</span> <span class="n">pixel_size</span>
     <span class="p">):</span>
@@ -1113,7 +1166,10 @@ document.write(`
             <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">),</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Grid.resample"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Grid.html#arim.geometry.Grid.resample">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_pixel_size</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Grid.resample">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Grid.html#arim.geometry.Grid.resample">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_pixel_size</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new Grid object with a new pixel size</span>
 
@@ -1135,6 +1191,7 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">zmax</span><span class="p">,</span>
             <span class="n">new_pixel_size</span><span class="p">,</span>
         <span class="p">)</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">xmin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1201,7 +1258,9 @@ document.write(`
         <span class="n">warn</span><span class="p">(</span><span class="ne">DeprecationWarning</span><span class="p">(</span><span class="s2">&quot;use method to_1d_points() instead&quot;</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_1d_points</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Grid.to_oriented_points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Grid.html#arim.geometry.Grid.to_oriented_points">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_oriented_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Grid.to_oriented_points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.Grid.html#arim.geometry.Grid.to_oriented_points">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_oriented_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a 1d OrientedPoints from the grid points (assume default orientation)</span>
 
@@ -1210,10 +1269,14 @@ document.write(`
 <span class="sd">        OrientedPoints</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">default_oriented_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_1d_points</span><span class="p">())</span></div></div>
+        <span class="k">return</span> <span class="n">default_oriented_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_1d_points</span><span class="p">())</span></div>
+</div>
 
 
-<div class="viewcode-block" id="MaskedGrid"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.MaskedGrid.html#arim.geometry.MaskedGrid">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">MaskedGrid</span><span class="p">(</span><span class="n">Grid</span><span class="p">):</span>
+
+<div class="viewcode-block" id="MaskedGrid">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.MaskedGrid.html#arim.geometry.MaskedGrid">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MaskedGrid</span><span class="p">(</span><span class="n">Grid</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Regularly spaced 3d grid, which may be masked to switch off certain pixels</span>
 <span class="sd">    in ray-tracing and TFM computation.</span>
@@ -1263,7 +1326,9 @@ document.write(`
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">pixel_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">numx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numz</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
 
-<div class="viewcode-block" id="MaskedGrid.mask_grid_where"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.MaskedGrid.html#arim.geometry.MaskedGrid.mask_grid_where">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MaskedGrid.mask_grid_where">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.MaskedGrid.html#arim.geometry.MaskedGrid.mask_grid_where">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">mask_grid_where</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">condition</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Mask an existing Grid where a condition is met.</span>
@@ -1299,7 +1364,10 @@ document.write(`
         <span class="n">result</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">condition</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="MaskedGrid.to_1d_points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.MaskedGrid.html#arim.geometry.MaskedGrid.to_1d_points">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_1d_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="MaskedGrid.to_1d_points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.MaskedGrid.html#arim.geometry.MaskedGrid.to_1d_points">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_1d_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new 1d Points object (shape: (numpoints, ))</span>
 
@@ -1310,27 +1378,40 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)[</span><span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">ravel</span><span class="p">()],</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
 
+
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">numpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span><span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="spherical_coordinates_r"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.spherical_coordinates_r.html#arim.geometry.spherical_coordinates_r">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates_r</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="spherical_coordinates_r">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.spherical_coordinates_r.html#arim.geometry.spherical_coordinates_r">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates_r</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;radial distance&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">norm2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="spherical_coordinates_theta"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.spherical_coordinates_theta.html#arim.geometry.spherical_coordinates_theta">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates_theta</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="spherical_coordinates_theta">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.spherical_coordinates_theta.html#arim.geometry.spherical_coordinates_theta">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates_theta</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;polar angle&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">z</span> <span class="o">/</span> <span class="n">r</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="spherical_coordinates_phi"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.spherical_coordinates_phi.html#arim.geometry.spherical_coordinates_phi">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates_phi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="spherical_coordinates_phi">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.spherical_coordinates_phi.html#arim.geometry.spherical_coordinates_phi">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates_phi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;azimuthal angle&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="spherical_coordinates"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.spherical_coordinates.html#arim.geometry.spherical_coordinates">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="spherical_coordinates">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.spherical_coordinates.html#arim.geometry.spherical_coordinates">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">spherical_coordinates</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the spherical coordinates (r, θ, φ) of points.</span>
 
@@ -1367,25 +1448,37 @@ document.write(`
     <span class="k">return</span> <span class="n">SphericalCoordinates</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="rotation_matrix_x"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotation_matrix_x.html#arim.geometry.rotation_matrix_x">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">rotation_matrix_x</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+
+<div class="viewcode-block" id="rotation_matrix_x">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotation_matrix_x.html#arim.geometry.rotation_matrix_x">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rotation_matrix_x</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="rotation_matrix_y"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotation_matrix_y.html#arim.geometry.rotation_matrix_y">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">rotation_matrix_y</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+
+<div class="viewcode-block" id="rotation_matrix_y">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotation_matrix_y.html#arim.geometry.rotation_matrix_y">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rotation_matrix_y</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="rotation_matrix_z"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotation_matrix_z.html#arim.geometry.rotation_matrix_z">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">rotation_matrix_z</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+
+<div class="viewcode-block" id="rotation_matrix_z">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotation_matrix_z.html#arim.geometry.rotation_matrix_z">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rotation_matrix_z</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="rotate"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotate.html#arim.geometry.rotate">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">centre</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="rotate">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotate.html#arim.geometry.rotate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">centre</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rotate these points given a rotation matrix and the centre.</span>
 
@@ -1426,7 +1519,10 @@ document.write(`
     <span class="k">return</span> <span class="n">rotated</span></div>
 
 
-<div class="viewcode-block" id="to_gcs"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.to_gcs.html#arim.geometry.to_gcs">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">to_gcs</span><span class="p">(</span><span class="n">coords_cs</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
+
+<div class="viewcode-block" id="to_gcs">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.to_gcs.html#arim.geometry.to_gcs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">to_gcs</span><span class="p">(</span><span class="n">coords_cs</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert the coordinates of points expressed in the basis/bases given as parameter to coordinates expressed in the</span>
 <span class="sd">    global coordinate system.</span>
@@ -1454,7 +1550,10 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;...ij,...i-&gt;...j&quot;</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">coords_cs</span><span class="p">)</span> <span class="o">+</span> <span class="n">origins</span></div>
 
 
-<div class="viewcode-block" id="from_gcs"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.from_gcs.html#arim.geometry.from_gcs">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">from_gcs</span><span class="p">(</span><span class="n">points_gcs</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
+
+<div class="viewcode-block" id="from_gcs">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.from_gcs.html#arim.geometry.from_gcs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">from_gcs</span><span class="p">(</span><span class="n">points_gcs</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">origins</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert the coordinates of points expressed in the global coordinate system to coordinates expressed</span>
 <span class="sd">    in the basis/bases given as parameter.</span>
@@ -1481,7 +1580,10 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;...ji,...i-&gt;...j&quot;</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">points_gcs</span> <span class="o">-</span> <span class="n">origins</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="rotation_matrix_ypr"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotation_matrix_ypr.html#arim.geometry.rotation_matrix_ypr">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">rotation_matrix_ypr</span><span class="p">(</span><span class="n">yaw</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">roll</span><span class="p">):</span>
+
+<div class="viewcode-block" id="rotation_matrix_ypr">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.rotation_matrix_ypr.html#arim.geometry.rotation_matrix_ypr">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rotation_matrix_ypr</span><span class="p">(</span><span class="n">yaw</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">roll</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the rotation matrix (as a ndarray) from the yaw, pitch and roll</span>
 <span class="sd">    in radians.</span>
 
@@ -1492,7 +1594,10 @@ document.write(`
     <span class="k">return</span> <span class="n">rotation_matrix_z</span><span class="p">(</span><span class="n">yaw</span><span class="p">)</span> <span class="o">@</span> <span class="n">rotation_matrix_y</span><span class="p">(</span><span class="n">pitch</span><span class="p">)</span> <span class="o">@</span> <span class="n">rotation_matrix_x</span><span class="p">(</span><span class="n">roll</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="are_points_close"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.are_points_close.html#arim.geometry.are_points_close">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">are_points_close</span><span class="p">(</span><span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+
+<div class="viewcode-block" id="are_points_close">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.are_points_close.html#arim.geometry.are_points_close">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">are_points_close</span><span class="p">(</span><span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return True if and only if the two sets of points have the same shape and coordinates close</span>
 <span class="sd">    to the given precision.</span>
@@ -1515,7 +1620,10 @@ document.write(`
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="are_points_aligned"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.are_points_aligned.html#arim.geometry.are_points_aligned">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">are_points_aligned</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">):</span>
+
+<div class="viewcode-block" id="are_points_aligned">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.are_points_aligned.html#arim.geometry.are_points_aligned">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">are_points_aligned</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Are the points aligned? Returns a boolean.</span>
 
@@ -1554,7 +1662,10 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">cross</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">cross</span><span class="p">),</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="norm2"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.norm2.html#arim.geometry.norm2">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">norm2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="norm2">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.norm2.html#arim.geometry.norm2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">norm2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Euclidean norm of a ndarray</span>
 
@@ -1578,7 +1689,10 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="norm2_2d"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.norm2_2d.html#arim.geometry.norm2_2d">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">norm2_2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="norm2_2d">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.norm2_2d.html#arim.geometry.norm2_2d">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">norm2_2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Euclidean norm of a ndarray</span>
 
@@ -1601,7 +1715,10 @@ document.write(`
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="direct_isometry_2d"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.direct_isometry_2d.html#arim.geometry.direct_isometry_2d">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">direct_isometry_2d</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Ap</span><span class="p">,</span> <span class="n">Bp</span><span class="p">):</span>
+
+<div class="viewcode-block" id="direct_isometry_2d">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.direct_isometry_2d.html#arim.geometry.direct_isometry_2d">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">direct_isometry_2d</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Ap</span><span class="p">,</span> <span class="n">Bp</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a direct isometry that transform A to A&#39; and B to B&#39;.</span>
 
@@ -1650,7 +1767,10 @@ document.write(`
     <span class="k">return</span> <span class="n">M</span><span class="p">,</span> <span class="n">P</span></div>
 
 
-<div class="viewcode-block" id="direct_isometry_3d"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.direct_isometry_3d.html#arim.geometry.direct_isometry_3d">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">direct_isometry_3d</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">i_hat</span><span class="p">,</span> <span class="n">j_hat</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">u_hat</span><span class="p">,</span> <span class="n">v_hat</span><span class="p">):</span>
+
+<div class="viewcode-block" id="direct_isometry_3d">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.direct_isometry_3d.html#arim.geometry.direct_isometry_3d">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">direct_isometry_3d</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">i_hat</span><span class="p">,</span> <span class="n">j_hat</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">u_hat</span><span class="p">,</span> <span class="n">v_hat</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the isometry that send the direct orthogonal base (A, i_hat, j_hat, i_hat^j_hat)</span>
 <span class="sd">    to (B, u_hat, v_hat, u_hat^v_hat)</span>
@@ -1715,7 +1835,10 @@ document.write(`
     <span class="k">return</span> <span class="n">M</span><span class="p">,</span> <span class="n">P</span></div>
 
 
-<div class="viewcode-block" id="distance_pairwise"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.distance_pairwise.html#arim.geometry.distance_pairwise">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">distance_pairwise</span><span class="p">(</span>
+
+<div class="viewcode-block" id="distance_pairwise">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.distance_pairwise.html#arim.geometry.distance_pairwise">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">distance_pairwise</span><span class="p">(</span>
     <span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">block_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">numthreads</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1808,14 +1931,20 @@ document.write(`
     <span class="k">return</span> <span class="n">distance</span></div>
 
 
-<div class="viewcode-block" id="is_orthonormal"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.is_orthonormal.html#arim.geometry.is_orthonormal">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">is_orthonormal</span><span class="p">(</span><span class="n">basis</span><span class="p">):</span>
+
+<div class="viewcode-block" id="is_orthonormal">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.is_orthonormal.html#arim.geometry.is_orthonormal">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_orthonormal</span><span class="p">(</span><span class="n">basis</span><span class="p">):</span>
     <span class="k">assert</span> <span class="n">basis</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">basis</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;f&quot;</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>  <span class="c1"># must be real</span>
         <span class="n">basis</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">basis</span><span class="p">)</span>
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="is_orthonormal_direct"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.is_orthonormal_direct.html#arim.geometry.is_orthonormal_direct">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">is_orthonormal_direct</span><span class="p">(</span><span class="n">basis</span><span class="p">):</span>
+
+<div class="viewcode-block" id="is_orthonormal_direct">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.is_orthonormal_direct.html#arim.geometry.is_orthonormal_direct">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_orthonormal_direct</span><span class="p">(</span><span class="n">basis</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns True if the basis is orthonormal and direct:</span>
 <span class="sd">    Parameters</span>
@@ -1829,6 +1958,7 @@ document.write(`
     <span class="k">return</span> <span class="n">is_orthonormal</span><span class="p">(</span><span class="n">basis</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
         <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">basis</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">basis</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]),</span> <span class="n">basis</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
     <span class="p">)</span></div>
+
 
 
 <span class="nd">@numba</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1851,7 +1981,9 @@ document.write(`
     <span class="k">return</span>
 
 
-<div class="viewcode-block" id="points_in_rectbox"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.points_in_rectbox.html#arim.geometry.points_in_rectbox">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">points_in_rectbox</span><span class="p">(</span>
+<div class="viewcode-block" id="points_in_rectbox">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.points_in_rectbox.html#arim.geometry.points_in_rectbox">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">points_in_rectbox</span><span class="p">(</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1908,6 +2040,7 @@ document.write(`
     <span class="k">return</span> <span class="n">out</span></div>
 
 
+
 <span class="n">GCS</span> <span class="o">=</span> <span class="n">CoordinateSystem</span><span class="p">(</span>
     <span class="n">origin</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span>
     <span class="n">i_hat</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span>
@@ -1915,7 +2048,9 @@ document.write(`
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="make_contiguous_geometry"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.make_contiguous_geometry.html#arim.geometry.make_contiguous_geometry">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">make_contiguous_geometry</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">numpoints</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="make_contiguous_geometry">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.make_contiguous_geometry.html#arim.geometry.make_contiguous_geometry">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_contiguous_geometry</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">numpoints</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a list of OrientedPoints with length m which are uniquely named.</span>
 <span class="sd">    Default naming convention defines the frontwall as the wall drawn between</span>
@@ -1980,7 +2115,10 @@ document.write(`
     <span class="k">return</span> <span class="n">walls</span></div>
 
 
-<div class="viewcode-block" id="points_1d_wall"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.points_1d_wall.html#arim.geometry.points_1d_wall">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">points_1d_wall</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">numpoints</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="points_1d_wall">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.points_1d_wall.html#arim.geometry.points_1d_wall">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">points_1d_wall</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">numpoints</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a set of regularly spaced points between `start` and `end`.</span>
 
@@ -2032,7 +2170,10 @@ document.write(`
     <span class="k">return</span> <span class="n">OrientedPoints</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">orientations</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="points_1d_wall_z"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.points_1d_wall_z.html#arim.geometry.points_1d_wall_z">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">points_1d_wall_z</span><span class="p">(</span>
+
+<div class="viewcode-block" id="points_1d_wall_z">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.points_1d_wall_z.html#arim.geometry.points_1d_wall_z">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">points_1d_wall_z</span><span class="p">(</span>
     <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">numpoints</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_block_above</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2077,7 +2218,10 @@ document.write(`
     <span class="k">return</span> <span class="n">OrientedPoints</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">orientations</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="default_orientations"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.default_orientations.html#arim.geometry.default_orientations">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">default_orientations</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+
+<div class="viewcode-block" id="default_orientations">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.default_orientations.html#arim.geometry.default_orientations">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">default_orientations</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the default orientations for unoriented points.</span>
 
@@ -2105,7 +2249,10 @@ document.write(`
     <span class="k">return</span> <span class="n">orientations</span></div>
 
 
-<div class="viewcode-block" id="combine_oriented_points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.combine_oriented_points.html#arim.geometry.combine_oriented_points">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">combine_oriented_points</span><span class="p">(</span><span class="n">oriented_points</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="combine_oriented_points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.combine_oriented_points.html#arim.geometry.combine_oriented_points">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">combine_oriented_points</span><span class="p">(</span><span class="n">oriented_points</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Combines multiple walls (oriented points) into one as a simple</span>
 <span class="sd">    concatenation. No checks are made that combination makes physical sense</span>
@@ -2142,7 +2289,10 @@ document.write(`
     <span class="k">return</span> <span class="n">OrientedPoints</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">orientations</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="default_oriented_points"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.default_oriented_points.html#arim.geometry.default_oriented_points">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">default_oriented_points</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+
+<div class="viewcode-block" id="default_oriented_points">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.default_oriented_points.html#arim.geometry.default_oriented_points">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">default_oriented_points</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns OrientedPoints from Points assuming the default orientations.</span>
 
@@ -2158,7 +2308,10 @@ document.write(`
     <span class="k">return</span> <span class="n">OrientedPoints</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">default_orientations</span><span class="p">(</span><span class="n">points</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="points_from_probe"><a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.points_from_probe.html#arim.geometry.points_from_probe">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">points_from_probe</span><span class="p">(</span><span class="n">probe</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Probe&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="points_from_probe">
+<a class="viewcode-back" href="../../_autosummary/_autosummary/arim.geometry/arim.geometry.points_from_probe.html#arim.geometry.points_from_probe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">points_from_probe</span><span class="p">(</span><span class="n">probe</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Probe&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Probe object to OrientedPoints (points and orientations).</span>
 
@@ -2183,6 +2336,7 @@ document.write(`
     <span class="n">orientations</span> <span class="o">=</span> <span class="n">Points</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">orientations_arr</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
 
     <span class="k">return</span> <span class="n">OrientedPoints</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">orientations</span><span class="p">)</span></div>
+
 </pre></div>
 
                 </article>
@@ -2212,8 +2366,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -2233,7 +2387,7 @@ document.write(`
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
     <br/>
   </p>
 </div>
@@ -2246,7 +2400,8 @@ document.write(`
       
         <div class="footer-item">
 <p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.15.4.
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
 </p></div>
       
     </div>
