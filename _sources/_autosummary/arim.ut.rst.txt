@@ -17,6 +17,8 @@
    
    default_viewname_order
    
+   filter_unique_views
+   
    fmc
    
    hmc
@@ -26,6 +28,8 @@
    instantaneous_phase_shift
    
    make_timevect
+   
+   make_viewnames
    
    rayleigh_vel
    
