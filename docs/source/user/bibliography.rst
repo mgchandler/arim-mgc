@@ -7,10 +7,10 @@ Bibliography
 ..
   Put citations here.
 
-  Example of citation: [Holmes2005]_
+  Example of citation: [Holmes2005TFM]_
 
 
-.. [Holmes2005] Holmes, Caroline, Bruce W. Drinkwater, and Paul D. Wilcox. 2005. ‘Post-Processing of the Full Matrix of Ultrasonic Transmit–receive Array Data for Non-Destructive Evaluation’. NDT & E International 38 (8): 701–11. doi:10.1016/j.ndteint.2005.04.002.
+.. [Holmes2005TFM] Holmes, Caroline, Bruce W. Drinkwater, and Paul D. Wilcox. 2005. ‘Post-Processing of the Full Matrix of Ultrasonic Transmit–receive Array Data for Non-Destructive Evaluation’. NDT & E International 38 (8): 701–11. doi:10.1016/j.ndteint.2005.04.002.
 
 .. [KK] Krautkrämer, Joseph, and Herbert Krautkrämer. 1990.
         Ultrasonic Testing of Materials. 4th, 1990 ed.

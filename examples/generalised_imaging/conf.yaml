@@ -1,0 +1,47 @@
+frame:
+  datafile: test_sdh.mat
+  instrument_delay: 0. # shift the t=0 defined in datafile by this number.
+
+probe:
+  frequency: 5.e+6
+  numx: 64
+  pitch_x: 0.5e-3
+  numy: 1
+  pitch_y: .nan
+  dimensions: [0.35e-3, 15.e-3, .nan]
+
+probe_location:
+  # Element corresponding to x=0:
+  ref_element: mean
+
+block_material:
+  longitudinal_vel: 5750.
+  state_of_matter: solid
+
+# If imaging with internal reflection of the frontwall:
+frontwall:
+  numpoints: 1000
+  xmin: -50.e-3
+  xmax: 50.e-3
+  z: 0.
+
+# If imaging with internal reflection of the backwall:
+backwall:
+  numpoints: 1000
+  xmin: -50.e-3
+  xmax: 50.e-3
+  z: 50.e-3
+
+grid:
+  xmin: -50.e-3
+  xmax: 50.e-3
+  zmin: 1.e-3
+  zmax: 49.e-3
+  pixel_size: .5e-3
+
+# # Disable dynamic dB scale in rectangle:
+# reference_rect: null
+
+# Enable dynamic dB scale in rectangle:
+# views_to_use: all
+views_to_use: [L - L]
