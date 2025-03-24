@@ -16,6 +16,7 @@ probe_location:
 
 block_material:
   longitudinal_vel: 5750.
+  transverse_vel: 3100.
   state_of_matter: solid
 
 # If imaging with internal reflection of the frontwall:

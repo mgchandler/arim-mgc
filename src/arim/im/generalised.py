@@ -4,16 +4,22 @@ Collection of functions related to generalised imaging and inverse imaging, towa
 
 
 import logging
+import numba
 import numpy as np
+import os
 
-from ..core import View
+from ..core import Frame, Time, View
 from .. import geometry as g
+from ..ray import RayGeometry
+from ..model import beamspread_2d_for_path, reverse_beamspread_2d_for_path
 from .tfm import FocalLaw
 from . import das
 from ..ut import hmc
 
 
 logger = logging.getLogger(__name__)
+
+use_parallel = os.environ.get("ARIM_USE_PARALLEL", not numba.core.config.IS_32BITS)
 
 
 class GeneralisedResult:
@@ -138,12 +144,121 @@ def generalised_image_for_view(
     return GeneralisedResult.from_half_diagonal(res, grid, grid_tx, grid_rx, numoffdiag)
 
 
-# def inverse_for_generalised_image(
-#     generalised_image: GeneralisedResult,
-#     point_view: View,
-#     grid_view: View,
-# ):
-#     """
-#     Compute the inverse image from the generalised image and the view.
-#     """
-#     tx, rx = hmc(point_view.tx_path.interfaces[0].size)
+def inverse_for_generalised_image(
+    generalised_image: GeneralisedResult,
+    point_view: View,
+    grid_view: View,
+    pulse_width: float,
+    frame: Frame,
+    fillvalue: float = 0.0,
+):
+    """
+    Compute the inverse image from the generalised image and the view.
+    """
+    tx, rx = hmc(point_view.tx_path.interfaces[0].points.numpoints)
+    lookup_time = (
+        point_view.tx_path.rays.times[tx]
+        + point_view.rx_path.rays.times[rx]
+        + np.arange(-pulse_width / 2, pulse_width / 2, frame.time.step).reshape(1, -1)
+    ).transpose()
+    time_on_grid = (
+        grid_view.tx_path.rays.times[
+            tx[:, None, None], generalised_image.tx[None, :, :]
+        ]
+        + grid_view.rx_path.rays.times[
+            rx[:, None, None], generalised_image.rx[None, :, :]
+        ]
+    )
+    result = np.zeros_like(lookup_time, dtype=generalised_image.res.dtype)
+    tx_ray, rx_ray = RayGeometry.from_path(grid_view.tx_path), RayGeometry.from_path(
+        grid_view.rx_path
+    )
+    amplitudes = (
+        beamspread_2d_for_path(tx_ray)[
+            tx[:, None, None], generalised_image.tx[None, :, :]
+        ]
+        * reverse_beamspread_2d_for_path(rx_ray)[
+            rx[:, None, None], generalised_image.rx[None, :, :]
+        ]
+    )
+
+    _das_linear(
+        generalised_image.res,
+        lookup_time,
+        time_on_grid,
+        amplitudes,
+        fillvalue=fillvalue,
+        result=result,
+    )
+
+    inv_const = (
+        1
+        / (2 * np.pi * point_view.tx_path.velocities[-1])
+        * (generalised_image.grid.xvect[1] - generalised_image.grid.xvect[0]) ** 2
+    )
+
+    inverse_frame = Frame(
+        np.zeros((tx.size, frame.time.samples.size), dtype=frame.timetraces.dtype),
+        frame.time,
+        tx,
+        rx,
+        frame.probe,
+        frame.examination_object,
+        frame.metadata,
+    )
+    time_window = np.abs(
+        inverse_frame.time.samples.reshape(-1, 1)
+        - lookup_time.min(axis=0).reshape(1, -1)
+    ).argmin(axis=0)[..., None] + np.arange(lookup_time.shape[0])
+    inverse_frame.timetraces[
+        np.arange(tx.size)[:, None],
+        time_window,
+    ] = (
+        result.transpose() * inv_const
+    )
+    inverse_frame = inverse_frame.expand_frame_assuming_reciprocity()
+
+    return inverse_frame
+
+
+# @numba.jit(nopython=True, nogil=True, parallel=use_parallel, fastmath=True)
+def _das_linear(
+    weighted_image,
+    lookup_times,
+    time,
+    amplitudes,
+    fillvalue,
+    result,
+):
+    """
+    Custom version of delay and sum from das, as it's too awkward to wrangle it into a
+    Frame and FocalLaw. Note that in comparison to the matlab implementation, this
+    function interpolates in time, rather than computing the vertical distance. I am not
+    100% certain that this is equivalent, but the plots look pretty similar.
+    """
+    numfocals, numdepths = weighted_image.shape
+    _, numscans = lookup_times.shape
+
+    for scan in numba.prange(numscans):
+        res_tmp = np.zeros_like(lookup_times[:, 0], dtype=weighted_image.dtype)
+
+        for focal in range(numfocals):
+            res_tmp += np.interp(
+                lookup_times[:, scan],
+                time[scan, focal, :],
+                weighted_image[focal, :],
+                left=fillvalue,
+                right=fillvalue,
+            ) * np.interp(
+                lookup_times[:, scan],
+                time[scan, focal, :],
+                amplitudes[scan, focal, :],
+                left=fillvalue,
+                right=fillvalue,
+            )
+
+        result[:, scan] = res_tmp  # / numscans
+
+
+def back_propagate():
+    pass

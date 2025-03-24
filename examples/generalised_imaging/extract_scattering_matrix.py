@@ -8,6 +8,7 @@ import arim.io
 import arim.models.block_in_contact as bic
 import arim.plot as aplt
 from arim.signal import Hanning, Hilbert
+import numpy as np
 
 
 # %% Load frame
@@ -97,6 +98,11 @@ if views_to_use != "all":
 arim.ray.ray_tracing(point_views.values())
 arim.ray.ray_tracing(generalised_views.values())
 
+model_options = dict(
+    probe_element_width=np.linalg.norm(np.diff(frame.probe.locations[:2], axis=0))
+)
+weights = bic.ray_weights_for_views(point_views, frame.probe.frequency, **model_options)
+
 generalised_images = dict()
 inverse_images = dict()
 for (viewname, point_view), (_, grid_view) in zip(
@@ -110,8 +116,11 @@ for (viewname, point_view), (_, grid_view) in zip(
         interpolation="nearest",
         offdiagonallength=2,
     )
-    # inverse_images[viewname] = arim.im.generalised.inverse_for_generalised_image(
-    #     generalised_images[viewname],
-    #     point_view,
-    #     grid_view,
-    # )
+    inverse_images[viewname] = arim.im.generalised.inverse_for_generalised_image(
+        generalised_images[viewname],
+        point_view,
+        grid_view,
+        6 / frame.probe.frequency,
+        frame,
+    )
+    spec = np.fft.fft(inverse_images[viewname].timetraces, axis=1)
